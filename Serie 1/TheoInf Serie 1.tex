@@ -24,7 +24,6 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{fancyhdr} % Required for custom headers
-\usepackage{lastpage} % Required to determine the last page for the footer
 \usepackage{extramarks} % Required for headers and footers
 \usepackage[usenames,dvipsnames]{color} % Required for custom colors
 \usepackage{graphicx} % Required to insert images
@@ -35,7 +34,6 @@
 
 \usepackage{pgf} 
 \usepackage{tikz}
-\usepackage{forest} % treees :D
 \usetikzlibrary{arrows,automata} %for FSM
 \usepackage{amsmath} 
 \usepackage{mathtools}
@@ -172,7 +170,7 @@
 %----------------------------------------------------------------------------------------
 
 \newcommand{\hmwkTitle}{Blatt} % Assignment title
-\newcommand{\hmwkDueDate}{18.\ September\ 2015} % Due date
+\newcommand{\hmwkDueDate}{25.\ September\ 2015} % Due date
 \newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
 \newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
@@ -218,36 +216,34 @@
 
 \begin{enumerate}[(a)]
 	\item
-	Insgesamt gibt es $3^n$ verschiedene Wörter der Länge n.\\
-	Zunächst ziehen wir die drei verschieden Wörter $a, b, c$ der Länge 1 ab.\\
-	Anschließend ziehen wir Wörter
-	
-	Für jede Länge $1\,..\,m$ schauen wir die Anzahl Möglichkeiten an, ein Teilwort zu bilden.\\
-	Bei Länge $1$ können wir an jeder der $m$ Positionen anfangen und ein Teilwort der Länge 1 nehmen\\
-	Bei Länge $2$ können wir das letzte Teilwort mit Anfang bei $m-1$ entnehmen, da es Länge 2 hat\\\\
-	Bei Länge $i$ lassen sich Teilwörter an den Stellen $\{1,\,2,\,...,\,m-i+1\}$ mit Länge $i$ nehmen.\\
+	Für jede Länge $1$ bis $m$ schauen wir die Anzahl Möglichkeiten an, ein Teilwort zu bilden.\\
+	Bei Länge $1$ können wir $m$ Teilwörter bilden, die je bei den Positionen $1$ bis $m$ beginnen.\\
+	Bei Länge $2$ können wir $m-1$ Teilwörter bilden, die je bei den Positionen $1$ bis $m-1$ beginnen.\\
+	\centerline{\vdots}\\
+	Bei Länge $m-1$ können wir zwei Teilwörter bilden, die je bei den Positionen $1$ und $2$ beginnen.\\
+	Bei Länge $m$ können wir ein Teilwörter bilden, das bei Position $1$ beginnt.\\
 	Es gibt also höchstens
-	\begin{equation}
-		\sum^m_{i=1}m-i+1 = \sum^m_{i=1}k
-	\end{equation}
+	\begin{equation*}
+		1+2+\cdots+m = \sum^m_{i=1}i
+	\end{equation*}
 	verschiedene Teilwörter, falls keine von ihnen gleich sind.
 	
 	\item
 	Fallunterschiedung:
 	\begin{itemize}
-		\item[-]
+		\item
 		$n=1$: 0 Wörter
-		\item[-]
+		\item
 		$n=2$: 0 Wörter
-		\item[-]
+		\item
 		$n=3$: $3!$ verschiedene Wörter
-		\item[-]
-		$n>=3$:\\
+		\item
+		$n>3$:\\
 		Es gibt insgesamt $3^n$ viele verschiedene Wörter.\\
 		Es gibt genau 3 Wörter $\{a^n,\, b^n,\, c^n\}$
 		die genau einen Buchstaben enthalten.\\
-		Es gibt $3*2^n$ viele Wörter, die genau zwei verschiedene Zeichen enthalten.\\
-		Die übrigbleibenden $3^n-3-3\cdot 2^n$ Wörter sind die gesuchten, verschiedenen, in denen jeder Buchstabe $\{a,\,b,\,c\}$ einmal vorkommt
+		Es gibt $3\cdot2^n$ viele Wörter, die genau zwei verschiedene Zeichen enthalten.\\
+		Die übrigbleibenden $3^n-3-3\cdot 2^n$ Wörter sind die gesuchten, verschiedenen, in denen jeder Buchstabe $\{a,\,b,\,c\}$ einmal vorkommt.
 	\end{itemize}
 \end{enumerate}
 \end{homeworkProblem}
@@ -257,17 +253,12 @@
 %----------------------------------------------------------------------------------------
 \begin{homeworkProblem}
 \begin{enumerate}[(a)]
+	
 	\item
-	\begin{align}
-		L_2\cdot (L_2-L_1) &= \{xy | x\in L_2 \wedge y\in L_2-L_1\}\\
-		&= \{xy | x\in L_2 \wedge y\in L_2 \wedge y \not\in L_1\}\\
-		&= \{xy | (x\in L_2 \wedge y\in L_2) \wedge (x\in L_2 \wedge y \not\in L_1)\}\\
-		&=\{xy|x\in L_2 \wedge y \in L_2\} - \{xy|x\in L_2 \wedge y \in L_1\}\\
-		&=(L_2)^2 - L_2\cdot L_1
-	\end{align} 
+	
 	\item
-	z.Z $(\{a\}^*\{b\}^*)^* \neq (\{a,\,b\}^2)^*$\\
-	Beweis: wir Zeigen, dass $a$ in $(\{a\}^*\{b\}^*)^*$ ist, aber nicht in $(\{a,\,b\})^2$\\
+	Zu zeigen: $(\{a\}^*\{b\}^*)^* \neq (\{a,\,b\}^2)^*$\\
+	Beweis: Wir zeigen, dass $a$ in $(\{a\}^*\{b\}^*)^*$ ist, aber nicht in $(\{a,\,b\})^2$.
 	\begin{alignat}{2}
 		&&a&=a\lambda \in \{a\}^*\lambda \subseteq \{a\}^*\{b\}^*\notag\\
 		&\Rightarrow \quad
@@ -280,70 +271,83 @@
 		&\Rightarrow\quad
 		&a &\in \{\{a\}^*\{b\}^*\}^*\notag
 	\end{alignat}
-	z.Z. $a\not\in (\{a,\,b\})^2 = \{aa,\,ab,\,bb,\,ba\}^*=L^*$\\
+	Zu zeigen: $a\not\in (\{a,\,b\})^2 = \{aa,\,ab,\,bb,\,ba\}^*=L^*$\\
 	Begründung: Das Wort $a$ hat Länge 1. Jedes Element in $L$ hat Länge 2. Durch Konkatenation mit beliebiger Potenz liegen in $L^*$ Wörter mit Länge $>2$ und $\lambda$ mit Länge $0$. Aber kein Wort mit Länge 1.
-	 .\hfill$\square$
+	 
 	\item
+		\begin{align*}
+			L_2\cdot (L_2-L_1) &= \{xy | x\in L_2 \wedge y\in L_2-L_1\}&\text{(Def. Konkatenation)}\\
+			&= \{xy | x\in L_2 \wedge y\in L_2 \wedge y \not\in L_1\}&(\text{Def. Subtraktion})\\
+			&= \{xy | (x\in L_2 \wedge y\in L_2) \wedge (x\in L_2 \wedge y \not\in L_1)\}&(A=A\land A)\\
+			&=\{xy|x\in L_2 \wedge y \in L_2\} - \{xy|x\in L_2 \wedge y \in L_1\}&(\text{Def. Subtraktion})\\
+			&=(L_2)^2 - L_2\cdot L_1&(\text{Def. Konkatenation})\\
+		\end{align*} 
 	
 \end{enumerate}
 \end{homeworkProblem}
 \begin{homeworkProblem} 
  
- 
- \begin{itemize} 
- 	\item[(a)] 
- 	Behauptung: $L=\{ab\}^*$ 
- 	\begin{itemize} 
- 
- 
- 		\item 
- 		Zu zeigen: L ist eine Sprache: $L \subseteq \Sigma ^*$ \\ 
- 		Beweis: $\Sigma = \{a,b\} \Rightarrow \Sigma ^* = \{a,b\}^* \eq \bigcup_{i\in\mathbb{N}}\{a,b\}^i = (\bigcup_{i\in\mathbb{N}\text{, i gerade}} \{a,b\}^i) \cup (\bigcup_{i\in\mathbb{N}\text{, i ungerade}} \{a,b\}^i) \Rightarrow \bigcup_{i\in\mathbb{N}\text{, i gerade}} \{a,b\}^i \subseteq \Sigma^*$ 
- 
- 
- 		\item 
- 		\begin{itemize} 
- 			Zu zeigen: $L \subseteq \bigcup_{i\in\mathbb{N}\text{, i gerade}}\{a,b\}^i$ \\ 
- 			Beweis: $\bigcup_{i\in\mathbb{N}\text{, i gerade}}\{a,b\}^i = \bigcup_{k\in\mathbb{N}} \{a,b\}^{2k} = \bigcup_{k\in\mathbb{N}} (\{a,b\}^2)^{k} = \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k}$ \\ 
- 			$\bigcup_{k\in\mathbb{N}} \{a,b\}^{k} \subseteq \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k} \Rightarrow $  
- 		\end{itemize} 
- 
- 
- 		\item 
- 		Zu zeigen: $L \neq \{\lambda\}^*$ \\ 
- 		Beweis: $\{\lambda\}^* \eq \{\lambda^i \mid i\in\mathbb{N}\} = \{\lambda, \lambda^2, \lambda^3, \cdots\} = \{\lambda, \lambda, \lambda, \cdots\} = \{\lambda\}$ \\ 
- 		$L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\} = \{\lambda, ab, abab, ababab, \cdots\}$ \\ 
- 		Damit ist $L \neq \{\lambda\}^*$ (da z.B. $ab \in L$, aber $ab \notin \{\lambda\})$ 
- 
- 
- 		\item 
- 		Zu zeigen: $L \neq \{a\}^*$ \\ 
- 		Beweis: $\{a\}^* \eq \{a^i \mid i\in\mathbb{N}\}$, enthält insbesondere keine Wörter, die den Buchstaben $b$ enthalten. \\ 
- 		In $L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\}$ gibt es allerdings Wörter, die $b$ enthalten, womit $L = \{ab\}^* \neq \{a\}^*$ gelten muss. 
- 
- 
- 		\item 
- 		Zu zeigen: $L \neq \{b\}^*$ \\ 
- 		Beweis: Analog zu $L \neq \{a\}^*$. 
- 
- 
- 		\item 
- 		Zu zeigen: $L \neq \{a,b\}^*$ \\ 
- 		Beweis: $\{a,b\}^* \eq \{\lambda, a, b, aa, ba, ab, bb, \cdots\}$, insbesondere gilt $a,b \in \{a,b\}^*$. \\ 
- 		Dagegen ist $L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\} = \{\lambda, ab, abab, ababab, \cdots\}$, womit gilt $a,b \notin \{ab\}^*$. \\ 
- 		Daraus folgt, dass $L \neq \{a,b\}^*$ gelten muss. 
- 
- 
- 	\end{itemize} 
- 
 
- 	\item[(b)] 
- 	Behauptung: Es gibt keine nichtleere endliche Sprache $L \neq {\lambda}$ über dem Alphabet $\{a,b\}$, die die Bedingung $L^2 = L$ erfüllt. \\ 
- 	Beweis: Sei $L$ eine nichtleere endliche Sprache $L \neq {\lambda}$. Dann $\exists l \in L: l=\max L$. Das Wort $ll$ muss in $L^2$ enthalten sein (und ist sogar das längste Wort in $L^2$). Sei $|l| = k \Rightarrow |ll| = 2k$. Da $k \neq 0$, ist das längste Wort in $L^2$ doppelt so lang wie das längste Wort in $L$, womit $L^2 \neq L$ ist. 
- \end{itemize} 
- 
- 
- \end{homeworkProblem} 
+\begin{enumerate}[(a)]
+	\item[(a)] 
+	Behauptung: $L=\{ab\}^*$ 
+	\begin{itemize} 
+
+
+		\item 
+		Zu zeigen: L ist eine Sprache: $L \subseteq \Sigma ^*$ \\ 
+		Beweis: 
+		\begin{align*}
+ 		\Sigma = \{a,b\} \Rightarrow \Sigma ^* = \{a,b\}^* \eq \bigcup_{i\in\mathbb{N}}\{a,b\}^i = \bigcup_{\substack{i\in\mathbb{N}\\\text{i gerade}}} \{a,b\}^i \cup \bigcup_{\substack{i\in\mathbb{N}\\\text{i ungerade}}} \{a,b\}^i \Rightarrow \bigcup_{\substack{i\in\mathbb{N}\\\text{i gerade}}} \{a,b\}^i \subseteq \Sigma^*
+		\end{align*}
+
+
+		\item 
+		\begin{itemize} 
+			Zu zeigen bleibt: $L \subseteq \bigcup_{i\in\mathbb{N}\text{, i gerade}}\{a,b\}^i$ \\ 
+			Beweis: 
+			\begin{align*}
+ 			\bigcup_{i\in\mathbb{N}\text{, i gerade}}\{a,b\}^i = \bigcup_{k\in\mathbb{N}} \{a,b\}^{2k} = \bigcup_{k\in\mathbb{N}} (\{a,b\}^2)^{k} = \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k} \\ 
+ 			\bigcup_{k\in\mathbb{N}} \{a,b\}^{k} \subseteq \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k} \Rightarrow
+			\end{align*}
+		\end{itemize} 
+
+
+		\item 
+		Zu zeigen: $L \neq \{\lambda\}^*$ \\ 
+		Beweis: $\{\lambda\}^* \eq \{\lambda^i \mid i\in\mathbb{N}\} = \{\lambda, \lambda^2, \lambda^3, \cdots\} = \{\lambda, \lambda, \lambda, \cdots\} = \{\lambda\}$ \\ 
+		$L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\} = \{\lambda, ab, abab, ababab, \cdots\}$ \\ 
+		Damit ist $L \neq \{\lambda\}^*$ (da z.B. $ab \in L$, aber $ab \notin \{\lambda\})$ 
+
+
+		\item 
+		Zu zeigen: $L \neq \{a\}^*$ \\ 
+		Beweis: $\{a\}^* \eq \{a^i \mid i\in\mathbb{N}\}$, enthält insbesondere keine Wörter, die den Buchstaben $b$ enthalten. \\ 
+		In $L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\}$ gibt es allerdings Wörter, die $b$ enthalten, womit $L = \{ab\}^* \neq \{a\}^*$ gelten muss. 
+
+
+		\item 
+		Zu zeigen: $L \neq \{b\}^*$ \\ 
+		Beweis: Analog zu $L \neq \{a\}^*$. 
+
+
+		\item 
+		Zu zeigen: $L \neq \{a,b\}^*$ \\ 
+		Beweis: $\{a,b\}^* \eq \{\lambda, a, b, aa, ba, ab, bb, \cdots\}$, insbesondere gilt $a,b \in \{a,b\}^*$. \\ 
+		Dagegen ist $L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\} = \{\lambda, ab, abab, ababab, \cdots\}$, womit gilt $a,b \notin \{ab\}^*$. \\ 
+		Daraus folgt, dass $L \neq \{a,b\}^*$ gelten muss. 
+
+
+	\end{itemize} 
+
+
+	\item[(b)] 
+	Behauptung: Es gibt keine nichtleere endliche Sprache $L \neq {\lambda}$ über dem Alphabet $\{a,b\}$, die die Bedingung $L^2 = L$ erfüllt. \\ 
+	Beweis: Sei $L$ eine nichtleere endliche Sprache $L \neq {\lambda}$. Dann $\exists l \in L: l=\max L$. Das Wort $ll$ muss in $L^2$ enthalten sein (und ist sogar das längste Wort in $L^2$). Sei $|l| = k \Rightarrow |ll| = 2k$. Da $k \neq 0$, ist das längste Wort in $L^2$ doppelt so lang wie das längste Wort in $L$, womit $L^2 \neq L$ ist. 
+\end{enumerate} 
+
+
+\end{homeworkProblem} 
 
 
 \end{document}
