@@ -22,6 +22,7 @@
 \usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage{amsfonts}
 \usepackage{fancyhdr} % Required for custom headers
 \usepackage{lastpage} % Required to determine the last page for the footer
@@ -143,7 +144,7 @@
 \newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
 
 \newcommand{\homeworkProblemName}{}
-\newenvironment{homeworkProblem}[1][Task \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\newenvironment{homeworkProblem}[1][Aufgabe \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
 \stepcounter{homeworkProblemCounter} % Increase counter for number of problems
 \renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
 \section{\homeworkProblemName} % Make a section in the document with the custom problem count
@@ -183,7 +184,9 @@
 \title{
 \vspace{2in}
 \textmd{\textbf{\hmwkClass:\ \hmwkTitle\ \hmwkNumber}}\\
-\normalsize\vspace{0.1in}\small{Abgabe\ bis\ \hmwkDueDate}\\
+\normalsize\vspace{0.1in}\small{Abgabe\ bis\ \hmwkDueDate}
+\\Assistent: Sascha Krug, CHN D 42
+\\
 \vspace{0.1in}\large{\textit{\hmwkClassInstructor}
 \vspace{3in}
 }}
