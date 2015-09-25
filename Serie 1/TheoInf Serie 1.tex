@@ -221,7 +221,7 @@
 	Bei Länge $2$ können wir $m-1$ Teilwörter bilden, die je bei den Positionen $1$ bis $m-1$ beginnen.\\
 	\centerline{\vdots}\\
 	Bei Länge $m-1$ können wir zwei Teilwörter bilden, die je bei den Positionen $1$ und $2$ beginnen.\\
-	Bei Länge $m$ können wir ein Teilwörter bilden, das bei Position $1$ beginnt.\\
+	Bei Länge $m$ können wir ein Teilwort bilden, das bei Position $1$ beginnt.\\
 	Es gibt also höchstens
 	\begin{equation*}
 		1+2+\cdots+m = \sum^m_{i=1}i
@@ -255,8 +255,11 @@
 \begin{enumerate}[(a)]
 	
 	\item
-	
+	Richtig.\\
+	Zunächst gilt $(\{a,\,b\}^*)^2=\{a,\,b\}^*$, da jedes Element in $\{a,\,b\}^*$, mit jedem beliebigen anderen Wort der Menge konkateniert, in der Menge enthalten ist.\\
+	rest morgen
 	\item
+	Falsch. 
 	Zu zeigen: $(\{a\}^*\{b\}^*)^* \neq (\{a,\,b\}^2)^*$\\
 	Beweis: Wir zeigen, dass $a$ in $(\{a\}^*\{b\}^*)^*$ ist, aber nicht in $(\{a,\,b\})^2$.
 	\begin{alignat}{2}
@@ -274,7 +277,7 @@
 	Zu zeigen: $a\not\in (\{a,\,b\})^2 = \{aa,\,ab,\,bb,\,ba\}^*=L^*$\\
 	Begründung: Das Wort $a$ hat Länge 1. Jedes Element in $L$ hat Länge 2. Durch Konkatenation mit beliebiger Potenz liegen in $L^*$ Wörter mit Länge $>2$ und $\lambda$ mit Länge $0$. Aber kein Wort mit Länge 1.
 	 
-	\item
+	\item Richtig.
 		\begin{align*}
 			L_2\cdot (L_2-L_1) &= \{xy | x\in L_2 \wedge y\in L_2-L_1\}&\text{(Def. Konkatenation)}\\
 			&= \{xy | x\in L_2 \wedge y\in L_2 \wedge y \not\in L_1\}&(\text{Def. Subtraktion})\\
@@ -289,7 +292,7 @@
  
 
 \begin{enumerate}[(a)]
-	\item[(a)] 
+	\item 
 	Behauptung: $L=\{ab\}^*$ 
 	\begin{itemize} 
 
@@ -308,12 +311,23 @@
 			Beweis: 
 			\begin{align*}
  			\bigcup_{i\in\mathbb{N}\text{, i gerade}}\{a,b\}^i = \bigcup_{k\in\mathbb{N}} \{a,b\}^{2k} = \bigcup_{k\in\mathbb{N}} (\{a,b\}^2)^{k} = \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k} \\ 
- 			\bigcup_{k\in\mathbb{N}} \{a,b\}^{k} \subseteq \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k} \Rightarrow
+ 			\bigcup_{k\in\mathbb{N}} \{ab\}^{k} \subseteq \bigcup_{k\in\mathbb{N}} \{aa,ab,ba,bb\}^{k} \Rightarrow
+ 			\bigcup_{k\in\mathbb{N}} \{ab\}^{k} \subseteq
+ 			\bigcup_{i\in\mathbb{N}\text{, i gerade}}\{a,b\}^i
 			\end{align*}
 		\end{itemize} 
+		$\Rightarrow L \subseteq \Sigma^*$
 
-
-		\item 
+		\item
+		Zu zeigen: $L^i=L \quad\forall i \in \mathbb{N}-\{0,\,1\}$\\
+		Für alle $i \geq 1$
+		\begin{align}
+			L^i &= \{x\,|\,x=v_1\cdot v_2\cdots v_i \wedge v_j \in L \;\forall j\}\\
+			\Rightarrow L^i &=\{x\,|\,x=(ab)^{k_1}\cdot (ab)^{k_2}\cdots (ab)^{k_i}\}\\
+			\Rightarrow L^i &=\{x\,|\,x=(ab)^{(k_1+k_2+\cdots+k_i)}=(ab)^{k'}\} = \{ab\}^* = L			
+		\end{align} 
+		gilt, da L nur ein Zeichen $ab$ enthält, $k'=k_1+k_2+\cdots+k_i$ und $k'$ beliebig in $\mathbb{N}$ sein kann.
+		\item
 		Zu zeigen: $L \neq \{\lambda\}^*$ \\ 
 		Beweis: $\{\lambda\}^* \eq \{\lambda^i \mid i\in\mathbb{N}\} = \{\lambda, \lambda^2, \lambda^3, \cdots\} = \{\lambda, \lambda, \lambda, \cdots\} = \{\lambda\}$ \\ 
 		$L = \{ab\}^* \eq \{(ab)^i \mid i\in\mathbb{N}\} = \{\lambda, ab, abab, ababab, \cdots\}$ \\ 
@@ -351,3 +365,4 @@
 
 
 \end{document}
+
