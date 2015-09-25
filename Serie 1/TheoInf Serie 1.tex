@@ -256,10 +256,12 @@
 	
 	\item
 	Richtig.\\
-	Zunächst gilt $(\{a,\,b\}^*)^2=\{a,\,b\}^*$, da jedes Element in $\{a,\,b\}^*$, mit jedem beliebigen anderen Wort der Menge konkateniert, in der Menge enthalten ist.\\
-	rest morgen
+	Zunächst gilt $(\{a,\,b\}^*)^2=\{a,\,b\}^*$, da jedes Element in $\{a,\,b\}^*$, mit sich selbst konkateniert (was in einer unendlichen Menge möglich ist), in der Menge $(\{a,\,b\}^*)^2$ enthalten ist und für ein $x^2 \in (\{a,\,b\}^*)^2 $ gilt, dass $x \in \{a,\,b\}^*$, also auch wieder $x^2 \in \{a,\,b\}^*$ (weil $\{a,\,b\}^*$ unendlich ist).\\
+	$"\supseteq": (\{a\}^*\{b\}^*)^* \eq (\{a^i \mid i\in\mathbb{N}\}\{b^j \mid j\in\mathbb{N}\})^*$. Setzt man einmal $i=1$ und $ j=0$ und einmal $i=0$ und $j=1$ folgt daraus: $(\{a^i \mid i\in\mathbb{N}\}\{b^j \mid j\in\mathbb{N}\})^* \supseteq (\{a\}\{\lambda\}\cup\{\lambda\}\{b\})^* = \{a,\,b\}^*$\\
+	$"\subseteq":$
+	
 	\item
-	Falsch. 
+	Falsch. \\
 	Zu zeigen: $(\{a\}^*\{b\}^*)^* \neq (\{a,\,b\}^2)^*$\\
 	Beweis: Wir zeigen, dass $a$ in $(\{a\}^*\{b\}^*)^*$ ist, aber nicht in $(\{a,\,b\})^2$.
 	\begin{alignat}{2}
@@ -365,4 +367,3 @@
 
 
 \end{document}
-
