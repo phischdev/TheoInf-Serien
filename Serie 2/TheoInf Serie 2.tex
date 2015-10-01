@@ -219,7 +219,7 @@
 
 \begin{homeworkProblem}
 
-Bemerkung: In dieser Aufgabe verwenden wir im Pascal Code den Exponentiation Operator \^{}, der nicht in der ursprünglichen Syntax enthalten ist. Der Code wird damit aber lesbarer und die Kolmogorov Komplexität ist unabhängig davon, ob man Loops oder den Operator \^{} für die Exponentiation verwendet.
+Bemerkung: In dieser Aufgabe verwenden wir im Pascal Code den Exponentiation Operator \^{}.
 
 \begin{enumerate}[(a)]
 	\item
@@ -273,12 +273,13 @@ Bemerkung: In dieser Aufgabe verwenden wir im Pascal Code den Exponentiation Ope
 \end{enumerate}
 \end{homeworkProblem}
 \newpage
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Aufgabe 5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{homeworkProblem}
 	Wir betrachten Wörter über dem Alphabet $\Sigma_{bool}^*=\{0,\,1\}^*$ mit höchstens Länge n: $|w|\leq n$.\\
 	Nach der Definiton von Zufälligkeit ist $K(x_n) \geq |w_n| \Leftrightarrow x_n$ ist zufällig.\\
 	Also soll $K(x_n) < |w_n|$ sein, damit $w_n$ komprimierbar ist.
-	Jedes Programm, das solch ein Wort darstellt, ist selbst eine Bit-Sequenz in $\Sigma_{bool}$ mit Länge bis $n-1$. Nehmen wir an, dass jede Bit-Sequenz in $\{\Sigma_{bool}\}^{n-1}$ ein sinnvolles Programm sei, das ein Wort generieren kann, dann ist die maximale Anzahl dieser Programme
+	Jedes Programm, das solch ein Wort darstellt, ist selbst eine Bit-Sequenz in $\Sigma_{bool}$ mit Länge bis $n-1$. Nehmen wir an, dass jede Bit-Sequenz in $\{\Sigma_{bool}\}^{n-1}$ ein sinnvolles Programm sei, das ein Wort generieren kann, dann ist die maximale Anzahl dieser (nichtleeren) Programme
 	\[
 		\sum_{k=1}^{n-1} 2^k = 2^n-2.
 	\]
@@ -295,21 +296,36 @@ Bemerkung: In dieser Aufgabe verwenden wir im Pascal Code den Exponentiation Ope
 	Dies sind mehr als die $2^n-2$ möglichen Programme, also als die Anzahl potentiell komprimierbarer Wörter.
 	Daher ist mehr als die Hälfte der Wörter nicht komprimierbar, also zufällig.
 \end{homeworkProblem}
-\begin{homeworkProblem}
-	Das Wort $w=1^i0^j1^k$ ist eindeutig definiert durch $i$ und $k$, da $i+j=2k \Rightarrow j = 2k-i$. Als Eingabe für unser Programm wählen wir eine Codierung, die $i, k$ beinhaltet:
-	\[
-	X=\overline{\text{Bin}}(i)\text{Bin}(k)=i_10i_20i_30\cdots a_{\lceil log_2 i+1 \rceil}1k_1k_2k_3\cdots k_{\lceil log_2 k+1 \rceil}
-	\]
-	Da $i \leq 2k$ ist, ist die Eingabelänge beschränkt. Damit ist die Länge der Eingabe
-	\begin{alignat*}{2}
-		|X| &&=2\left(\lceil\log_2\left(i+1\right)\rceil\right)+\left\lceil\log_2{\left(k+1\right)}\right\rceil
-	\end{alignat*}
-	und das Programm hat Kolmogorov Komplexität
-	\begin{alignat*}{1}
-		K(w)&\leq 2\cdot\lceil\log_2\left(i+1\right)\rceil+\left\lceil\log_2{\left(k+1\right)}\right\rceil + c\\
-		&\leq 2\cdot\log_2\left(i\right)+\log_2{\left(k\right)} + c'\\
-		&\leq 2\cdot\log_2\left(2k\right)+\log_2{\left(k\right)} + c'.\\
-	\end{alignat*}
-\end{homeworkProblem}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Aufgabe 6
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{homeworkProblem}
+%	Das Wort $w=1^i0^j1^k$ ist eindeutig definiert durch $i$ und $k$, da $i+j=2k \Rightarrow j = 2k-i$. Als Eingabe für unser Programm wählen wir eine Codierung, die $i, k$ beinhaltet:
+%	\[
+%	X=\overline{\text{Bin}}(i)\text{Bin}(k)=i_10i_20i_30\cdots a_{\lceil log_2 i+1 \rceil}1k_1k_2k_3\cdots k_{\lceil log_2 k+1 \rceil}
+%	\]
+%	Da $i \leq 2k$ ist, ist die Eingabelänge beschränkt. Damit ist die Länge der Eingabe
+%	\begin{alignat*}{2}
+%		|X| &&=2\left(\lceil\log_2\left(i+1\right)\rceil\right)+\left\lceil\log_2{\left(k+1\right)}\right\rceil
+%	\end{alignat*}
+%	und das Programm hat Kolmogorov Komplexität
+%	\begin{alignat*}{1}
+%		K(w)&\leq 2\cdot\lceil\log_2\left(i+1\right)\rceil+\left\lceil\log_2{\left(k+1\right)}\right\rceil + c\\
+%		&\leq 2\cdot\log_2\left(i\right)+\log_2{\left(k\right)} + c'\\
+%		&\leq 2\cdot\log_2\left(2k\right)+\log_2{\left(k\right)} + c'.\\
+%		&\leq 
+%	\end{alignat*}
+%\end{homeworkProblem}
+	\begin{homeworkProblem}
+		Ein Wort $w_n$ lässt sich durch $i$ und $k$ genau definieren, da $j=2k-i$. $\abs{w_n}=i+j+k=2k+k=3k$. Außerdem lässt sich $i$ abschätzen. $i\in [0,\,2k]$
+\begin{alignat*}{4}
+ K(x_n)\enspace &\leq \enspace\lceil\log_2\left(i+1\right)\rceil +\left\lceil\log_2{\left(k+1\right)}\right\rceil + c\\
+ 		&\leq \enspace\log_2{i}+\log_2{k} + c' \\
+		&\leq \enspace\log_2{2k}+\log_2{k} + c' 		
+		= \enspace\log_2{(2k^2)} + c' \\
+		&\leq \enspace 2\log_2{k} + c'' \\
+		&\leq \enspace 2\log_2{3k} + c'' = 2\log_2{\abs{w_n}} + c''
+\end{alignat*}
+Dies zeigt die Aussage.
+	\end{homeworkProblem}
 \end{document}
