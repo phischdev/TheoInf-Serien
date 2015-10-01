@@ -218,8 +218,19 @@
 \begin{homeworkProblem}
 \begin{enumerate}[(a)]
 	\item
-	Für $ w_n = 0^{2^{2^{5\cdot n^{2}}}} \in \{0,\,1\}^* $
-gilt, dass $|w_n|=2^{2^{5\cdot n^2}}$\\
+	Das folgende Programm $W_n$ generiert das Wort $w_n$:
+	
+	\begin{lstlisting}[language=pascal,tabsize=2,escapeinside={§}{§}]
+§$W_n$§:		begin
+				M := n;
+				M := 5 §$\times$§ M §$\times$§ M;
+				M := 2 ^ (2 ^ M);
+				for I = 1 to M do
+					write(0);
+			end
+	\end{lstlisting}
+	
+	Für $ w_n = 0^{2^{2^{5\cdot n^{2}}}} \in \{0,\,1\}^* $ gilt:
 	\begin{alignat*}{2}
 		& & |w_n|&=2^{2^{5\cdot n^2}}\\
 		&\Rightarrow & log_2\ |w_n|&=2^{5\cdot n^2}\\
@@ -227,7 +238,11 @@ gilt, dass $|w_n|=2^{2^{5\cdot n^2}}$\\
 		&\Rightarrow & \frac{1}{5}\cdot log_2\ log_2\ |w_n| &=n^2\\
 		&\Rightarrow \quad & \sqrt{\frac{1}{5}\cdot log_2\ log_2\ |w_n|}&=n
 	\end{alignat*}
-	$K(z_n)\leq \ceil{log_2(n+1)}+d \leq \ceil{log_2\ n}+d' \leq \lceil \,log_2\left( \sqrt{\frac{1}{5}\cdot log_2\ log_2\ |w_n|\,}\;\right)\rceil+d'$
+	
+	Damit ist die Kolmogorov Komplexität:
+	\begin{equation*}
+	K(z_n)\leq \ceil{log_2(n+1)}+d \leq \ceil{log_2\ n}+d' \leq \lceil \,log_2\left( \sqrt{\frac{1}{5}\cdot log_2\ log_2\ |w_n|\,}\;\right)\rceil+d' = \lceil \,\frac{1}{2} \cdot log_2\left( \frac{1}{5}\cdot log_2\ log_2\ |w_n|\,\;\right)\rceil+d'
+	\end{equation*}
 	
 	\item
 	Für die Binärdarstellung einer Zahl der Länge $n$ werden $\lceil log_2(n+1) \rceil$ Bits benötigt. Daher gilt für $K(y_i) \leq \lceil log_2log_2log_2\sqrt{y_i} \rceil + c$:
@@ -237,9 +252,22 @@ gilt, dass $|w_n|=2^{2^{5\cdot n^2}}$\\
 		& \Rightarrow & \sqrt{y_i} &= 2^{2^i}\\
 		& \Rightarrow & y_i &= (2^{2^i})^2 = 2^{2^i} \cdot 2^{2^i} = 2^{2^i+2^i} = 2^{2 \cdot 2^i} = 2^{2^{i+1}}
 	\end{alignat*}
+	
+	Das folgende Programm $Y_i$ generiert das Wort $y_i$:
+		
+	\begin{lstlisting}[language=pascal,tabsize=2,escapeinside={§}{§}]
+§$Y_i$§:		begin
+				M := i;
+				M := 2 ^ (M + 1);
+				for K = 1 to M do
+					write(10);
+			end
+	\end{lstlisting}
 	Binär dargestellt ist $y_i = 10^{2^{i+1}}$, wobei $y_i < y_{i+1}$ nach kanonischer Ordnung trivialerweise erfüllt ist, da sich die Länge von $y_i$ in jedem Schritt verdoppelt.
 \end{enumerate}
 \end{homeworkProblem}
+\newpage
+
 \begin{homeworkProblem}
 	Wir betrachten Wörter über dem Alphabet $\Sigma_{bool}^*=\{0,\,1\}^*$ mit höchstens Länge n: $|w|\leq n$.\\
 	Nach der Definiton von Zufälligkeit ist $K(x_n) \geq |w_n| \Leftrightarrow x_n$ ist zufällig.\\
