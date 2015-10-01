@@ -1,4 +1,4 @@
-\textbf{•}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Programming/Coding Assignment
 % LaTeX Template
 %
@@ -34,6 +34,7 @@
 \usepackage{enumerate} % used for enumerate args
 \usepackage{multicol} % columns
 
+\usepackage{xfrac}
 \usepackage{pgf} 
 \usepackage{tikz}
 \usepackage{forest} % treees :D
@@ -81,6 +82,8 @@
 \renewcommand\footrulewidth{0.4pt} % Size of the footer rule
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
+%\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 %----------------------------------------------------------------------------------------
 %	CODE INCLUSION CONFIGURATION
@@ -215,9 +218,56 @@
 %----------------------------------------------------------------------------------------
 
 \begin{homeworkProblem}
-\textbf{Überschrift}
-
-
+\begin{enumerate}[(a)]
+	\item
+	Für $ w_n = 0^{2^{2^{5\cdot n^{2}}}} \in \{0,\,1\}^* $
+gilt, dass $|w_n|=2^{2^{5\cdot n^2}}$\\
+	\begin{alignat}{2}
+		& & |w|&=2^{2^{5\cdot n^2}}\notag\\
+		&\Rightarrow & log_2\ |w_n|&=2^{5\cdot n^2}\notag\\
+		&\Rightarrow & log_2\ log_2\ |w_n|&= 5\cdot n^2\notag\\
+		&\Rightarrow & \frac{1}{5}\cdot log_2\ log_2\ |w_n| &=n^2\notag\\
+		&\Rightarrow \quad & \sqrt{\frac{1}{5}\cdot log_2\ log_2\ |w_n|}&=n\notag
+	\end{alignat}
+	$K(z_n)\leq \ceil{log_2\ n+1}+d \leq \ceil{log_2\ n}+d' \leq \lceil \,log_2\left( \sqrt{\frac{1}{5}\cdot log_2\ log_2\ |w_n|\,}\;\right)\rceil+d'$
+\end{enumerate}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	Wir betrachten Wörter über dem Alphabet $\Sigma_{bool}^*=\{0,\,1\}^*$ mit höchstens Länge n, $|w|\leq n$\\
+	Nach der Definiton von Zufälligkeit ist $K(x_n) \geq |w_n| \Leftrightarrow x_n$ ist zufällig\\
+	Also soll $K(x_n) < |w_n|$ sein, damit $w_n$ komprimierbar ist.
+	Jedes Programm, das solch ein Wort darstellt ist selbst eine Bit-Sequenz in $\Sigma_{bool}$ mit Länge bis $n-1$. Nähmen wir an, dass jede Bit-Sequenz in $\{\Sigma_{bool}\}^{n-1}$ sei in sinnvolles Programm, das ein Wort generieren kann, dann ist die maximale Anzahl dieser Programme
+	\begin{equation}
+		\sum_{k=1}^{n-1} 2^k = 2^n-2	\notag
+	\end{equation}
+	Die Anzahl aller möglichen Wörter bis Länge $n$ ist:
+	\begin{equation}
+		1+\sum_{k=1}^n 2^k = 2^n-2+2^n	\notag
+	\end{equation}
+	Falls ein Programm ein Wort komprimiert, gibt es eine Bijektion zwischen diesem Wort und dem Programm.
+	Ziehen wir von der Anzahl aller möglicher Wörter die Anzahl aller  möglicher -diese Wörter komprimierender- Programme ab, bleiben noch
+	\begin{equation}
+		\sum_{k=1}^n 2^k \;-\; \sum_{k=1}^{n-1} 2^k= 2^n-2+2^n- (2^n-2) \notag
+	\end{equation}
+	Wörter übrig, die nicht von Programmen in  $\{\Sigma_{bool}\}^{n-1}$ generiert werden können.
+	Dies sind mehr als die $2^n-2$ möglichen Programme, also als die Anzahl potentiell komprimierbarer Wörter.
+	Daher ist mehr als die Hälfte der Wörter nicht komprimierbar also zufällig.
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	Das Wort $w=1^i0^j1^k$ ist eindeutig definiert durch $i$ und $k$, da $i+j=2k \Rightarrow j = 2k-i$. Als Eingabe für unser Programm wählen wir eine Codierung, die $i, k$ beinhaltet:
+	\begin{equation}
+	X=\overline{\text{Bin}}(i)\text{Bin}(k)=i_10i_20i_30\cdots a_{\lceil log_2 i+1 \rceil}1k_1k_2k_3\cdots k_{\lceil log_2 k+1 \rceil}\notag
+	\end{equation}
+	Damit ist die Länge der Eingabe
+	\begin{alignat}{2}
+		|X| &&=2\left(\lceil\log_2\left(i+1\right)\rceil\right)+\left\lceil\log_2{\left(k+1\right)}\right\rceil			\notag
+	\end{alignat}
+	und das Programm hat Kolmogorov Komplexität
+	\begin{alignat}{1}
+		K(w)&\leq 2\cdot\lceil\log_2\left(i+1\right)\rceil+\left\lceil\log_2{\left(k+1\right)}\right\rceil + c 		\notag \\
+		&\leq 2\cdot\log_2\left(i\right)+\log_2{\left(k\right)} + c' 		\notag \\
+		&\leq 2\cdot\log_2\left(2k\right)+\log_2{\left(k\right)} + c' 		\notag \\
+	\end{alignat}
 \end{homeworkProblem}
 
 \end{document}
