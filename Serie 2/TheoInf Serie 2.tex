@@ -247,17 +247,18 @@ gilt, dass $|w_n|=2^{2^{5\cdot n^2}}$\\
 	Falls ein Programm ein Wort komprimiert, gibt es eine Bijektion zwischen diesem Wort und dem Programm.
 	Ziehen wir von der Anzahl aller möglicher Wörter die Anzahl aller  möglicher -diese Wörter komprimierender- Programme ab, bleiben noch
 	\begin{equation}
-		\sum_{k=1}^n 2^k \;-\; \sum_{k=1}^{n-1} 2^k= 2^n-2+2^n- (2^n-2) \notag
+		1+\sum_{k=1}^n 2^k \;-\; \sum_{k=1}^{n-1} 2^k= 1+2^n-2+2^n- (2^n-2)=1+2^n \notag
 	\end{equation}
 	Wörter übrig, die nicht von Programmen in  $\{\Sigma_{bool}\}^{n-1}$ generiert werden können.
 	Dies sind mehr als die $2^n-2$ möglichen Programme, also als die Anzahl potentiell komprimierbarer Wörter.
-	Daher ist mehr als die Hälfte der Wörter nicht komprimierbar also zufällig.
+	Daher ist mehr als die Hälfte der Wörter nicht komprimierbar, also zufällig.
 \end{homeworkProblem}
 \begin{homeworkProblem}
 	Das Wort $w=1^i0^j1^k$ ist eindeutig definiert durch $i$ und $k$, da $i+j=2k \Rightarrow j = 2k-i$. Als Eingabe für unser Programm wählen wir eine Codierung, die $i, k$ beinhaltet:
 	\begin{equation}
 	X=\overline{\text{Bin}}(i)\text{Bin}(k)=i_10i_20i_30\cdots a_{\lceil log_2 i+1 \rceil}1k_1k_2k_3\cdots k_{\lceil log_2 k+1 \rceil}\notag
 	\end{equation}
+	Da $i \leq 2k$ ist, ist die Eingabelänge beschränkt
 	Damit ist die Länge der Eingabe
 	\begin{alignat}{2}
 		|X| &&=2\left(\lceil\log_2\left(i+1\right)\rceil\right)+\left\lceil\log_2{\left(k+1\right)}\right\rceil			\notag
