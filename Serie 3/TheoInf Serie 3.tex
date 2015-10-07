@@ -24,7 +24,6 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{amsfonts}
-\usepackage{float} % Required for fixed figure placement
 \usepackage{fancyhdr} % Required for custom headers
 \usepackage{lastpage} % Required to determine the last page for the footer
 \usepackage{extramarks} % Required for headers and footers
@@ -172,7 +171,7 @@
 %----------------------------------------------------------------------------------------
 
 \newcommand{\hmwkTitle}{Blatt} % Assignment title
-\newcommand{\hmwkDueDate}{18.\ September\ 2015} % Due date
+\newcommand{\hmwkDueDate}{9.\ Oktober\ 2015} % Due date
 \newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
 \newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
@@ -216,10 +215,12 @@
 %----------------------------------------------------------------------------------------
 
 \begin{homeworkProblem}
-\textbf{Überschrift}
+\begin{enumerate}[(a)]
 
-\begin{figure}[!h]
-\centering
+\item
+asdf\\
+
+\begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.4cm,
                     semithick,every node/.style={scale=0.8}]
   \tikzstyle{every state}=[circle,text=black]
@@ -242,11 +243,12 @@
   			edge 							node {b} (D)
   ;
 \end{tikzpicture}
-\caption{Aufgabe 7a}
-\end{figure}
+\end{center}
 
-\begin{figure}[!h]
-\centering
+\item
+asdf\\
+
+\begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
                     semithick,every node/.style={scale=0.7}]
   \tikzstyle{every state}=[circle,text=black]
@@ -274,16 +276,18 @@
   		(G)	edge [loop below]	node {a,b}	(G)
   ;
 \end{tikzpicture}
-\caption{Aufgabe 7b}
-\end{figure}
+\end{center}
 
+\end{enumerate}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+\begin{enumerate}[(a)]
 
+\item
+Der folgende endliche Automat akzeptiert nur Wörter $w$, für die $|w|_b$ mod $3 = 2$ gilt:
 
-\begin{figure}[!h]
-\centering
+\begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
                     semithick,every node/.style={scale=0.8}]
   \tikzstyle{every state}=[circle,text=black]
@@ -300,11 +304,20 @@
 	 				edge [bend left]		node {b}	(A)
   ;
 \end{tikzpicture}
-\caption{Aufgabe 8a, erster Teilgraph}
-\end{figure}
+\end{center}
 
-\begin{figure}[!h]
-\centering
+
+
+Es ist klar, dass $a$ und $c$ die Anzahl von $|w|_b$ nicht ändern und daher zu keiner Zustandsänderung führen. Für die Klassen gilt also:
+\begin{enumerate}[\quad]
+\item Kl[A] = $\{w \mid |w|_b$ mod $3 = 0\}$
+\item Kl[B] = $\{w \mid |w|_b$ mod $3 = 1\}$
+\item Kl[C] = $\{w \mid |w|_b$ mod $3 = 2\}$
+\end{enumerate}
+
+Der endliche Automat, der Wörter der Form $w=cxcyc$ für $x,y \in \{a,b\}^*$ akzeptiert, sieht folgendermassen aus:
+
+\begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
                     semithick,every node/.style={scale=0.8}]
   \tikzstyle{every state}=[circle,text=black]
@@ -326,11 +339,20 @@
 			(5)		edge [loop right]		node {a,b,c}(5)
   ;
 \end{tikzpicture}
-\caption{Aufgabe 8a, zweiter Teilgraph}
-\end{figure}
+\end{center}
 
-\begin{figure}[!h]
-\centering
+Die Klassen sind:
+\begin{enumerate}[\quad]
+\item Kl[1] = $\{\lambda\}$
+\item Kl[2] = $\{cx \mid x \in \{a,b\}^*\}$
+\item Kl[3] = $\{cxcy \mid x \in \{a,b\}^*, y \in \{a,b,c\}^*\}$
+\item Kl[4] = $\{cxcyc \mid x \in \{a,b\}^*, y \in \{a,b,c\}^*\}$
+\item Kl[5] = $\{xy \mid x \in \{a,b\}, y \in \{a,b,c\}^*\}$
+\end{enumerate}
+
+Die beiden endlichen Automaten können nach der Methode des modularen Entwurfs (Konstruktion eines Produktautomaten) zu folgendem EA kombiniert werden. (Die Zustände B1 und C1 können nie erreicht werden und könnten somit gelöscht werden. Ebenso können deswegen die Zustände A5, B5 und C5 in einen kombiniert werden. Wir belassen sie aber, damit man den Zusammenhang zu den beiden Teilautomaten besser sieht.)
+
+\begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     semithick,every node/.style={scale=0.6}]
   \tikzstyle{every state}=[circle,text=black]
@@ -395,13 +417,18 @@
 			(C5)	edge [bend right=40,above]				node {b}	(A5)
   ;
 \end{tikzpicture}
-\caption{Produktautomat}
-\end{figure}
+\end{center}
 
+\item
+asdf
+
+\end{enumerate}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+\begin{enumerate}[(a)]
 
+\item
 $L_1=\{0^m1^n0^{m+n}\,|\,m, n \in \mathbb{N}\}$\\
 Annahme: Sei $L_1$ regulär. Dann gibt es einen endlichen Automaten $A=(Q,\,\Sigma,\,\delta_A,\,q_0,\,F)$, sodass $L(A)=L$. Dieser hat $|Q_0|$ Zustände. Nach dem \textit{Pumping-Lemma} lässt sich ein $w$ mit $|w|=n_0$ in $w=xyz$ zerlegen und
 \begin{enumerate}[(i)]
@@ -409,7 +436,7 @@ Annahme: Sei $L_1$ regulär. Dann gibt es einen endlichen Automaten $A=(Q,\,\Sig
 \item $|x| \geq 1$
 \item $\{yx^kz\,|\,k\in\mathbb{N}\} \subseteq L \quad\text{oder}\quad \{yx^kz\,|\,k\in\mathbb{N}\} \cup L = \emptyset$
 \end{enumerate}
-Jedes Wort $w$ der Länge $|w| \geq n_0$ muss also eine Zerlegung besitzen, die (i), (ii), (iii) erfülllt.\\
+Jedes Wort $w$ der Länge $|w| \geq n_0$ muss also eine Zerlegung besitzen, die (i), (ii), (iii) erfüllt.\\
 Sei $W=1^{n_0}0^{n_0}$, also $|w|=2*n \geq n_0$
 \begin{align*}
 \text{(i)}&\Rightarrow y=1^l,\;x=1^m\quad \text{mit }l,\,m \in \mathbb{N}\\
@@ -417,6 +444,28 @@ Sei $W=1^{n_0}0^{n_0}$, also $|w|=2*n \geq n_0$
 \end{align*}
 Aber: für $k=0$ ist $w=yz=1^{n_0-m}0^{n_0} \not\in L$\\
 Wir haben einen Widerspruch, daher war die Annahme, dass L regulär ist, falsch.
+
+\item
+Wir machen einen Widerspruchsbeweis. Annahme: $L$ ist regulär. \\Dann gilt das \textit{Pumping-Lemma} auch für $L$.\\
+Betrachten wir das Wort $0^{{n_0}^2+n_0}$, dann ist offensichtlich $|w| \geq n_0$\\
+Für alle Zerlegungen $w=yxz$ gilt
+\[ y=0^l,\,x=0^m,\,z=0^{{n_0}^2+n_0-l-m} \quad\text{mit}\quad |xy|\leq n_0 \quad\text{und}\quad |x|\geq 1
+\]\\
+\\Weil $w=yxz=0^{{n_0}^2+n_0}\in L$, muss $yx^kz\in L$ erfüllt sein.\\
+\\Es gilt aber: 
+\[
+yx^2z=0^l0^{2m}0^{{n_0}^2+n_0-l-m}=0^{{n_0}^2+n_0+m}\not\in L\quad,
+\]
+weil
+\[
+{n_0}^2+n_0\leq{{n_0}^2}+n_0+m\leq {n_0}^2+3n_0+2=(n_0+1)(n_0+2)
+\]
+\[
+{{n_0}^2}+n_0+m \quad\text{hat also nicht die Form}\quad n(n+1)
+\]
+\\ 
+Wir haben nun ein Widerspruch, womit die Annahme, dass L eine reguläre Sprache ist, verworfen wird.
+\end{enumerate}
 \end{homeworkProblem}
 
 \end{document}
