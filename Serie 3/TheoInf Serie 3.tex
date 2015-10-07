@@ -217,6 +217,185 @@
 \begin{homeworkProblem}
 \textbf{Überschrift}
 
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.4cm,
+                    semithick,every node/.style={scale=0.8}]
+  \tikzstyle{every state}=[circle,text=black]
+
+  \node[state] 				(A)             	{$q_0$};
+  \node[initial above,state](B) [right of=A]	{$q_1$};
+  \node[state,accepting]	(C) [right of=B]	{$q_2$};
+  \node[state]        		(D) [right of=C]	{$q_3$};
+  \node[state]        		(E) [right of=D]	{$q_4$};
+
+  \path (A)	edge [bend right]				node {a} (C)
+  			edge [bend right,looseness=1.1]	node {b} (E)
+  		(B)	edge [bend right]				node {a} (D)
+			edge							node {b} (A)
+  		(C)	edge [bend right]				node {a} (E)
+  			edge 							node {b} (B)
+  		(D)	edge [bend right,looseness=1.1]	node {a} (A)
+  			edge 							node {b} (C)
+  		(E)	edge [bend right,looseness=1.1]	node {a} (B)
+  			edge 							node {b} (D)
+  ;
+\end{tikzpicture}
+\caption{Aufgabe 7a}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick,every node/.style={scale=0.7}]
+  \tikzstyle{every state}=[circle,text=black]
+
+  \node[initial,state] 			(A)             	{$q_0$};
+  \node[state]					(B) [right of=A]	{$q_1$};
+  \node[state]					(C) [right of=B]	{$q_2$};
+  \node[state]        			(D) [right of=C]	{$q_3$};
+  \node[state]        			(E) [right of=D]	{$q_4$};
+  \node[state,accepting]		(F) [right of=E]	{$q_5$};
+  \node[state]        			(G) [below of=A]	{$q_A$};
+
+  \path (A)	edge				node {a}	(G)
+  			edge 				node {b}	(B)
+  		(B)	edge 				node {a}	(G)
+			edge 				node {b}	(C)
+  		(C)	edge [bend left]	node {a}	(D)
+  			edge [loop below]	node {b}	(C)
+  		(D)	edge				node {a}	(E)
+  			edge [bend left]	node {b}	(C)
+  		(E)	edge [bend left]	node {a}	(F)
+  			edge [loop below]	node {b}	(E)
+ 		(F)	edge [loop right]	node {a}	(F)
+	  		edge [bend left]	node {b}	(E)
+  		(G)	edge [loop below]	node {a,b}	(G)
+  ;
+\end{tikzpicture}
+\caption{Aufgabe 7b}
+\end{figure}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick,every node/.style={scale=0.8}]
+  \tikzstyle{every state}=[circle,text=black]
+
+	\node[initial,state] 			(A)             	{$A$};
+	\node[state]					(B) [right of=A]	{$B$};
+	\node[state,accepting]			(C) [right of=B]	{$C$};
+
+	\path	(A)		edge [loop above]		node {a,c}	(A)
+	 				edge 					node {b}	(B)
+	 		(B)		edge [loop above]		node {a,c}	(B)
+	 				edge 					node {b}	(C)
+			(C)		edge [loop above]		node {a,c}	(C)
+	 				edge [bend left]		node {b}	(A)
+  ;
+\end{tikzpicture}
+\caption{Aufgabe 8a, erster Teilgraph}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick,every node/.style={scale=0.8}]
+  \tikzstyle{every state}=[circle,text=black]
+
+	\node[initial,state] 			(1)             	{$1$};
+	\node[state]					(2) [right of=1]	{$2$};
+	\node[state]					(3) [right of=2]	{$3$};
+	\node[state,accepting]			(4) [right of=3]	{$4$};
+	\node[state]					(5) [right of=4]	{$5$};
+
+	\path	(1)		edge [bend right]		node {a,b}	(5)
+	 				edge 					node {c}	(2)
+	 		(2)		edge [loop above]		node {a,b}	(2)
+	 				edge 					node {c}	(3)
+			(3)		edge [loop above]		node {a,b}	(3)
+	 				edge [bend left]		node {c}	(4)
+			(4)		edge [loop right]		node {c}	(4)
+	 				edge [bend left]		node {a,b}	(3)
+			(5)		edge [loop right]		node {a,b,c}(5)
+  ;
+\end{tikzpicture}
+\caption{Aufgabe 8a, zweiter Teilgraph}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    semithick,every node/.style={scale=0.6}]
+  \tikzstyle{every state}=[circle,text=black]
+
+	\node[initial,state] 			(A1)             	{$A1$};
+	\node[state]					(A2) [below of=A1]	{$A2$};
+	\node[state]					(A3) [below of=A2]	{$A3$};
+	\node[state,accepting]       	(A4) [below of=A3]	{$A4$};
+	\node[state]        			(A5) [above of=A1]	{$A5$};
+	\node[state] 					(B1) [right of=A1] 	{$B1$};
+	\node[state]					(B2) [below of=B1]	{$B2$};
+	\node[state]					(B3) [below of=B2]	{$B3$};
+	\node[state,accepting]       	(B4) [below of=B3]	{$B4$};
+	\node[state]        			(B5) [above of=B1]	{$B5$};
+	\node[state] 					(C1) [right of=B1] 	{$C1$};
+	\node[state]					(C2) [below of=C1]	{$C2$};
+	\node[state]					(C3) [below of=C2]	{$C3$};
+	\node[state,accepting]       	(C4) [below of=C3]	{$C4$};
+	\node[state]        			(C5) [above of=C1]	{$C5$};
+	
+	\path	(A1)	edge 									node {a}	(A5)
+			(A1)	edge 									node {b}	(B5)
+			(A1)	edge 									node {c}	(A2)
+			(A2)	edge [loop left]						node {a}	(A2)
+			(A2)	edge									node {b}	(B2)
+			(A2)	edge 									node {c}	(A3)
+			(A3)	edge [loop left]						node {a}	(A3)
+			(A3)	edge									node {b}	(B3)
+			(A3)	edge [bend left]						node {c}	(A4)
+			(A4)	edge [bend left]						node {a}	(A3)
+			(A4)	edge [below]							node {b}	(B3)
+			(A4)	edge [loop below]						node {c}	(A4)
+			(A5)	edge [loop left]						node {a,c}	(A5)
+			(A5)	edge 									node {b}	(B5)
+			(B1)	edge [below left]						node {a}	(B5)
+			(B1)	edge 									node {b}	(C5)
+			(B1)	edge [above right]						node {c}	(B2)
+			(B2)	edge [loop,out=60,in=20,looseness=6]	node {a}	(B2)
+			(B2)	edge									node {b}	(C2)
+			(B2)	edge [above right]						node {c}	(B3)
+			(B3)	edge [loop,out=60,in=20,looseness=6]	node {a}	(B3)
+			(B3)	edge									node {b}	(C3)
+			(B3)	edge [bend left]						node {c}	(B4)
+			(B4)	edge [bend left]						node {a}	(B3)
+			(B4)	edge [below]							node {b}	(C3)
+			(B4)	edge [loop below]						node {c}	(B4)
+			(B5)	edge [loop above]						node {a,c}	(B5)
+			(B5)	edge 									node {b}	(C5)
+			(C1)	edge 									node {a}	(C5)
+			(C1)	edge [right]							node {b}	(A5)
+			(C1)	edge 									node {c}	(C2)
+			(C2)	edge [loop right]						node {a}	(C2)
+			(C2)	edge [bend right=40,above left]			node {b}	(A2)
+			(C2)	edge 									node {c}	(C3)
+			(C3)	edge [loop right]						node {a}	(C3)
+			(C3)	edge [bend right=40,above left]			node {b}	(A3)
+			(C3)	edge [bend left]						node {c}	(C4)
+			(C4)	edge [bend left]						node {a}	(C3)
+			(C4)	edge 									node {b}	(A3)
+			(C4)	edge [loop below]						node {c}	(C4)
+			(C5)	edge [loop right]						node {a,c}	(C5)
+			(C5)	edge [bend right=40,above]				node {b}	(A5)
+  ;
+\end{tikzpicture}
+\caption{Aufgabe 8a, ganzer Graph}
+\end{figure}
 
 \end{homeworkProblem}
 
