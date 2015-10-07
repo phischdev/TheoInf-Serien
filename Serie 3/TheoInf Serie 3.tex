@@ -17,13 +17,14 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass{article}
-\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
 
 \usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{amsfonts}
+\usepackage{float} % Required for fixed figure placement
 \usepackage{fancyhdr} % Required for custom headers
 \usepackage{lastpage} % Required to determine the last page for the footer
 \usepackage{extramarks} % Required for headers and footers
@@ -394,9 +395,28 @@
 			(C5)	edge [bend right=40,above]				node {b}	(A5)
   ;
 \end{tikzpicture}
-\caption{Aufgabe 8a, ganzer Graph}
+\caption{Produktautomat}
 \end{figure}
 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+$L_1=\{0^m1^n0^{m+n}\,|\,m, n \in \mathbb{N}\}$\\
+Annahme: Sei $L_1$ regulär. Dann gibt es einen endlichen Automaten $A=(Q,\,\Sigma,\,\delta_A,\,q_0,\,F)$, sodass $L(A)=L$. Dieser hat $|Q_0|$ Zustände. Nach dem \textit{Pumping-Lemma} lässt sich ein $w$ mit $|w|=n_0$ in $w=xyz$ zerlegen und
+\begin{enumerate}[(i)]
+\item $|yx| \leq n_0$
+\item $|x| \geq 1$
+\item $\{yx^kz\,|\,k\in\mathbb{N}\} \subseteq L \quad\text{oder}\quad \{yx^kz\,|\,k\in\mathbb{N}\} \cup L = \emptyset$
+\end{enumerate}
+Jedes Wort $w$ der Länge $|w| \geq n_0$ muss also eine Zerlegung besitzen, die (i), (ii), (iii) erfülllt.\\
+Sei $W=1^{n_0}0^{n_0}$, also $|w|=2*n \geq n_0$
+\begin{align*}
+\text{(i)}&\Rightarrow y=1^l,\;x=1^m\quad \text{mit }l,\,m \in \mathbb{N}\\
+\text{(iii)}&\Rightarrow \text{Da } w=1^{n_0}0^{n_0}\in L, \text{ ist } \{yx^kz\,|\,k\in\mathbb{N}\}=\{1^l\left(1^m\right)^k0^{n_0}\} \subseteq L 
+\end{align*}
+Aber: für $k=0$ ist $w=yz=1^{n_0-m}0^{n_0} \not\in L$\\
+Wir haben einen Widerspruch, daher war die Annahme, dass L regulär ist, falsch.
 \end{homeworkProblem}
 
 \end{document}
