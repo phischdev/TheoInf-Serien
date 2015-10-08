@@ -379,7 +379,7 @@ Die Klassen sind:
 \item Kl[2] = $\{cx \mid x \in \{a,b\}^*\}$
 \item Kl[3] = $\{cxcy \mid x,y \in \{a,b\}^*\}$
 \item Kl[4] = $\{cxcyc \mid x,y \in \{a,b\}^*\}$
-\item Kl[5] = $\{xy \mid x \in \{a,b\}, y \in \{a,b,c\}^*\}$
+\item Kl[5] = $\{xy \mid x \in \{a,b\}, y \in \{a,b,c\}^*\} \cup \{xy \mid x \in \Kl[4], y \in \{a,b,c\}^+\}$
 \end{enumerate}
 
 Die beiden endlichen Automaten können nach der Methode des modularen Entwurfs (Konstruktion eines Produktautomaten) zu folgendem EA kombiniert werden. (Da im resultierenden EA die Zustände B1 und C1 nie erreicht werden können, löschen wir diese. Zusätzlich können die Zustände A5, B5 und C5 in einen kombiniert werden. So bleibt der EA übersichtlich.)
