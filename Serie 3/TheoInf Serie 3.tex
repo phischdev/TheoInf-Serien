@@ -1,3 +1,4 @@
+%BEGIN_FOLD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Programming/Coding Assignment
 % LaTeX Template
@@ -11,15 +12,15 @@
 % CONFIGURATION" section.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%END_FOLD
 %----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%BEGIN_FOLD	%PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 \documentclass{article}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 
-\usepackage[english]{babel}
+\usepackage[german]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -38,11 +39,11 @@
 \usepackage{tikz}
 \usepackage{forest} % treees :D
 \usetikzlibrary{arrows,automata} %for FSM
+\usepackage{mathtools}
 
 % Custom commands
 \DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
 
-\usepackage{mathtools}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 % Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
@@ -50,6 +51,9 @@
 % Swap the definition of \abs* and \norm*, so that \abs
 % and \norm resizes the size of the brackets, and the 
 % starred version does not.
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD
 \makeatletter
 \let\oldabs\abs
 \def\abs{\@ifstar{\oldabs}{\oldabs*}}
@@ -144,7 +148,11 @@
 \newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
 
 \newcommand{\homeworkProblemName}{}
-\newenvironment{homeworkProblem}[1][Aufgabe \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+%END_FOLD
+\newenvironment{homeworkProblem}[1][Aufgabe \arabic{homeworkProblemCounter}]
+%BEGIN_FOLD
+{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+
 \stepcounter{homeworkProblemCounter} % Increase counter for number of problems
 \renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
 \section{\homeworkProblemName} % Make a section in the document with the custom problem count
@@ -165,9 +173,9 @@
 }{
 %\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
 }
-
+%END_FOLD
 %----------------------------------------------------------------------------------------
-%	NAME AND CLASS SECTION
+%BEGIN_FOLD %NAME AND CLASS SECTION
 %----------------------------------------------------------------------------------------
 
 \newcommand{\hmwkTitle}{Blatt} % Assignment title
@@ -175,8 +183,11 @@
 \newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
 \newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
-\newcommand{\hmwkNumber}{1}
-
+\newcommand{\hmwkNumber}{3}
+\newcommand{\hmwkAssiInfo}{Assistent: Sascha Krug, CHN D 42}
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -185,7 +196,7 @@
 \vspace{2in}
 \textmd{\textbf{\hmwkClass:\ \hmwkTitle\ \hmwkNumber}}\\
 \normalsize\vspace{0.1in}\small{Abgabe\ bis\ \hmwkDueDate}
-\\Assistent: Sascha Krug, CHN D 42
+\\\hmwkAssiInfo
 \\
 \vspace{0.1in}\large{\textit{\hmwkClassInstructor}
 \vspace{3in}
@@ -194,9 +205,9 @@
 \date{} % Insert date here if you want it to appear below your name
 
 %----------------------------------------------------------------------------------------
-
+%END_FOLD
 \begin{document}
-
+%BEGIN_FOLD
 \maketitle
 
 %----------------------------------------------------------------------------------------
@@ -204,8 +215,10 @@
 %----------------------------------------------------------------------------------------
 
 %\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
-
-\addtocounter{homeworkProblemCounter}{0}
+%END_FOLD
+%----------------------------------------------------------------------------------------
+\addtocounter{homeworkProblemCounter}{6}
+%----------------------------------------------------------------------------------------
 \newpage
 %\tableofcontents
 %\newpage
@@ -293,9 +306,9 @@ Die Klassen seiner Zustände sind:
 \item Kl[$q_1$] = $\{b\}$
 \item Kl[$q_2$] = $\{bbx \mid x \in \{b,ab\}^*\}$
 \item Kl[$q_3$] = $\{bbxa \mid x \in \{b,ab\}^*\}$
-\item Kl[$q_4$] = $\{bbxaay \mid x \in \{b,ab\}^*, y \in \{a,b\}^*\}$
-\item Kl[$q_5$] = $\{bbxaaya \mid x \in \{b,ab\}^*, y \in \{a,b\}^*\} = \{bbxa \mid x \in \{a,b\}^*$ und $x$ enthält das Teilwort $aa\}$
-\item Kl[$q_A$] = $\{ax \mid x \in \{a,b\}^*\}$
+\item Kl[$q_4$] = $\{xayb \mid x \in \Kl[q_3], y \in \{a, b\}^*\} \cup \{xa \mid x \in \Kl[q_3]\}$
+\item Kl[$q_5$] = $\{xa \mid x \in \Kl[q_4] \} = \{bbxa \mid x \in \{a,b\}^*$ und $x$ enthält das Teilwort $aa\}$
+\item Kl[$q_A$] = $\{yax \mid y\in \{\lambda, b\},\,x \in \{a,b\}^*\}$
 \end{enumerate}
 
 \end{enumerate}
