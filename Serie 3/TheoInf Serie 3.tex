@@ -431,6 +431,44 @@ Die beiden endlichen Automaten können nach der Methode des modularen Entwurfs (
 \end{center}
 
 \item
+Wir verwenden wieder einen Produktautomaten.
+Automat P akzeptiert Wörter, deren Quersumme durch 2 teilbar ist. Die Ziffern werden aufsummmiert und $p_i$ spiegelt die Summe mod $2$ wieder.
+
+\begin{center}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick,every node/.style={scale=0.8}]
+	\tikzstyle{every state}=[circle,text=black]
+	
+	\node[initial,state, accepting]	(A)             	{$q_0$};
+	\node[state]					(B) [right of=A]	{$q_1$};
+	
+	\path	(A)		edge [loop above]		node {2, 4, 8}	(A)
+	edge[bend left] 					node {1}	(B)
+	(B)		edge [bend left]		node {1}	(A)
+	;
+	\end{tikzpicture}
+\end{center}
+Analog dazu funktioniert der Automat der Die Quersumme auf teilbarkeit durch $3$ prüft
+\begin{center}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick,every node/.style={scale=0.8}]
+	\tikzstyle{every state}=[circle,text=black]
+	
+	\node[initial,state, accepting]	(A)             	{$p_0$};
+	\node[state]					(B) [right of=A]	{$p_1$};
+	\node[state]                    (C) [right of=B]    {$p_2$};
+	
+	\path	(A)		edge [bend left] 		node {1, 4}     (B)
+					edge [bend left]        node {2, 8}     (C)
+	        (B)		edge [bend left]		node {1, 4}	    (C)
+			        edge [bend left]        node {2, 8}     (A)
+			(C)     edge [bend left]        node {1, 4}     (A)
+					edge [bend left]        node {2, 8}     (B)
+	;
+	\end{tikzpicture}
+\end{center}
+
+
 Klassen, die die Eigenschaften der Zahl w widerspiegeln:
 \newline
 $qs(w):=Quersumme\ von\ w$
