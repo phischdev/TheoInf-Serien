@@ -431,7 +431,48 @@ Die beiden endlichen Automaten können nach der Methode des modularen Entwurfs (
 \end{center}
 
 \item
-asdf
+Klassen, die die Eigenschaften der Zahl w widerspiegeln:
+\newline
+$qs(w):=Quersumme\ von\ w$
+\begin{enumerate}[]
+	\item $\Kl[q_{\lambda}] = \{\lambda\}$
+	\item $\Kl[q_{i,j}] = \{w\in\Sigma\mid qs(w)\mod{2}=i\ ,\ qs(w)\mod{3}=j\}$
+\end{enumerate}
+
+$\Rightarrow$ Der EA ist folgendermassen definiert: 
+
+\begin{enumerate}[\qquad]
+	\item $Q=\{q_{\lambda}\}\cup\{q_{i_j} \mid i \in \{0,1\} \ ,\ j\in\{0,1,2\} \}$
+	\item $F=\{ q_{0,j} \mid j \in \{ 0,1,2 \}  \} \cup \{ q_{i_0} \mid i \in \{ 0,1\} \} \cup \{ q_{\lambda} \}$
+	\item $q_{init} = q_{\lambda}$
+	\item $\Sigma = \{1,2,4,8\}$
+	\item $\delta = \ $Siehe definition weiter unten
+\end{enumerate}
+
+Definition $p_{\lambda}$ und $p_{i,j}$:
+
+\begin{enumerate}[\qquad]
+	\item
+	$\delta(p_{\lambda},1) = p_{1,1}$
+	\item
+	$\delta(p_{\lambda},2) = p_{0,2}$
+	\item
+	$\delta(p_{\lambda},4) = p_{0,1}$
+	\item
+	$\delta(p_{\lambda},8) = p_{0,2}$
+	\item
+		$\delta(p_{i,j} , x) = p_{m,n}$
+	\item mit: $m = (i+x) \mod{2}$ 
+	\item und  $n = (j+x) \mod{3}$
+	\item Bei der Berechnung von m und n wird x als Dezimalziffer interpretiert. 
+\end{enumerate}
+
+\text{Informelle Begründung der Korrektheit: }
+\newline
+	Nur die moduli bezüglich 2 und 3 sind für den Zustand bedeutend.
+	Darum werden 2 * 3 Zustände für \{0,1\} {$\times$}  \{0,1,2\} benötigt. 
+	Diese sind {$q_{i,j}$} mit {$i\in\{0,1\}$} und {$i\in\{0,1\}$}
+	Die Übergänge erklären sich in der Beschreibung der {$\delta$} -Funktion.
 
 \end{enumerate}
 \end{homeworkProblem}
