@@ -228,6 +228,27 @@
 %----------------------------------------------------------------------------------------
 
 \begin{homeworkProblem}
+	
 \end{homeworkProblem}
 
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item
+		Wir machen einen Widerspruchsbeweis. \textit{Annahme:} $L$ ist regulär. Dann gilt das \textit{Pumping-Lemma} für $L$.\\
+		Wir betrachten nun das Wort
+		\[
+			w=0^{n_0}1^{n_0}
+		\]
+		Offensichtlich gilt $|w| \leq n_0$.\\
+		Daher gilt für die Zerlegung $w=yxz$ nach $(i)$ und $(ii)$, dass $y=0^l$, $x=0^m$, $l+m \leq n_0$.\\
+		Weil $w=yxz=0^{n_0}1^{n_0} \not\in L$ müssen nach $(iii)$ auch alle $w\in\{yx^kz \mid k\in \mathbb{N}\} \not\in L$ sein. 
+		wenn wir nun das Wort
+		\[
+			w=yx^2z=0^l0^{2m}z
+		\]
+		betrachten, dann hat sich die Anzahl der $0$en erhöht, die Anzahl der $1$en ist jedoch gleich geblieben. Dadurch ist jedoch nach Definition $w\in L$.\\
+		Es gibt ein Widerspruch $\Rightarrow$ Die Annahme war falsch $\Rightarrow$ $L$ ist nicht regulär.
+	\end{enumerate}	
+\end{homeworkProblem}
+	
 \end{document}
