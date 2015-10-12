@@ -251,4 +251,53 @@
 	\end{enumerate}	
 \end{homeworkProblem}
 	
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item
+		
+		\item
+		Die Übertragungsfunktion $\delta'$ des äquivalenten deterministischen Automaten lautet wie folgt:
+		\begin{center}
+			\begin{tabular}{l|l|l}
+				 $\delta'$ & $a$ & $b$ \\
+				 \hline
+				 $p'=\{p\}$ & $\{p,q\}$ & $\{p\}$ \\
+				 $q'=\{p,q\}$ & $\{p,q,r\}$ & $\{p,r\}$ \\
+				 $r'=\{p,r\}$ & $\{p,q,s\}$ & $\{p\}$ \\
+				 $s'=\{p,s\}$ & $\{p,s\}$ & $\{p,r\}$ \\
+				 $t'=\{p,q,r\}$ & $\{p,r,s\}$ & $\{p,r\}$ \\
+				 $v'=\{p,q,s\}$ & $\{p,r,s\}$ & $\{p,r,s\}$ \\
+				 $u'=\{p,r,s\}$ & $\{p,s\}$ & $\{p,s\}$
+			\end{tabular}
+		\end{center}
+		
+		\begin{center}
+			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+			semithick,every node/.style={scale=1}]
+			\tikzstyle{every state}=[circle,text=black]
+			
+			\node[initial,state] 			(1)             	{$p'$};
+			\node[state]					(2) [right of=1]	{$q'$};
+			\node[state]					(3) [right of=2]	{$r'$};
+			\node[state,accepting]			(4) [right of=3]	{$s'$};
+			\node[state]					(5) [below of=2]	{$t'$};
+			\node[state]					(6) [below of=3]	{$u'$};
+			\node[state]					(7) [below of=4]	{$v'$};
+			
+			\path	(1)		edge 					node {a}	(2)
+							edge [loop above]		node {b}	(1)
+					(2)		edge 					node {a}	(5)
+							edge 					node {b}	(3)
+					(3)		edge 					node {a}	(6)
+							edge [bend right=45]	node {b}	(1)
+					(4)		edge [loop above]		node {a,b}	(4)
+					(5)		edge 					node {b}	(3)
+							edge [bend right=45]	node {a}	(7)
+					(6)		edge 					node {a,b}	(7)
+					(7)		edge 					node {a,b}	(4)
+			;
+			\end{tikzpicture}
+		\end{center}
+	\end{enumerate}
+\end{homeworkProblem}
 \end{document}
