@@ -43,7 +43,7 @@
 
 % Custom commands
 \DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
-
+\newcommand{\Ebool}{\{0, 1\}}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 % Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
@@ -238,7 +238,11 @@
 		\] 
 		Das sind mehr Wörter, als $A$ Zustände hat.
 		$\Rightarrow \exists i, j\;\; j\not=i$, sodass $\hat{d}(q_0, b^i)=\hat{d}(q_0, b^j)$\\
-		Also gilt nach \textit{Lemma 3.3} 
+		Also gilt nach \textit{Lemma 3.3}
+		\[ b^iz \in L  \leftrightarrow b^jz \in L \quad \forall z \in \Ebool^*
+		\]
+		Sei $z=a^{2i}$, dann gilt $b^iz=b^ia^{2i} \in L$ aber für $i\not=j$,\; $b^ja^{2i} \not\in L$\\
+		Also haben wir einen Widerspruch $\Rightarrow$ die Annahme war falsch $\Rightarrow$ L ist nicht regulär.
 	\end{enumerate}
 \end{homeworkProblem}
 
