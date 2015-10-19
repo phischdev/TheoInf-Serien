@@ -241,7 +241,7 @@
 					\begin{enumerate}[(i)]
 						\item
 						\textit{Induktionsanfang:}\\
-						Sei $n=1$. Man kann mit einer Ableitung aus $X$ entweder das Wort $bX$ oder $b$ herleiten.\\
+						Sei $n=1$. Man kann mit einer Ableitung aus $X$ entweder das Wort $bX$ oder $b$ herleiten (nicht aber $\lambda$).\\
 						
 						\item
 						\textit{Induktionsschritt:}\\
@@ -255,6 +255,19 @@
 				\end{enumerate}
 				
 				\item
+				Man beginnt in $S$. Für $S$ gibt es nur eine Ableitungsregel $S \rightarrow 0X0$. Wir gehen also von $0X0$ aus. Für $X$ gibt es nun die drei Ableitungsregeln $\{X \rightarrow AX, X \rightarrow BX, X \rightarrow Y\}$. Nun können wir beliebig viele $A$ oder $B$ vor das $X$ schreiben, bevor wir $X$ durch $Y$ ersetzen.
+				
+				Damit erhalten wir das Wort $0WY0$ für $W \in \{A,B\}^*$. 
+				
+				Jetzt können wir sukzessive die Ableitungsregeln $\{AY \rightarrow Y0, BY \rightarrow Y1\}$ anwenden, bis keine $A$ oder $B$ mehr im Wort enthalten sind.
+				
+				Dann können wir noch einmal die letzte Ableitungsregel $\{0Y \rightarrow 0\}$ anwenden.
+				
+				So entsteht das Wort $0w0$ für $w \in \{0,1\}^*$, denn die Anwendung von $\{AY \rightarrow Y0, BY \rightarrow Y1\}$ bewirkt schlussendlich, dass jedes $A$ durch eine 0 und jedes $B$ durch eine 1 ersetzt wird und $\{0Y \rightarrow 0\}$ löscht das $Y$ am Ende.
+				
+				Eine äquivalente reguläre Grammatik ist $G_2' = (\{S, X\}, \{0, 1\}, P_2', S)$ mit
+				\[P_2' = \{S \rightarrow 0X0, X \rightarrow \lambda, X \rightarrow 0, X \rightarrow 1, X \rightarrow X0, X \rightarrow X1\}.\]
+				Der Entwurf ist praktisch selbsterklärend. Wir starten in $S$, gehen über zu $0X0$ und können dann wählen, ob wir $X$ zu $\lambda$, 0 oder 1 ableiten oder 0 bzw. 1 schreiben und danach weiter Buchstaben aus $\{\lambda,0,1\}$ hinzufügen wollen oder nicht (indem wir Regel $X \rightarrow X0$ oder $X \rightarrow X1$ anwenden). Damit generiert die Grammatik $G_2'$ auch die Wörter $0w0$ für $w \in \{0,1\}^*$.
 			\end{enumerate}
 		\end{homeworkProblem}
 		
