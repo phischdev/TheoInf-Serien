@@ -232,7 +232,27 @@
 				\item
 				Vermutung: L(G$_1)=\{avawa \mid v \in \{b\}^+, w \in \{ab\}^*\}$
 				
-				Beweis: 
+				Beweis: Die Grammatik beginnt im Startsymbol $S$, für das es nur eine Ableitungsregel gibt: $S \rightarrow aXaYa$. Da das Wort $aXaYa$ immer noch die Nichtterminale $X$ und $Y$ enthält, müssen wir weiter ableiten. Es gibt in $P_1$ keine Ableitungsregel $QaR \rightarrow_{G_1} S$ für beliebige $Q,R,S \in \Sigma_N \cup \Sigma_T$, womit jedes Wort in der von der Grammatik erzeugten Sprache die Form $avawa$ aufweisen muss, für noch zu bestimmende $v$ und $u$.
+				
+				Im Folgenden beweisen wir, dass $v \in \{b\}^+$ und $w \in \{ab\}^*$.
+				\begin{enumerate}[1.]
+					\item
+					$v \in \{b\}^+$: Wir haben $aXaYa$ gegeben. Die Ableitungsregeln, die X betreffen, sind $\{X \rightarrow bX, X \rightarrow b\}$. Wir zeigen mit Induktion, dass man mit $X$ und den beiden Ableitungsregel für $X$ ausschliesslich die Wörter $v \in \{b\}^+ = \{b^i \mid i \in \mathbb{N}\}$ generieren kann. Sei $n$ die Anzahl angewandter Ableitungsregeln.\\
+					\begin{enumerate}[(i)]
+						\item
+						\textit{Induktionsanfang:}\\
+						Sei $n=1$. Man kann mit einer Ableitung aus $X$ entweder das Wort $bX$ oder $b$ herleiten.\\
+						
+						\item
+						\textit{Induktionsschritt:}\\
+						$n \rightarrow n+1$: Es gibt zwei Fälle:\\
+						Das Wort endet auf $X$: Man kann wieder  $bX$ oder $b$ herleiten.\\
+						Das Wort endet auf $b$: Das Wort kann nicht mehr weiter abgeleitet werden und man erhält nach dem $n$-ten Ableitungsschritt das Wort $b^n$.\\
+					\end{enumerate}
+					
+					\item
+					$w \in \{ab\}^*$: Wir haben $aXaYa$ gegeben. Die Ableitungsregeln, die Y betreffen, sind $\{Y \rightarrow abY, Y \rightarrow ab, Y \rightarrow \lambda\}$. Mit Induktion kann man analog zu 1. beweisen, dass man mit $Y$ und den drei Ableitungsregel für $Y$ ausschliesslich die Wörter $w \in \{ab\}^* = \{(ab)^i \mid i \in \mathbb{N}_0\}$ generieren kann. Der einzige Unterschied ist, dass man durch die dritte Ableitungsregel $Y \rightarrow \lambda$ auch das leere Wort herleiten kann.
+				\end{enumerate}
 				
 				\item
 			\end{enumerate}
