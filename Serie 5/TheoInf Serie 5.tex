@@ -273,10 +273,38 @@
 		
 		%------------------Aufgabe S2---------------------------------
 		\begin{homeworkProblem}
-			\begin{enumerate}[(a)]
-				\item
-				\item
-			\end{enumerate}	
+			Die Sprache, die von $G$ erzeugt wird, ist
+			\[\{vwaaaxy \mid v=b^{2k+1} \text{ für } k \in \mathbb{N}_0, \quad w,y \in \{a\}^*, \quad x \in \{bb\}^*\}.\]
+			Eine äquivalente reguläre Grammatik ist also $G' = (\{S, A, B, C, D, E, Z\}, \{a, b\}, P', S)$ mit
+			\[P' = \{S \rightarrow bA, A \rightarrow bS, A \rightarrow aA, A \rightarrow aB, B \rightarrow aC, C \rightarrow aD, D \rightarrow bE, E \rightarrow bD, D \rightarrow \lambda, D \rightarrow aF, F \rightarrow aF, F \rightarrow \lambda\}.\]
+			Der NEA, der die Sprache $L(G)$ erzeugt, ist damit:
+			
+			\begin{center}
+			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+			semithick,every node/.style={scale=1}]
+			\tikzstyle{every state}=[circle,text=black]
+			
+			\node[initial,state]			(S)             		{$S$};
+			\node[state]					(A) [right of=S]		{$A$};
+			\node[state]					(B) [right of=A]		{$B$};
+			\node[state]					(C) [right of=B]		{$C$};
+			\node[state,accepting]			(D) [right of=C]		{$D$};
+			\node[state]					(E) [below of=D]		{$E$};
+			\node[state,accepting]			(F) [right of=D]		{$F$};
+			
+			\path	(S)		edge [bend left]					node {b}	(A)
+					(A)		edge [bend left]					node {b}	(S)
+					(A)		edge [loop above]					node {a}	(A)
+					(A)		edge 								node {a}	(B)
+					(B)		edge 								node {a}	(C)
+					(C)		edge 								node {a}	(D)
+					(D)		edge [bend left]					node {b}	(E)
+					(E)		edge [bend left]					node {b}	(D)
+					(D)		edge								node {a}	(F)
+					(F)		edge [loop above]					node {a}	(F)
+			;
+			\end{tikzpicture}
+			\end{center}
 		\end{homeworkProblem}
 		
 		%------------------Aufgabe S3---------------------------------
