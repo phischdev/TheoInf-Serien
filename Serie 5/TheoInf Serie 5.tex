@@ -232,18 +232,79 @@
 				\item
 				Vermutung: L(G$_1)=\{avawa \mid v \in \{b\}^+, w \in \{ab\}^*\}$
 				
-				Beweis: 
+				Beweis: Die Grammatik beginnt im Startsymbol $S$, für das es nur eine Ableitungsregel gibt: $S \rightarrow aXaYa$. Da das Wort $aXaYa$ immer noch die Nichtterminale $X$ und $Y$ enthält, müssen wir weiter ableiten. Es gibt in $P_1$ keine Ableitungsregel $QaR \rightarrow_{G_1} S$ für beliebige $Q,R,S \in (\Sigma_N \cup \Sigma_T)^*$, womit jedes Wort in der von der Grammatik erzeugten Sprache die Form $avawa$ aufweisen muss, für noch zu bestimmende $v$ und $u$.
+				
+				Im Folgenden beweisen wir, dass $v \in \{b\}^+$ und $w \in \{ab\}^*$.
+				\begin{enumerate}[1.]
+					\item
+					$v \in \{b\}^+$: Wir haben $aXaYa$ gegeben. Die Ableitungsregeln, die X betreffen, sind $\{X \rightarrow bX, X \rightarrow b\}$. Wir zeigen mit Induktion, dass man mit $X$ und den beiden Ableitungsregel für $X$ ausschliesslich die Wörter $v \in \{b\}^+ = \{b^i \mid i \in \mathbb{N}\}$ generieren kann. Sei $n$ die Anzahl angewandter Ableitungsregeln.\\
+					\begin{enumerate}[(i)]
+						\item
+						\textit{Induktionsanfang:}\\
+						Sei $n=1$. Man kann mit einer Ableitung aus $X$ entweder das Wort $bX$ oder $b$ herleiten (nicht aber $\lambda$).\\
+						
+						\item
+						\textit{Induktionsschritt:}\\
+						$n \rightarrow n+1$: Es gibt zwei Fälle:\\
+						Das Wort endet auf $X$: Man kann wieder  $bX$ oder $b$ herleiten.\\
+						Das Wort endet auf $b$: Das Wort kann nicht mehr weiter abgeleitet werden und man erhält nach dem $n$-ten Ableitungsschritt das Wort $b^n$.\\
+					\end{enumerate}
+					
+					\item
+					$w \in \{ab\}^*$: Wir haben $aXaYa$ gegeben. Die Ableitungsregeln, die Y betreffen, sind $\{Y \rightarrow abY, Y \rightarrow ab, Y \rightarrow \lambda\}$. Mit Induktion kann man analog zu 1. beweisen, dass man mit $Y$ und den drei Ableitungsregel für $Y$ ausschliesslich die Wörter $w \in \{ab\}^* = \{(ab)^i \mid i \in \mathbb{N}_0\}$ generieren kann. Der einzige Unterschied ist, dass man durch die dritte Ableitungsregel $Y \rightarrow \lambda$ auch das leere Wort herleiten kann.
+				\end{enumerate}
 				
 				\item
+				Man beginnt in $S$. Für $S$ gibt es nur eine Ableitungsregel $S \rightarrow 0X0$. Wir gehen also von $0X0$ aus. Für $X$ gibt es nun die drei Ableitungsregeln $\{X \rightarrow AX, X \rightarrow BX, X \rightarrow Y\}$. Nun können wir beliebig viele $A$ oder $B$ vor das $X$ schreiben, bevor wir $X$ durch $Y$ ersetzen.
+				
+				Damit erhalten wir das Wort $0WY0$ für $W \in \{A,B\}^*$. 
+				
+				Jetzt können wir sukzessive die Ableitungsregeln $\{AY \rightarrow Y0, BY \rightarrow Y1\}$ anwenden, bis keine $A$ oder $B$ mehr im Wort enthalten sind.
+				
+				Dann können wir noch einmal die letzte Ableitungsregel $\{0Y \rightarrow 0\}$ anwenden.
+				
+				So entsteht das Wort $0w0$ für $w \in \{0,1\}^*$, denn die Anwendung von $\{AY \rightarrow Y0, BY \rightarrow Y1\}$ bewirkt schlussendlich, dass jedes $A$ durch eine 0 und jedes $B$ durch eine 1 ersetzt wird und $\{0Y \rightarrow 0\}$ löscht das $Y$ am Ende.
+				
+				Eine äquivalente reguläre Grammatik ist $G_2' = (\{S, X\}, \{0, 1\}, P_2', S)$ mit
+				\[P_2' = \{S \rightarrow 0X0, X \rightarrow \lambda, X \rightarrow 0, X \rightarrow 1, X \rightarrow X0, X \rightarrow X1\}.\]
+				Der Entwurf ist praktisch selbsterklärend. Wir starten in $S$, gehen über zu $0X0$ und können dann wählen, ob wir $X$ zu $\lambda$, 0 oder 1 ableiten oder 0 bzw. 1 schreiben und danach weiter Buchstaben aus $\{\lambda,0,1\}$ hinzufügen wollen oder nicht (indem wir Regel $X \rightarrow X0$ oder $X \rightarrow X1$ anwenden). Damit generiert die Grammatik $G_2'$ auch die Wörter $0w0$ für $w \in \{0,1\}^*$.
 			\end{enumerate}
 		\end{homeworkProblem}
 		
 		%------------------Aufgabe S2---------------------------------
 		\begin{homeworkProblem}
-			\begin{enumerate}[(a)]
-				\item
-				\item
-			\end{enumerate}	
+			Die Sprache, die von $G$ erzeugt wird, ist
+			\[\{vwaaaxy \mid v=b^{2k+1} \text{ für } k \in \mathbb{N}_0, \quad w,y \in \{a\}^*, \quad x \in \{bb\}^*\}.\]
+			Eine äquivalente reguläre Grammatik ist also $G' = (\{S, A, B, C, D, E, Z\}, \{a, b\}, P', S)$ mit
+			\[P' = \{S \rightarrow bA, A \rightarrow bS, A \rightarrow aA, A \rightarrow aB, B \rightarrow aC, C \rightarrow aD, D \rightarrow bE, E \rightarrow bD, D \rightarrow \lambda, D \rightarrow aF, F \rightarrow aF, F \rightarrow \lambda\}.\]
+			Der NEA, der die Sprache $L(G)$ erzeugt, ist damit:
+			
+			\begin{center}
+			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+			semithick,every node/.style={scale=1}]
+			\tikzstyle{every state}=[circle,text=black]
+			
+			\node[initial,state]			(S)             		{$S$};
+			\node[state]					(A) [right of=S]		{$A$};
+			\node[state]					(B) [right of=A]		{$B$};
+			\node[state]					(C) [right of=B]		{$C$};
+			\node[state,accepting]			(D) [right of=C]		{$D$};
+			\node[state]					(E) [below of=D]		{$E$};
+			\node[state,accepting]			(F) [right of=D]		{$F$};
+			
+			\path	(S)		edge [bend left]					node {b}	(A)
+					(A)		edge [bend left]					node {b}	(S)
+					(A)		edge [loop above]					node {a}	(A)
+					(A)		edge 								node {a}	(B)
+					(B)		edge 								node {a}	(C)
+					(C)		edge 								node {a}	(D)
+					(D)		edge [bend left]					node {b}	(E)
+					(E)		edge [bend left]					node {b}	(D)
+					(D)		edge								node {a}	(F)
+					(F)		edge [loop above]					node {a}	(F)
+			;
+			\end{tikzpicture}
+			\end{center}
 		\end{homeworkProblem}
 		
 		%------------------Aufgabe S3---------------------------------
