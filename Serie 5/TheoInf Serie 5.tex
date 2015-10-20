@@ -275,8 +275,10 @@
 		\begin{homeworkProblem}
 			Die Sprache, die von $G$ erzeugt wird, ist
 			\[\{vwaaaxy \mid v=b^{2k+1} \text{ für } k \in \mathbb{N}_0, \quad w,y \in \{a\}^*, \quad x \in \{bb\}^*\}.\]
-			Eine äquivalente reguläre Grammatik ist also $G' = (\{S, A, B, C, D, E, Z\}, \{a, b\}, P', S)$ mit
-			\[P' = \{S \rightarrow bA, A \rightarrow bS, A \rightarrow aA, A \rightarrow aB, B \rightarrow aC, C \rightarrow aD, D \rightarrow bE, E \rightarrow bD, D \rightarrow \lambda, D \rightarrow aF, F \rightarrow aF, F \rightarrow \lambda\}.\]
+			Eine äquivalente reguläre Grammatik ist also $G' = (\{S, A, B, C, D, E, F\}, \{a, b\}, P', S)$ mit
+			\begin{align*}
+				P' = &\{S \rightarrow bA, A \rightarrow bS, A \rightarrow aA, A \rightarrow aB, B \rightarrow aC, C \rightarrow aD, \\ & D \rightarrow bE, E \rightarrow bD, D \rightarrow \lambda, D \rightarrow aF, F \rightarrow aF, F \rightarrow \lambda\}.
+			\end{align*}
 			Der NEA, der die Sprache $L(G)$ erzeugt, ist damit:
 			
 			\begin{center}
@@ -311,7 +313,91 @@
 		\begin{homeworkProblem}
 			\begin{enumerate}[(a)]
 				\item
+				Eine reguläre Grammatik für die Sprache $L_1$ ist $G_1 = (\{S, A, B, C, D, E, F\}, \{a, b\}, P_1, S)$ mit
+				\begin{align*}
+					P_1 = &\{S \rightarrow aA, S \rightarrow bA, A \rightarrow aB, A \rightarrow bB, B \rightarrow aC, B \rightarrow bC, C \rightarrow aA, C \rightarrow bA, B \rightarrow \lambda, \\ & S \rightarrow aD, S \rightarrow bD, S \rightarrow aE, D \rightarrow aD, D \rightarrow bD, D \rightarrow aE, E \rightarrow aF, F \rightarrow \lambda\}.
+				\end{align*}
+				Um den Entwurf zu begründen ist es einfacher, über den äquivalenten NEA zu argumentieren, der sich leicht von den Regeln ablesen lässt:
+
+				\begin{center}
+				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+				semithick,every node/.style={scale=1}]
+				\tikzstyle{every state}=[circle,text=black]
+				
+				\node[initial,state]			(S)             		{$S$};
+				\node[state,accepting]			(A) [above right of=S]	{$A$};
+				\node[state]					(B) [right of=A]		{$B$};
+				\node[state]					(C) [right of=B]		{$C$};
+				\node[state]					(D) [below right of=S]	{$D$};
+				\node[state]					(E) [right of=D]		{$E$};
+				\node[state,accepting]			(F) [right of=E]		{$F$};
+				
+				\path
+				(S)		edge 								node {a,b}	(A)
+				(S)		edge [below left]					node {a,b}	(D)
+				(S)		edge  								node {a}	(E)
+				(A)		edge 								node {a,b}	(B)
+				(B)		edge 								node {a,b}	(C)
+				(C)		edge [bend left]					node {a,b}	(A)
+				(D)		edge [loop below]					node {a,b}	(D)
+				(D)		edge								node {a}	(E)
+				(E)		edge 								node {a}	(F)
+				;
+				\end{tikzpicture}
+				\end{center}
+				
+				Der NEA wählt zuerst im Startknoten $S$, ob er die Bedingung $(|x|_a + |x|_b) \text{ mod } 3 = 1$ überprüfen will (Knoten $A,B,C$) oder die Bedingung $x$ endet mit $aa$ (Knoten $D,E,F$). Dadurch wird $L_1$ nichtdeterministisch erzeugt und weil der NEA äquivalent zur Grammatik $G_1$ ist, ist $L_1 = L(G_1)$.
+				
+				\pagebreak
+				
 				\item
+				Eine reguläre Grammatik für die Sprache $L_2$ ist $G_2 = (\{S, A, B, C, D, E, F, G\}, \{0,1\}, P_2, S)$ mit
+				\begin{align*}
+					P_2 = &\{S \rightarrow 0S, S \rightarrow 1S, S \rightarrow 1A, A \rightarrow 0B, A \rightarrow 1B, B \rightarrow 0C, B \rightarrow 1C,  C \rightarrow 0D, \\ & C \rightarrow 1D, D \rightarrow 1E, E \rightarrow 0E, E \rightarrow 1E, E \rightarrow 0F, F \rightarrow 0G, G \rightarrow \lambda\}.
+				\end{align*}
+				Wir begründen den Entwurf wieder über den äquivalenten NEA:
+				
+				\begin{center}
+				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+				semithick,every node/.style={scale=0.75}]
+				\tikzstyle{every state}=[circle,text=black]
+				
+				\node[initial,state]			(S)             		{$S$};
+				\node[state]					(A) [right of=S]		{$A$};
+				\node[state]					(B) [right of=A]		{$B$};
+				\node[state]					(C) [right of=B]		{$C$};
+				\node[state]					(D) [right of=C]		{$D$};
+				\node[state]					(E) [right of=D]		{$E$};
+				\node[state]					(F) [right of=E]		{$F$};
+				\node[state,accepting]			(G) [right of=F]		{$G$};
+				
+				\path
+				(S)		edge [loop above]					node {0,1}	(S)
+				(S)		edge 								node {1}	(A)
+				(A)		edge  								node {0,1}	(B)
+				(B)		edge 								node {0,1}	(C)
+				(C)		edge 								node {0,1}	(D)
+				(D)		edge								node {1}	(E)
+				(E)		edge [loop above]					node {0,1}	(E)
+				(E)		edge								node {0}	(F)
+				(F)		edge 								node {0}	(G)
+				;
+				\end{tikzpicture}
+				\end{center}
+				
+				Es ist klar, dass der NEA und die Grammatik $G_2$ äquivalent sind und dass der NEA $L_2$ erzeugt. Also ist $L_2 = L(G_2)$.
+				
+				\item
+				Eine allgemeine Grammatik für die Sprache $L_3$ ist $G_3 = (\{S, A, X, Y, Z\}, \{0,1,2\}, P_3, S)$ mit
+				\begin{align*}
+					P_3 = &\{S \rightarrow XYZ, Z \rightarrow A2Z, 2A \rightarrow A2, YA \rightarrow A1Y, 1A \rightarrow A1, XA \rightarrow 0X, \\ & Z \rightarrow \lambda, Y \rightarrow \lambda, X \rightarrow \lambda\}.
+				\end{align*}
+				Die Idee ist, dass, wenn vor dem $Z$ eine 2 eingefügt wird, immer auch eine 1 vor dem $Y$ und eine 0 vor dem $X$ eingefügt wird. Dafür sorgt ein temporäres $A$, dass von hinten nach vorn durchgeschoben wird. Die letzten drei Regeln in $P_3$ sind dann dafür da, $X$, $Y$ und $Z$ aus dem Wort zu entfernen und das Wort $0^01^02^0 = \lambda$ zu ermöglichen.
+				
+				Die Ableitung des Wortes 000111222 ist damit:
+				\begin{align*}
+				S & \Rightarrow_{G_3} XYZ \Rightarrow_{G_3} XYA2Z \Rightarrow_{G_3} XA1Y2Z \\ & \Rightarrow_{G_3} 0X1Y2Z \Rightarrow_{G_3} 0X1Y2A2Z \Rightarrow_{G_3} 0X1YA22Z \Rightarrow_{G_3} 0X1A1Y22Z \Rightarrow_{G_3} 0XA11Y22Z \\ & \Rightarrow_{G_3} 00X11Y22Z \Rightarrow_{G_3} 00X11Y22A2Z \Rightarrow_{G_3}^2 00X11YA222Z \Rightarrow_{G_3} 00X11A1Y222Z \Rightarrow_{G_3}^2 00XA111Y222Z \\ & \Rightarrow_{G_3} 000X111Y222Z \Rightarrow_{G_3} 000111222
+				\end{align*}
 			\end{enumerate}
 		\end{homeworkProblem}
 	\end{document}
