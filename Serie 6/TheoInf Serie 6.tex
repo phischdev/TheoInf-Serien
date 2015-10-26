@@ -232,17 +232,17 @@
 	\begin{homeworkProblem}
 	\begin{enumerate}[(a)]
 		\item
-		Seien die Zimmer mit 1, 2, 3, ... durchnummeriert und das Tupel $(i,j)$ beschreibe den j-ten Gast aus dem i-ten Bus $(i \in \{1,2,3\},\ j \in \mathbb{N}_0)$. Dann weisen wir den Gästen folgendermassen die Zimmer zu:
+		Seien die Zimmer mit 1, 2, 3, ... durchnummeriert und das Tupel $(i,j)$ beschreibe den j-ten Gast aus dem i-ten Bus $(i \in \{1,2,3\},\ j \in \mathbb{N}_0)$. Zuerst zieht jeder Gast im Hotel mit Zimmernummer $k$ in Zimmernummer $6k$. $(0,j)$ beschreibe die bereits bestehenden Gäste. Nun weisen wir den Gästen aus den Bussen folgendermassen ihre Zimmer zu:
 		\begin{itemize}
-			\item Dem Gast $(1,j)$ weisen wir Zimmer $4j+1$ (ungerade) zu. 
+			\item Dem Gast $(1,j)$ weisen wir Zimmer $6j+1$ (ungerade) zu. 
 			\item Dem Gast $(2,j)$ weisen wir für $k \in \mathbb{N}_0$ Zimmer
 			$\begin{cases}
-			    4j+2, & \text{für } j=2k \\
-			    4j+3, & \text{für } j=2k+1
+			    6j+2, & \text{für } j=2k \\
+			    6j+3, & \text{für } j=2k+1
 			\end{cases}$ zu.
-			\item Dem Gast $(3,j)$ weisen wir Zimmer $4j+4$ zu.
+			\item Dem Gast $(3,j)$ weisen wir Zimmer $6j+4$ zu.
 		\end{itemize}
-		Damit wiederholt sich das Muster $(1,j)$, $(2,j)$, $(2,j)$, $(3,j)$ für aufsteigende Zimmernummern. Gäste aus Bus 1 sind in ungeraden Zimmernummern, Gäste aus Bus 2 immer paarweise nebeneinander und Gäste aus Bus 3 werden auch untergebracht.
+		Damit wiederholt sich das Muster $(1,j)$, $(2,j)$, $(2,j)$, $(3,j)$, leer, $(0,j)$ für aufsteigende Zimmernummern. Gäste aus Bus 1 sind in ungeraden Zimmernummern, Gäste aus Bus 2 immer paarweise nebeneinander und Gäste aus Bus 3 werden auch untergebracht.
 		
 		\item
 		
