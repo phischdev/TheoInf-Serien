@@ -256,6 +256,25 @@
 			
 	\begin{homeworkProblem}
 	
+	Die Matrix für $L_{1,diag}$ sieht wie folgt aus:
+	
+	\begin{center}
+	\begin{tabular}{c|c c c c c c c c c c}
+	 & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $w_6$ & $w_7$ & $w_8$ & $w_9$ & $\cdots$ \\
+	\hline
+	$M_1$ & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & $\cdots$ \\
+	$M_2$ & 1 & 1 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & $\cdots$ \\
+	$M_3$ & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & $\cdots$ \\
+	$M_4$ & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & $\cdots$ \\
+	$M_5$ & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & $\cdots$ \\
+	$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ &  \\
+	\end{tabular}
+	\end{center}
+	
+	Wenn wir die Diagonalelemente nehmen, bekommen wir $L_{1,diag} = \{w \in (\Sigma_\text{bool})^* \mid (w=w_1$ und $M_1$ akzeptiert $w_1$) oder ($w=w_i$ für ein $i \in \mathbb{N}-\{0,1\}$ und $M_i$ akzeptiert $w_i$ nicht)$\}$. Nach Satz 5.5 ist $L_{1,diag} \notin \mathcal{L}_ \text{RE}$.\\
+	
+	Ein analoger Beweis ist für $L_{1,diag}$ nicht möglich, weil die Sprache nur Auskunft über $M_{i^2}$ gibt. Also wissen wir z.B. nicht, ob $M_2$ das Wort $w=w_i$ akzeptiert oder nicht.
+	
 	\end{homeworkProblem}
 	
 	%---------------------------------------------------------------
