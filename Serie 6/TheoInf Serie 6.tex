@@ -232,6 +232,17 @@
 	\begin{homeworkProblem}
 	\begin{enumerate}[(a)]
 		\item
+		Seien die Zimmer mit 1, 2, 3, ... durchnummeriert und das Tupel $(i,j)$ beschreibe den j-ten Gast aus dem i-ten Bus $(i \in \{1,2,3\},\ j \in \mathbb{N}_0)$. Dann weisen wir den Gästen folgendermassen die Zimmer zu:
+		\begin{itemize}
+			\item Dem Gast $(1,j)$ weisen wir Zimmer $4j+1$ (ungerade) zu. 
+			\item Dem Gast $(2,j)$ weisen wir für $k \in \mathbb{N}_0$ Zimmer
+			$\begin{cases}
+			    4j+2, & \text{für } j=2k \\
+			    4j+3, & \text{für } j=2k+1
+			\end{cases}$ zu.
+			\item Dem Gast $(3,j)$ weisen wir Zimmer $4j+4$ zu.
+		\end{itemize}
+		Damit wiederholt sich das Muster $(1,j)$, $(2,j)$, $(2,j)$, $(3,j)$ für aufsteigende Zimmernummern. Damit sind Gäste aus Bus 1 in ungeraden Zimmernummern und Gäste aus Bus 2 immer paarweise nebeneinander.
 		
 		\item
 		
