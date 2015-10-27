@@ -234,18 +234,18 @@
 		\item
 		Seien die Zimmer mit 1, 2, 3, ... durchnummeriert und das Tupel $(i,j)$ beschreibe den $j$-ten Gast aus dem $i$-ten Bus $(i \in \{1,2,3\},\ j \in \mathbb{N}_0)$. Zuerst zieht jeder Gast im Hotel mit Zimmernummer $k$ in Zimmernummer $6k$. $(0,j)$ beschreibe die bereits bestehenden Gäste. Nun weisen wir den Gästen aus den Bussen folgendermassen ihre Zimmer zu:
 		\begin{itemize}
-			\item Dem Gast $(1,j)$ weisen wir Zimmer $6j+1$ (ungerade) zu. 
-			\item Dem Gast $(2,j)$ weisen wir für $k \in \mathbb{N}_0$ Zimmer
+			\item Gast $(1,j)$ weisen wir Zimmer $6j+1$ (ungerade) zu. 
+			\item Dem Gast $(2,j)$ weisen wir Zimmer
 			$\begin{cases}
-			    6j+2, & \text{für } j=2k \\
-			    6j+3, & \text{für } j=2k+1
-			\end{cases}$ zu.
+			    6j+2, & \text{für } \text{j gerade} \\
+			    6j+3, & \text{für } \text{j ungerade}
+			\end{cases}$ \; zu.
 			\item Dem Gast $(3,j)$ weisen wir Zimmer $6j+4$ zu.
 		\end{itemize}
 		Damit wiederholt sich das Muster $(1,j)$, $(2,j)$, $(2,j)$, $(3,j)$, leer, $(0,j)$ für aufsteigende Zimmernummern. Gäste aus Bus 1 sind in ungeraden Zimmernummern, Gäste aus Bus 2 immer paarweise nebeneinander und Gäste aus Bus 3 werden auch untergebracht.
 		
 		\item
-		Zuerst weisen wir den Bussen eine Reihenfolge zu, je nach dem, wann sie angekommen sind. Der erste Bus, der ankommt, bekommt Nummer 1, usw. Wir beschreiben wieder den j-ten Gast aus Bus i mit dem Tupel $(i,j)$, mit $i \in \{1,2,3\},\ j \in \mathbb{N}$. Dann weisen wir dem Gast $(i,j)$ die Zimmernummer $p^j$ zu, wobei $p$ die $i$-te Primzahl ist (nach Grösse geordnet). So hat jeder Gast eindeutig ein Zimmer, weil jede gegebene Primzahl und ihre Potenzen teilerfremd zu jeder anderen Primzahl und ihren Potenzen ist (für positive Exponenten) und weil es abzählbar unendlich viele Primzahlen gibt.
+		Zuerst weisen wir den Bussen eine Reihenfolge zu, je nach dem, wann sie angekommen sind. Der erste Bus, der ankommt, bekommt Nummer 1, usw. Wir beschreiben wieder den j-ten Gast aus Bus i mit dem Tupel $(i,j)$, mit $i \in \{1,2,3\},\ j \in \mathbb{N}$. Dann weisen wir dem Gast $(i,j)$ die Zimmernummer $p_i^j$ zu, wobei $p$ die $i$-te Primzahl ist (nach Grösse geordnet). So hat jeder Gast eindeutig ein Zimmer, weil jede gegebene Primzahl und ihre Potenzen teilerfremd zu jeder anderen Primzahl und ihren Potenzen ist (für positive Exponenten) und weil es abzählbar unendlich viele Primzahlen gibt.
 		
 	\end{enumerate}
 	\end{homeworkProblem}
