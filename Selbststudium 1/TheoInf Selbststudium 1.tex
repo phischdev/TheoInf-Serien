@@ -1,0 +1,403 @@
+%BEGIN_FOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD	%PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{enumerate} % used for enumerate args
+\usepackage{multicol} % columns
+
+\usepackage{pgf} 
+\usepackage{tikz}
+\usepackage{forest} % treees :D
+\usetikzlibrary{arrows,automata} %for FSM
+\usetikzlibrary{positioning}
+\usepackage{mathtools}
+
+% Custom commands
+\DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
+\newcommand{\Ebool}{\{0, 1\}}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+% Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
+\DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
+\DeclarePairedDelimiter\norm{\lVert}{\rVert} % nice ||x||
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+%\chead{\hmwkClass\ (\hmwkClassInstructor\): \hmwkTitle} % Top center head
+%\rhead{\firstxmark} % Top right header
+\rhead{}
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Seite\ \thepage\ von\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Pascal} % Load Pascal syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Pascal in this example
+	frame=single, % Single frame around code
+	basicstyle=\small\ttfamily, % Use small true type font
+	keywordstyle=[1]\color{Blue}\bf, % Pascal functions bold and blue
+	keywordstyle=[2]\color{Purple}, % Pascal function arguments purple
+	keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+	identifierstyle=, % Nothing special about identifiers                                         
+	commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+	stringstyle=\color{Purple}, % Strings are purple
+	showstringspaces=false, % Don't put marks in string spaces
+	tabsize=5, % 5 spaces per tab
+	%
+	% Put standard Pascal functions not included in the default language here
+	morekeywords={rand},
+	%
+	% Put Pascal function parameters here
+	morekeywords=[2]{on, off, interp},
+	%
+	% Put user defined functions here
+	morekeywords=[3]{test},
+	%
+	morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+	numbers=left, % Line numbers on left
+	firstnumber=1, % Line numbers start with line 1
+	numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+	stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .p), the second parameter is the caption
+\newcommand{\pascalscript}[2]{
+	\begin{itemize}
+		\item[]\lstinputlisting[caption=#2,label=#1]{#1.p}
+	\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+%\newcommand{\enterProblemHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%}
+
+% Header and footer for when a page split occurs between problem environments
+%\newcommand{\exitProblemHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+%}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+%END_FOLD
+\newenvironment{homeworkProblem}[1][Aufgabe S\arabic{homeworkProblemCounter}]
+%BEGIN_FOLD
+{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+	
+	\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+	\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+	\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+	%\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+%\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+	\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+	\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+	\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+	%\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+%\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD %NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Selbststudium - Blatt} % Assignment title
+\newcommand{\hmwkDueDate}{23.\ Oktober\ 2015} % Due date
+\newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
+\newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
+\newcommand{\hmwkNumber}{1}
+\newcommand{\hmwkAssiInfo}{Assistent: Sacha Krug, CHN D 42}
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle\ \hmwkNumber}}\\
+	\normalsize\vspace{0.1in}\small{Abgabe\ bis\ \hmwkDueDate}
+	\\\hmwkAssiInfo
+	\\
+	\vspace{0.1in}\large{\textit{\hmwkClassInstructor}
+		\vspace{3in}
+	}}
+	\author{\textbf{\hmwkAuthorName}}
+	\date{} % Insert date here if you want it to appear below your name
+	
+	%----------------------------------------------------------------------------------------
+	%END_FOLD
+	\begin{document}
+		%BEGIN_FOLD
+		\maketitle
+		
+		%----------------------------------------------------------------------------------------
+		%	TABLE OF CONTENTS
+		%----------------------------------------------------------------------------------------
+		
+		%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+		%END_FOLD
+		%----------------------------------------------------------------------------------------
+		\addtocounter{homeworkProblemCounter}{0}
+		%----------------------------------------------------------------------------------------
+		\newpage
+		%\tableofcontents
+		%\newpage
+		
+		%------------------Aufgabe S1---------------------------------
+		
+		\begin{homeworkProblem}
+			\begin{enumerate}[(a)]
+				\item
+				Vermutung: L(G$_1)=\{avawa \mid v \in \{b\}^+, w \in \{ab\}^*\}$
+				
+				Beweis: Die Grammatik beginnt im Startsymbol $S$, für das es nur eine Ableitungsregel gibt: $S \rightarrow aXaYa$. Da das Wort $aXaYa$ immer noch die Nichtterminale $X$ und $Y$ enthält, müssen wir weiter ableiten. Es gibt in $P_1$ keine Ableitungsregel $QaR \rightarrow_{G_1} S$ für beliebige $Q,R,S \in (\Sigma_N \cup \Sigma_T)^*$, womit jedes Wort in der von der Grammatik erzeugten Sprache die Form $avawa$ aufweisen muss, für noch zu bestimmende $v$ und $u$.
+				
+				Im Folgenden beweisen wir, dass $v \in \{b\}^+$ und $w \in \{ab\}^*$.
+				\begin{enumerate}[1.]
+					\item
+					$v \in \{b\}^+$: Wir haben $aXaYa$ gegeben. Die Ableitungsregeln, die X betreffen, sind $\{X \rightarrow bX, X \rightarrow b\}$. Wir zeigen mit Induktion, dass man mit $X$ und den beiden Ableitungsregel für $X$ ausschliesslich die Wörter $v \in \{b\}^+ = \{b^i \mid i \in \mathbb{N}\}$ generieren kann. Sei $n$ die Anzahl angewandter Ableitungsregeln.\\
+					\begin{enumerate}[(i)]
+						\item
+						\textit{Induktionsanfang:}\\
+						Sei $n=1$. Man kann mit einer Ableitung aus $X$ entweder das Wort $bX$ oder $b$ herleiten (nicht aber $\lambda$).\\
+						
+						\item
+						\textit{Induktionsschritt:}\\
+						$n \rightarrow n+1$: Es gibt zwei Fälle:\\
+						Das Wort endet auf $X$: Man kann wieder  $bX$ oder $b$ herleiten.\\
+						Das Wort endet auf $b$: Das Wort kann nicht mehr weiter abgeleitet werden und man erhält nach dem $n$-ten Ableitungsschritt das Wort $b^n$.\\
+					\end{enumerate}
+					
+					\item
+					$w \in \{ab\}^*$: Wir haben $aXaYa$ gegeben. Die Ableitungsregeln, die Y betreffen, sind $\{Y \rightarrow abY, Y \rightarrow ab, Y \rightarrow \lambda\}$. Mit Induktion kann man analog zu 1. beweisen, dass man mit $Y$ und den drei Ableitungsregel für $Y$ ausschliesslich die Wörter $w \in \{ab\}^* = \{(ab)^i \mid i \in \mathbb{N}_0\}$ generieren kann. Der einzige Unterschied ist, dass man durch die dritte Ableitungsregel $Y \rightarrow \lambda$ auch das leere Wort herleiten kann.
+				\end{enumerate}
+				
+				\item
+				Man beginnt in $S$. Für $S$ gibt es nur eine Ableitungsregel $S \rightarrow 0X0$. Wir gehen also von $0X0$ aus. Für $X$ gibt es nun die drei Ableitungsregeln $\{X \rightarrow AX, X \rightarrow BX, X \rightarrow Y\}$. Nun können wir beliebig viele $A$ oder $B$ vor das $X$ schreiben, bevor wir $X$ durch $Y$ ersetzen.
+				
+				Damit erhalten wir das Wort $0WY0$ für $W \in \{A,B\}^*$. 
+				
+				Jetzt können wir sukzessive die Ableitungsregeln $\{AY \rightarrow Y0, BY \rightarrow Y1\}$ anwenden, bis keine $A$ oder $B$ mehr im Wort enthalten sind.
+				
+				Dann können wir noch einmal die letzte Ableitungsregel $\{0Y \rightarrow 0\}$ anwenden.
+				
+				So entsteht das Wort $0w0$ für $w \in \{0,1\}^*$, denn die Anwendung von $\{AY \rightarrow Y0, BY \rightarrow Y1\}$ bewirkt schlussendlich, dass jedes $A$ durch eine 0 und jedes $B$ durch eine 1 ersetzt wird und $\{0Y \rightarrow 0\}$ löscht das $Y$ am Ende.
+				
+				Eine äquivalente reguläre Grammatik ist $G_2' = (\{S, X\}, \{0, 1\}, P_2', S)$ mit
+				\[P_2' = \{S \rightarrow 0X0, X \rightarrow \lambda, X \rightarrow 0, X \rightarrow 1, X \rightarrow X0, X \rightarrow X1\}.\]
+				Der Entwurf ist praktisch selbsterklärend. Wir starten in $S$, gehen über zu $0X0$ und können dann wählen, ob wir $X$ zu $\lambda$, 0 oder 1 ableiten oder 0 bzw. 1 schreiben und danach weiter Buchstaben aus $\{\lambda,0,1\}$ hinzufügen wollen oder nicht (indem wir Regel $X \rightarrow X0$ oder $X \rightarrow X1$ anwenden). Damit generiert die Grammatik $G_2'$ auch die Wörter $0w0$ für $w \in \{0,1\}^*$.
+			\end{enumerate}
+		\end{homeworkProblem}
+		
+		%------------------Aufgabe S2---------------------------------
+		\begin{homeworkProblem}
+			Die Sprache, die von $G$ erzeugt wird, ist
+			\[\{vwaaaxy \mid v=b^{2k+1} \text{ für } k \in \mathbb{N}_0, \quad w,y \in \{a\}^*, \quad x \in \{bb\}^*\}.\]
+			Eine äquivalente reguläre Grammatik ist also $G' = (\{S, A, B, C, D, E, F\}, \{a, b\}, P', S)$ mit
+			\begin{align*}
+				P' = &\{S \rightarrow bA, A \rightarrow bS, A \rightarrow aA, A \rightarrow aB, B \rightarrow aC, C \rightarrow aD, \\ & D \rightarrow bE, E \rightarrow bD, D \rightarrow \lambda, D \rightarrow aF, F \rightarrow aF, F \rightarrow \lambda\}.
+			\end{align*}
+			Der NEA, der die Sprache $L(G)$ erzeugt, ist damit:
+			
+			\begin{center}
+			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+			semithick,every node/.style={scale=1}]
+			\tikzstyle{every state}=[circle,text=black]
+			
+			\node[initial,state]			(S)             		{$S$};
+			\node[state]					(A) [right of=S]		{$A$};
+			\node[state]					(B) [right of=A]		{$B$};
+			\node[state]					(C) [right of=B]		{$C$};
+			\node[state,accepting]			(D) [right of=C]		{$D$};
+			\node[state]					(E) [below of=D]		{$E$};
+			\node[state,accepting]			(F) [right of=D]		{$F$};
+			
+			\path	(S)		edge [bend left]					node {b}	(A)
+					(A)		edge [bend left]					node {b}	(S)
+					(A)		edge [loop above]					node {a}	(A)
+					(A)		edge 								node {a}	(B)
+					(B)		edge 								node {a}	(C)
+					(C)		edge 								node {a}	(D)
+					(D)		edge [bend left]					node {b}	(E)
+					(E)		edge [bend left]					node {b}	(D)
+					(D)		edge								node {a}	(F)
+					(F)		edge [loop above]					node {a}	(F)
+			;
+			\end{tikzpicture}
+			\end{center}
+		\end{homeworkProblem}
+		
+		%------------------Aufgabe S3---------------------------------
+		\begin{homeworkProblem}
+			\begin{enumerate}[(a)]
+				\item
+				Eine reguläre Grammatik für die Sprache $L_1$ ist $G_1 = (\{S, A, B, C, D, E, F\}, \{a, b\}, P_1, S)$ mit
+				\begin{align*}
+					P_1 = &\{S \rightarrow aA, S \rightarrow bA, A \rightarrow aB, A \rightarrow bB, B \rightarrow aC, B \rightarrow bC, C \rightarrow aA, C \rightarrow bA, B \rightarrow \lambda, \\ & S \rightarrow aD, S \rightarrow bD, S \rightarrow aE, D \rightarrow aD, D \rightarrow bD, D \rightarrow aE, E \rightarrow aF, F \rightarrow \lambda\}.
+				\end{align*}
+				Um den Entwurf zu begründen ist es einfacher, über den äquivalenten NEA zu argumentieren, der sich leicht von den Regeln ablesen lässt:
+
+				\begin{center}
+				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+				semithick,every node/.style={scale=1}]
+				\tikzstyle{every state}=[circle,text=black]
+				
+				\node[initial,state]			(S)             		{$S$};
+				\node[state,accepting]			(A) [above right of=S]	{$A$};
+				\node[state]					(B) [right of=A]		{$B$};
+				\node[state]					(C) [right of=B]		{$C$};
+				\node[state]					(D) [below right of=S]	{$D$};
+				\node[state]					(E) [right of=D]		{$E$};
+				\node[state,accepting]			(F) [right of=E]		{$F$};
+				
+				\path
+				(S)		edge 								node {a,b}	(A)
+				(S)		edge [below left]					node {a,b}	(D)
+				(S)		edge  								node {a}	(E)
+				(A)		edge 								node {a,b}	(B)
+				(B)		edge 								node {a,b}	(C)
+				(C)		edge [bend left]					node {a,b}	(A)
+				(D)		edge [loop below]					node {a,b}	(D)
+				(D)		edge								node {a}	(E)
+				(E)		edge 								node {a}	(F)
+				;
+				\end{tikzpicture}
+				\end{center}
+				
+				Der NEA wählt zuerst im Startknoten $S$, ob er die Bedingung $(|x|_a + |x|_b) \text{ mod } 3 = 1$ überprüfen will (Knoten $A,B,C$) oder die Bedingung $x$ endet mit $aa$ (Knoten $D,E,F$). Dadurch wird $L_1$ nichtdeterministisch erzeugt und weil der NEA äquivalent zur Grammatik $G_1$ ist, ist $L_1 = L(G_1)$.
+				
+				\pagebreak
+				
+				\item
+				Eine reguläre Grammatik für die Sprache $L_2$ ist $G_2 = (\{S, A, B, C, D, E, F, G\}, \{0,1\}, P_2, S)$ mit
+				\begin{align*}
+					P_2 = &\{S \rightarrow 0S, S \rightarrow 1S, S \rightarrow 1A, A \rightarrow 0B, A \rightarrow 1B, B \rightarrow 0C, B \rightarrow 1C,  C \rightarrow 0D, \\ & C \rightarrow 1D, D \rightarrow 1E, E \rightarrow 0E, E \rightarrow 1E, E \rightarrow 0F, F \rightarrow 0G, G \rightarrow \lambda\}.
+				\end{align*}
+				Wir begründen den Entwurf wieder über den äquivalenten NEA:
+				
+				\begin{center}
+				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+				semithick,every node/.style={scale=0.75}]
+				\tikzstyle{every state}=[circle,text=black]
+				
+				\node[initial,state]			(S)             		{$S$};
+				\node[state]					(A) [right of=S]		{$A$};
+				\node[state]					(B) [right of=A]		{$B$};
+				\node[state]					(C) [right of=B]		{$C$};
+				\node[state]					(D) [right of=C]		{$D$};
+				\node[state]					(E) [right of=D]		{$E$};
+				\node[state]					(F) [right of=E]		{$F$};
+				\node[state,accepting]			(G) [right of=F]		{$G$};
+				
+				\path
+				(S)		edge [loop above]					node {0,1}	(S)
+				(S)		edge 								node {1}	(A)
+				(A)		edge  								node {0,1}	(B)
+				(B)		edge 								node {0,1}	(C)
+				(C)		edge 								node {0,1}	(D)
+				(D)		edge								node {1}	(E)
+				(E)		edge [loop above]					node {0,1}	(E)
+				(E)		edge								node {0}	(F)
+				(F)		edge 								node {0}	(G)
+				;
+				\end{tikzpicture}
+				\end{center}
+				
+				Es ist klar, dass der NEA und die Grammatik $G_2$ äquivalent sind und dass der NEA $L_2$ erzeugt. Also ist $L_2 = L(G_2)$.
+				
+				\item
+				Eine allgemeine Grammatik für die Sprache $L_3$ ist $G_3 = (\{S, A, X, Y, Z\}, \{0,1,2\}, P_3, S)$ mit
+				\begin{align*}
+					P_3 = &\{S \rightarrow XYZ, Z \rightarrow A2Z, 2A \rightarrow A2, YA \rightarrow A1Y, 1A \rightarrow A1, XA \rightarrow 0X, \\ & Z \rightarrow \lambda, Y \rightarrow \lambda, X \rightarrow \lambda\}.
+				\end{align*}
+				Die Idee ist, dass, wenn vor dem $Z$ eine 2 eingefügt wird, immer auch eine 1 vor dem $Y$ und eine 0 vor dem $X$ eingefügt wird. Dafür sorgt ein temporäres $A$, dass von hinten nach vorn durchgeschoben wird. Die letzten drei Regeln in $P_3$ sind dann dafür da, $X$, $Y$ und $Z$ aus dem Wort zu entfernen und das Wort $0^01^02^0 = \lambda$ zu ermöglichen.
+				
+				Die Ableitung des Wortes 000111222 ist damit:
+				\begin{align*}
+				S & \Rightarrow_{G_3} XYZ \Rightarrow_{G_3} XYA2Z \Rightarrow_{G_3} XA1Y2Z \\ & \Rightarrow_{G_3} 0X1Y2Z \Rightarrow_{G_3} 0X1Y2A2Z \Rightarrow_{G_3} 0X1YA22Z \Rightarrow_{G_3} 0X1A1Y22Z \Rightarrow_{G_3} 0XA11Y22Z \\ & \Rightarrow_{G_3} 00X11Y22Z \Rightarrow_{G_3} 00X11Y22A2Z \Rightarrow_{G_3}^2 00X11YA222Z \Rightarrow_{G_3} 00X11A1Y222Z \Rightarrow_{G_3}^2 00XA111Y222Z \\ & \Rightarrow_{G_3} 000X111Y222Z \Rightarrow_{G_3} 000111222
+				\end{align*}
+			\end{enumerate}
+		\end{homeworkProblem}
+	\end{document}
