@@ -256,10 +256,23 @@
 			
 	\begin{homeworkProblem}
 
-	Sei $A = [d_{ij}]_{i,j=1,...,\infty}$ eine unendliche Boole’sche Matrix mit	$d_{ij} = 1 \iff M_i$ akzeptiert $w_j$.
+	Sei $A = [d_{ij}]_{i,j=1,...,\infty}$ eine unendliche Boole’sche Matrix mit	$d_{ij} = 1 \iff M_i$ akzeptiert $w_j$. Dann ist 
 	
-	Dann ist für $L_1$ $d_{i,i^2}=0$ und für $L_2$ $d_{i^2,i}=0$, ansonsten 1.
+	\[L_1 = \{w \in \{0,1\}^* \mid w=w_{i^2} \text{ für ein } i \in \mathbb{N} \text{ und } d_{ii^2}=0\}\] 
+	und 
+	\[L_2 = \{w \in \{0,1\}^* \mid w=w_i \text{ für ein } i \in \mathbb{N} \text{ und } d_{i^2i}=0\}.\]
 	
+	Wir beweisen $L_2 \in \mathcal{L}_{RE}$ indirekt. Sei $L_2 \in \mathcal{L}_{RE}$. Dann ist $L_2 = L(M)$ für eine TM $M$. Weil $M$ eine der Turingmaschinen in der Nummerierung aller Turingmaschinen sein muss, existiert ein $i \in \mathbb{N}-\{0\}$, so dass $M = M_{i^2}$. Aber $L_2$ kann nicht gleich $L(M_{i^2})$ sein, weil folgende Äquivalenz gilt:
+	
+	\[w_i \in L_2 \iff d_{i^2i} = 0 \iff w_i \notin L(M_{i^2}),\]
+	
+	d.h., $w_i$ ist in genau einer der Sprachen $L_2$ oder $L(M_{i^2})$. Also ist $L_2 \notin \mathcal{L}_{RE}$.\\
+	
+	Man kann keinen analogen Beweis für $L_1$ führen, weil der Beweis nur für die Wörter $w_{i^2}$ möglich ist (wegen $d_{ii^2}=0$). Zum Beispiel ist $w_2$ sowohl in $L_1$ als auch in $L(M_2)$. Die Äquivalenz:
+		
+	\[w_{i^2} \in L_1 \iff d_{ii^2} = 0 \iff w_{i^2} \notin L(M_i),\]
+	
+	gilt also nicht allgemein.
 	\end{homeworkProblem}
 	
 	%---------------------------------------------------------------
