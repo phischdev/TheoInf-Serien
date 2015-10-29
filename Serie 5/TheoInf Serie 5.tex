@@ -285,8 +285,42 @@
 		\item
 		Wir definieren $(L_\text{diag'})^\complement = (L_2)^\complement$ wie folgt:
 		
-		\[(L_\text{diag'})^\complement = \{w \in \{0,1\}^* \mid M_{i^2} \text{ akzeptiert } w \text{ genau dann, wenn } w=w_i \text{, für ein } i \in \mathbb{N} \}.\]
+		\[(L_\text{diag'})^\complement = \{w \in \{0,1\}^* \mid w=w_i \text{ für ein } i \in \mathbb{N} \text{ und } M_{i^2} \text{ akzeptiert } w\}.\]
+	
 		\item
+		
+		Wir zeigen $(L_\text{diag'})^\complement \leq_R L_U$. Dafür beschreiben wir einen Algorithmus $B$, der mit $A$ als Teilprogramm die Sprache $(L_\text{diag'})^\complement$ entscheidet:
+		
+		\begin{center}
+		\begin{tikzpicture}
+		
+		\draw (0,0) rectangle (12,4);
+		\draw (1,1) rectangle (3,3);
+		\draw (5,1) rectangle (7,3);
+		\draw (9,1) rectangle (11,3);
+		
+		\draw[thick,->] (-1,2) to node [above left] {$x \in (\Sigma_{bool}^*)$} (1,2);
+		\draw[thick,->] (3,2.5) to node [above] {$x=w_i$} (5,2.5);
+		\draw[thick,->] (3,1.5) to node [above] {Kod$(M_{i^2})$} (5,1.5);
+		\draw[thick,->] (7,2) to node [above] {\small{Kod$(M_{i^2})\#w_i$}} (9,2);
+		\draw[thick,->] (7,2) to node [below] {$M_{i^2}$ akz. $w_i$} (9,2);
+		
+		\draw[thick,->] (11,2.5) -- (13,2.5);
+		\draw[thick,->] (11,1.5) -- (13,1.5);
+		
+		\draw (12.9,2.75) node {\small{Kod$(M_{i^2})\#w_i \in L_\text{diag'})^\complement$}};
+		\draw (12.05,2.25) node {$M_{i^2}$ akz. $w_i$};
+		\draw (12.9,1.75) node {\small{Kod$(M_{i^2})\#w_i \notin L_\text{diag'})^\complement$}};
+		\draw (12.15,1.25) node {$M_{i^2}$ verw. $w_i$};
+		
+		\draw (2,2) node {$C$};
+		\draw (6,2.35) node {$A$};
+		\draw (6,1.65) node {$L(A)=L_U$};
+		\draw (10,2) node {$D$};
+		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
+		
+		\end{tikzpicture}
+		\end{center}
 		
 	\end{enumerate}
 	\end{homeworkProblem}
