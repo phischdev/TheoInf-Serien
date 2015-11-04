@@ -246,13 +246,13 @@
 		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
 		\draw[thick,->] (2,2.5) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x$} (4.3,2.5);
 		\draw[thick,->] (2,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (4.3,1.5);
-		\draw[thick,->] (5.7,2) to node [align=right, scale=0.75] {$w'=\text{Kod}(M)\#x\#0^i$} (8.7,2);
+		\draw[thick,->] (5.7,2) to node [above, align=right, scale=0.75] {$w'=\text{Kod}(M)\#x\#0^i$} (8.7,2);
 		
-		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_u$} (15,2.5);
-		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\quad $w \notin L_u$} (15,1.5);
+		\draw[thick,->] (11,2.5) to node [above, align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_u$} (15,2.5);
+		\draw[thick,->] (11,1.5) to node [above, align=right, scale=0.9] {verwirft $w'$\quad\;\; $w \notin L_u$} (15,1.5);
 		
 		\draw[thick,-] (1.3,1) -- (1.3,0.5);
-		\draw[thick,-] (1.3,0.5) to node [align=left]{$w\not=\text{Kod}(M)\#w$} (11.5,0.5);
+		\draw[thick,-] (1.3,0.5) to node [below, align=left]{$w\not=\text{Kod}(M)\#w$} (11.5,0.5);
 		\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
 		
 		\draw (1.2,2) node {$Syntax$};
@@ -281,9 +281,9 @@
 		{({L_{q_i}}')}^C = 
 		\left\{ 
 			\begin{array}{lll}
-				w \not= \mbox{Kod}(M)\#x\#0^i \\
-				w     = \mbox{Kod}(M)\#x\#0^i \mbox{ und M hat weniger als $i+1$ Zustände}\\
-				w     = \mbox{Kod}(M)\#x\#0^i \mbox{, M hat mehr als $i$ Zustände, M erreicht den $i$-ten Zustand nicht}\\
+				(1) & w \not= \mbox{Kod}(M)\#x\#0^i \\
+				(2) & w     = \mbox{Kod}(M)\#x\#0^i \mbox{ und M hat weniger als $i+1$ Zustände}\\
+				(3) & w     = \mbox{Kod}(M)\#x\#0^i \mbox{, M hat mehr als $i$ Zustände, M erreicht den $i$-ten Zustand nicht}\\
 			\end{array}
 		\right.
 	\]
@@ -292,30 +292,35 @@
 	\begin{center}
 		\begin{tikzpicture}
 		
-		\draw (0,0) rectangle (12,4);
-		\draw (1,1) rectangle (3,3);
-		\draw (5,1) rectangle (7,3);
-		\draw (9,1) rectangle (11,3);
+		\draw (0,0.3) rectangle (13.4,4);
+		\draw (0.5,1.4) rectangle (2,2.6);
+		\draw (4.6,1.5) rectangle (5.3,2.5);
+		\draw (7.7, 1.7) rectangle (9.3, 3.7);
+		\draw (8.7,1) rectangle (11,3);
+		\draw (0.2,0.8) rectangle (5.9,3.2);
 		
-		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (1,2);
-		\draw[thick,->] (3,2.5) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x$} (5,2.5);
-		\draw[thick,->] (3,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (5,1.5);
-		\draw[thick,->] (7,2) to node [align=center, scale=0.75] {$w'=$\\$\text{Kod}(M)\#x\#0^i$} (9,2);
+		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
+		\draw[thick,->] (2,2) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x\#0^i$} (4.6,2);
+		\draw[thick,->] (5.3,2.3) to node [above, align=left, scale=0.75] {$w'=\text{Kod}(M)\#x$} (7.7,2.3);
 		
-		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\\ $w \in L_u$} (13,2.5);
-		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\\$w \notin L_u$} (13,1.5);
+		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_u$} (15,2.5);
+		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\quad $w \notin L_u$} (15,1.5);
 		
-		\draw[thick,-] (2,1) -- (2,0.5);
-		\draw[thick,-] (2,0.5) -- (11.5,0.5);
-		\draw[thick,-] (11.5,0.5) -- (11.5,1.5);
+		\draw[thick,-] (1.3,1) -- (1.3,-0.4);
+		\draw[thick,->] (1.3,-0.4) to node [above, align=left, scale=0.9]{$(1)$ oder $(2)$ akzeptieren} (5,-0.4);
+		%\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
 		
-		\draw (2,2) node {$Syntax$};
-		\draw (6,2) node {$concat$};
-		\draw (10,2) node [scale=0.9] {$L(M_{q_i})=L_{q_i}$};
+		\draw (1.25,2) node {$Syntax$};
+		\draw (8.5,3) node [align=center] {$L_H$};
+		\draw (9.9,2) node [align=center] {$M_{q_i}$\\\\$L(M_{q_i})=L_{q_i}$};
 		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
-		
+		\draw (3.2,3.4) node {Algorithmus A};
 		\end{tikzpicture}
 	\end{center}
+	Für ein Wort $w$ bestimmt Algorithmus $A$ zunächst seine Syntax. Ist diese nicht passend für ein Wort in $L_u$ $(1)$ wird das Wort akzeptiert. Ist diese passend aber hat M weniger als $i+1$ Zustände $(2)$ wird das Wort akzeptiert.\\
+	Nach der Annahme ist $L_H$ rekursiv, daher kann der Algorithmus A eine TM simulieren, die prüft, ob $w'=\text{Kod}(M)\#x \in L_H$ und damit ob $M$ auf $x$ hält. Hält $M$ nicht, ist $(3)$ erfüllt und $w$ wird akzeptiert. Hält $M$, so kann $M$ von einer TM $M_M$in endlicher Zeit simuliert werden. Dabei wird festgehalten, ob $M$ den $i$-ten Zustand mindestens einmal erreicht. Falls ja, so wird $w$ verworfen, falls nein, ist $(3)$ erfüllt und $w$ wird akzeptiert.\\
+	
+	B hält also immer. 
 \end{homeworkProblem}
 
 \end{document}
