@@ -231,7 +231,7 @@
 
 \begin{homeworkProblem}
 	Wir wollen zeigen, dass $L_{q_i} \not\in \pazocal{L}_{R}$, also nicht rekursiv ist. Dazu machen wie einen Widerspruchsbeweis. \\
-	Annahme: $L_u$ sei rekursiv. Wir zeigen $L_u \leq_R L_{q_i}$.
+	Annahme: $L_{qi}$ sei rekursiv. Wir zeigen $L_u \leq_R L_{q_i}$.
 	
 	\begin{center}
 		\begin{tikzpicture}
@@ -242,30 +242,28 @@
 		\draw (9,1) rectangle (11,3);
 		
 		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (1,2);
-		\draw[thick,->] (3,2.5) to node [above] {$w=\text{Kod}(M)\#x$} (5,2.5);
-		\draw[thick,->] (3,1.5) to node [above] {Nummer des Zustands $q_{accept}$} (5,1.5);
-		\draw[thick,->] (7,2) to node [above] {$w'=\text{Kod}(M)\#x\#0^i$} (9,2);
-		\draw[thick,->] (7,2) to node [below] {$M_{i^2}$ akz. $w_i$} (9,2);
+		\draw[thick,->] (3,2.5) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x$} (5,2.5);
+		\draw[thick,->] (3,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (5,1.5);
+		\draw[thick,->] (7,2) to node [align=center, scale=0.75] {$w'=$\\$\text{Kod}(M)\#x\#0^i$} (9,2);
 		
-		\draw[thick,->] (11,2.5) -- (13,2.5);
-		\draw[thick,->] (11,1.5) -- (13,1.5);
+		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\\$w \in L_u$} (13,2.5);
+		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\\$w \notin L_u$} (13,1.5);
 		
-		\draw (12.9,2.75) node {akzeptiert $w'$};
-		\draw (12.05,2.25) node {$w \in L_u$};
-		\draw (12.9,1.75) node {verwirft $w'$};
-		\draw (12.15,1.25) node {$w \not\in L_u$};
+		\draw[thick,-] (2,1) -- (2,0.5);
+		\draw[thick,-] (2,0.5) -- (11.5,0.5);
+		\draw[thick,-] (11.5,0.5) -- (11.5,1.5);
 		
 		\draw (2,2) node {$Syntax$};
-		\draw (6,2.35) node {$concat$};
-		\draw (10,2) node {$L(M_{q_i})=L_{q_i}$};
+		\draw (6,2) node {$concat$};
+		\draw (10,2) node [scale=0.9] {$L(M_{q_i})=L_{q_i}$};
 		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
 		
 		\end{tikzpicture}
 	\end{center}
 	Für ein Wort $w$ entscheiden wir zuerst ob die Syntax einem Wort in $L_u$ entspricht. Falls nein, ist $w \not\in L_u$.\\
-	Falls ja, wählen wir als $i$ die Nummer des Zustands $q_accept$ in der Kodierung von $M$ und erzeugen daraus $w'$.
+	Falls ja, wählen wir als $i$ die Nummer des Zustands $q_\text{accept}$ in der Kodierung von $M$ und erzeugen daraus $w'$.
 	Fall die Anzahl Zustände de TM $M$ nicht $\geq i+1$ ist, verwerfen wir w, ansonsten fahren wir fort, wie folgt:
-	Da eine TM aus $q_{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den i-ten Zustand erreicht.
+	Da eine TM aus $q_\text{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den i-ten Zustand erreicht.
 	Falls $M_{q_i}$ $w'$ verwirft akzeptiert $M$ also $w$ nicht.
 	
 \end{homeworkProblem}
