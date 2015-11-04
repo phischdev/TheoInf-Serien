@@ -246,7 +246,7 @@
 		\draw[thick,->] (3,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (5,1.5);
 		\draw[thick,->] (7,2) to node [align=center, scale=0.75] {$w'=$\\$\text{Kod}(M)\#x\#0^i$} (9,2);
 		
-		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\\$w \in L_u$} (13,2.5);
+		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\\ $w \in L_u$} (13,2.5);
 		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\\$w \notin L_u$} (13,1.5);
 		
 		\draw[thick,-] (2,1) -- (2,0.5);
@@ -265,6 +265,24 @@
 	Fall die Anzahl Zustände de TM $M$ nicht $\geq i+1$ ist, verwerfen wir w, ansonsten fahren wir fort, wie folgt:
 	Da eine TM aus $q_\text{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den i-ten Zustand erreicht.
 	Falls $M_{q_i}$ $w'$ verwirft akzeptiert $M$ also $w$ nicht.
+	
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Wir wollen zeigen, dass ${L_{q_i}}'$ nicht in $\pazocal{L}_R$ ist.
+	Dazu genügt es nach \textit{Lemma 5.4} zu zeigen, dass ${({L_{q_i}}')}^C \not\in \pazocal{L}_R$.\\
+	\[
+		{({L_{q_i}}')}^C = 
+		\left\{ 
+			\begin{array}{lll}
+				w \not= \mbox{Kod}(M)\#x\#0^i \\
+				w     = \mbox{Kod}(M)\#x\#0^i \mbox{ und M hat weniger als $i+1$ Zustände}\\
+				w     = \mbox{Kod}(M)\#x\#0^i \mbox{, M hat mehr als $i$ Zustände, M erreicht den $i$-ten Zustand nicht}\\
+			\end{array}
+		\right.
+	\]
+	Um zu zeigen, dass ${({L_{q_i}}')}^C \not\in \pazocal{L}_R$ benutzen wir einen Widerspruchsbeweis.\\
+	Annahme: $L_H$ ist rekursiv. Wir zeigen $L_H \leq_R {({L_{q_i}}')}^C$.\\
 	
 \end{homeworkProblem}
 
