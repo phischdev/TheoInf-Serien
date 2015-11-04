@@ -34,6 +34,7 @@
 \usepackage{courier} % Required for the courier font
 \usepackage{enumerate} % used for enumerate args
 \usepackage{multicol} % columns
+\usepackage{calrsfs} % calligraphic font
 
 \usepackage{pgf} 
 \usepackage{tikz}
@@ -45,6 +46,7 @@
 \DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
 \newcommand{\Ebool}{\{0, 1\}}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
 % Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
 \DeclarePairedDelimiter\norm{\lVert}{\rVert} % nice ||x||
@@ -217,7 +219,7 @@
 %\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
 %END_FOLD
 %----------------------------------------------------------------------------------------
-\addtocounter{homeworkProblemCounter}{6}
+\addtocounter{homeworkProblemCounter}{15}
 %----------------------------------------------------------------------------------------
 \newpage
 %\tableofcontents
@@ -228,6 +230,44 @@
 %----------------------------------------------------------------------------------------
 
 \begin{homeworkProblem}
+	Wir wollen zeigen, dass $L_{q_i} \not\in \pazocal{L}_{R}$, also nicht rekursiv ist. Dazu machen wie einen Widerspruchsbeweis. \\
+	Annahme: $L_u$ sei rekursiv. Wir zeigen $L_u \leq_R L_{q_i}$.
+	
+	\begin{center}
+		\begin{tikzpicture}
+		
+		\draw (0,0) rectangle (12,4);
+		\draw (1,1) rectangle (3,3);
+		\draw (5,1) rectangle (7,3);
+		\draw (9,1) rectangle (11,3);
+		
+		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (1,2);
+		\draw[thick,->] (3,2.5) to node [above] {$w=\text{Kod}(M)\#x$} (5,2.5);
+		\draw[thick,->] (3,1.5) to node [above] {Nummer des Zustands $q_{accept}$} (5,1.5);
+		\draw[thick,->] (7,2) to node [above] {$w'=\text{Kod}(M)\#x\#0^i$} (9,2);
+		\draw[thick,->] (7,2) to node [below] {$M_{i^2}$ akz. $w_i$} (9,2);
+		
+		\draw[thick,->] (11,2.5) -- (13,2.5);
+		\draw[thick,->] (11,1.5) -- (13,1.5);
+		
+		\draw (12.9,2.75) node {akzeptiert $w'$};
+		\draw (12.05,2.25) node {$w \in L_u$};
+		\draw (12.9,1.75) node {verwirft $w'$};
+		\draw (12.15,1.25) node {$w \not\in L_u$};
+		
+		\draw (2,2) node {$Syntax$};
+		\draw (6,2.35) node {$concat$};
+		\draw (10,2) node {$L(M_{q_i})=L_{q_i}$};
+		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
+		
+		\end{tikzpicture}
+	\end{center}
+	Für ein Wort $w$ entscheiden wir zuerst ob die Syntax einem Wort in $L_u$ entspricht. Falls nein, ist $w \not\in L_u$.\\
+	Falls ja, wählen wir als $i$ die Nummer des Zustands $q_accept$ in der Kodierung von $M$ und erzeugen daraus $w'$.
+	Fall die Anzahl Zustände de TM $M$ nicht $\geq i+1$ ist, verwerfen wir w, ansonsten fahren wir fort, wie folgt:
+	Da eine TM aus $q_{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den i-ten Zustand erreicht.
+	Falls $M_{q_i}$ $w'$ verwirft akzeptiert $M$ also $w$ nicht.
+	
 \end{homeworkProblem}
 
 \end{document}
