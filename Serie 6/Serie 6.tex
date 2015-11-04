@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 %BEGIN_FOLD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Programming/Coding Assignment
@@ -236,6 +237,61 @@
 	\begin{center}
 		\begin{tikzpicture}
 		
+		\draw (0,0) rectangle (13.4,4);
+		\draw (0.5,1) rectangle (2,3);
+		\draw (4.3,1) rectangle (5.7,3);
+		\draw (8.7,1) rectangle (11,3);
+		\draw (0.2,0.8) rectangle (5.9,3.2);
+		
+		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
+		\draw[thick,->] (2,2.5) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x$} (4.3,2.5);
+		\draw[thick,->] (2,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (4.3,1.5);
+		\draw[thick,->] (5.7,2) to node [align=right, scale=0.75] {$w'=\text{Kod}(M)\#x\#0^i$} (8.7,2);
+		
+		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_u$} (15,2.5);
+		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\quad $w \notin L_u$} (15,1.5);
+		
+		\draw[thick,-] (1.3,1) -- (1.3,0.5);
+		\draw[thick,-] (1.3,0.5) -- (11.5,0.5);
+		\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
+		
+		\draw (1.2,2) node {$Syntax$};
+		\draw (5.0,2) node {$concat$};
+		\draw (9.9,2) node [align=center] {$M_{q_i}$\\\\$L(M_{q_i})=L_{q_i}$};
+		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
+		\draw (3.2,3.4) node {Algorithmus A};
+		
+		\end{tikzpicture}
+	\end{center}
+	Für ein Wort $w$ entscheiden wir zuerst, ob die Syntax einem Wort in $L_u$ entspricht. Falls nein, ist $w \not\in L_u$.\\
+	Falls ja, wählen wir als $i$ die Nummer des Zustands $q_\text{accept}$ in der Kodierung von $M$ und erzeugen daraus $w'$.
+	Falls die Anzahl Zustände de TM $M$ nicht $\geq i+1$ ist, verwerfen wir w. (Diese Arbeit führt der Algorithmus $A$ aus.)
+	Ansonsten fahren wir fort, wie folgt:
+	Da eine TM aus $q_\text{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den $i$-ten Zustand erreicht.
+	Falls $M_{q_i}$ $w'$ verwirft akzeptiert $M$ also $w$ nicht.
+	
+	Da A immer hält und nach Annahme $M_{q_i}$ immer hält (da rekursiv), hält auch B immer. Also gilt $L_u \leq_R L_{q_i}$.\\
+	Aus $L_{q_i} \in \pazocal{L}_R$ folgt also $L_u \in \pazocal{L}_R$. Aber wir wissen $L_u \not\in \pazocal{L}_R$. Damit haben wir unseren Widerpsruch.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Wir wollen zeigen, dass ${L_{q_i}}'$ nicht in $\pazocal{L}_R$ ist.
+	Dazu genügt es nach \textit{Lemma 5.4} zu zeigen, dass ${({L_{q_i}}')}^C \not\in \pazocal{L}_R$.\\
+	\[
+		{({L_{q_i}}')}^C = 
+		\left\{ 
+			\begin{array}{lll}
+				w \not= \mbox{Kod}(M)\#x\#0^i \\
+				w     = \mbox{Kod}(M)\#x\#0^i \mbox{ und M hat weniger als $i+1$ Zustände}\\
+				w     = \mbox{Kod}(M)\#x\#0^i \mbox{, M hat mehr als $i$ Zustände, M erreicht den $i$-ten Zustand nicht}\\
+			\end{array}
+		\right.
+	\]
+	Um zu zeigen, dass ${({L_{q_i}}')}^C \not\in \pazocal{L}_R$ benutzen wir einen Widerspruchsbeweis.\\
+	Annahme: $L_H$ ist rekursiv. Wir zeigen $L_H \leq_R {({L_{q_i}}')}^C$.\\
+	\begin{center}
+		\begin{tikzpicture}
+		
 		\draw (0,0) rectangle (12,4);
 		\draw (1,1) rectangle (3,3);
 		\draw (5,1) rectangle (7,3);
@@ -246,7 +302,7 @@
 		\draw[thick,->] (3,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (5,1.5);
 		\draw[thick,->] (7,2) to node [align=center, scale=0.75] {$w'=$\\$\text{Kod}(M)\#x\#0^i$} (9,2);
 		
-		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\\$w \in L_u$} (13,2.5);
+		\draw[thick,->] (11,2.5) to node [align=right, scale=0.9] {akzeptiert $w'$\\ $w \in L_u$} (13,2.5);
 		\draw[thick,->] (11,1.5) to node [align=right, scale=0.9] {verwirft $w'$\\$w \notin L_u$} (13,1.5);
 		
 		\draw[thick,-] (2,1) -- (2,0.5);
@@ -260,12 +316,6 @@
 		
 		\end{tikzpicture}
 	\end{center}
-	Für ein Wort $w$ entscheiden wir zuerst ob die Syntax einem Wort in $L_u$ entspricht. Falls nein, ist $w \not\in L_u$.\\
-	Falls ja, wählen wir als $i$ die Nummer des Zustands $q_\text{accept}$ in der Kodierung von $M$ und erzeugen daraus $w'$.
-	Fall die Anzahl Zustände de TM $M$ nicht $\geq i+1$ ist, verwerfen wir w, ansonsten fahren wir fort, wie folgt:
-	Da eine TM aus $q_\text{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den i-ten Zustand erreicht.
-	Falls $M_{q_i}$ $w'$ verwirft akzeptiert $M$ also $w$ nicht.
-	
 \end{homeworkProblem}
 
 \end{document}
