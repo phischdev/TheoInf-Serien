@@ -322,5 +322,44 @@
 	
 	B hält also immer. 
 \end{homeworkProblem}
+\begin{homeworkProblem}
+	Wir wollen zeigen, dass $L_{Eq, \lambda} \not\in \pazocal{L}_R$. Dazu nehmen wir an $L_{Eq, \lambda}$ ist regulär und zeigen $L_{H, \lambda} \leq_R L_{Eq, \lambda}$.
+	
+	\begin{center}
+		\begin{tikzpicture}
+		
+		\draw (0,0) rectangle (13.4,4);
+		\draw (0.5,1) rectangle (2,3);
+		\draw (4.3,1) rectangle (5.7,3);
+		\draw (8.7,1) rectangle (11,3);
+		\draw (0.2,0.8) rectangle (5.9,3.2);
+		
+		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
+		\draw[thick,->] (2,2.5) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x$} (4.3,2.5);
+		\draw[thick,->] (2,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (4.3,1.5);
+		\draw[thick,->] (5.7,2) to node [above, align=right, scale=0.75] {$w'=\text{Kod}(M)\#x\#0^i$} (8.7,2);
+		
+		\draw[thick,->] (11,2.5) to node [above, align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_u$} (15,2.5);
+		\draw[thick,->] (11,1.5) to node [above, align=right, scale=0.9] {verwirft $w'$\quad\;\; $w \notin L_u$} (15,1.5);
+		
+		\draw[thick,-] (1.3,1) -- (1.3,0.5);
+		\draw[thick,-] (1.3,0.5) to node [below, align=left]{$w\not=\text{Kod}(M)\#w$} (11.5,0.5);
+		\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
+		
+		\draw (1.2,2) node {$Syntax$};
+		\draw (5.0,2) node {$concat$};
+		\draw (9.9,2) node [align=center] {$TM\;\;E$\\\\$L(E)={q_i}$};
+		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
+		\draw (3.2,3.4) node {Algorithmus A};
+		
+		\end{tikzpicture}
+	\end{center}
+	
+	Für ein Wort $x$ testes der Algorithmus A zunächst die Syntax. Ist $x \not= \text{Kod}(M)$ für alle TM $M$, dann wird $x$ von B verworfen.\\
+	Ist hingegen $x = \text{Kod}(M)$ konstruiren wir $x'=\text{Kod}(M)\#\text{Kod(M)}$ und geben es als Eingabe für die TM $E$. Verwirft $E$ $x'$ hat $M$ nicht auf $\lambda$ gehalten. Also ist $x \not\in L_{H, \lambda}$. Akzeptiert $E$, dann gilt die Tautologie $\lambda \in L(M) \leftrightarrow \lambda \in L(M)$ Um zu sagen $\lambda in L(M)$ oder $\lambda \not\in L(M)$ muss $M$ auf $\lambda$ gehalten haben.
+	
+	Nach der Annahme hält $E$ immer, und damit auch $B$. Also gilt $L_{H, \lambda} \leq_R L_{Eq, \lambda}$.\\
+	Aus $L_{Eq, \lambda} \in \pazocal{L}_R$ folgt also $L_{H, \lambda} \in \pazocal{L}_R$. Aber wir wissen $L_u \not\in \pazocal{L}_R$. Damit haben wir unseren Widerpsruch und die Annahme war falsch. $\Rightarrow L_{Eq, \lambda} \not\in \pazocal{L}_R$.
+\end{homeworkProblem}
 
 \end{document}
