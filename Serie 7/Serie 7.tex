@@ -40,6 +40,7 @@
 \usepackage{forest} % treees :D
 \usetikzlibrary{arrows,automata} %for FSM
 \usepackage{mathtools}
+\usepackage{wasysym}
 
 % Custom commands
 \DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
@@ -233,7 +234,50 @@
 \begin{homeworkProblem}
 	\begin{enumerate}[(a)]
 		\item
-		\item
+		$e(n)=2^n$\\
+		Wir konstruieren eine 2-Band Turingmaschine $M$. $M$ bekommt als Eingabe das Wort $0^n$ auf Band 0. 
+		Zu Beginn schreibt $M$ eine $0$ auf \textit{Band 1}.
+		Solange der Lesekopf des Eingabebandes nicht \$ liest:
+		\begin{enumerate}[1.]
+			\item
+			Gehe auf \textit{Band 1} nach links bis $\cent$. 
+			\item
+			Gehe auf \textit{Band 2} nach links bis $\cent$
+			\item
+			Lies Zeichen auf \textit{Band 1}. Schreibe für jede gelesene $0$ auf \textit{Band 1} $00$ auf \textit{Band 2}. Für ein $\textvisiblespace$ schreibe ein $\textvisiblespace$.
+			\item
+			Gehe auf Beiden Bändern nach links und kopiere Inhalt von \textit{Band 2} auf \textit{Band 1} einschließlich bis Zeichen $\textvisiblespace$.
+		\end{enumerate}
+		Das Ergebnis steht dann auf \textit{Band 2} bis zum ersten $\textvisiblespace$.
+		
+		Auf diese Art generieren wir $2^n$ $0$en.
+		Für n $0$en der Eingabe lesen wir pro Schritt $2^i$ Nullen. Das schreiben geschieht jeweils in $\mathcal{O}(1)$.
+		\[
+			\sum_{i=1}^{n}2^i = 2^{n+1} - 2 \in \mathcal{O}(2^n) 
+		\]
+		Folglich ist $e(n)$ zeitkonstruierbar.\\
+		
+		\item 
+		$f(n)=fib_n$\\
+		Wir konstruiren ein 3-Band Turingmaschine $M$. $M$ bekommt als Eingabe das Wort $0^n$ auf Band 0. 
+		Wir unterscheiden mehrere Eingaben $w$.
+		\begin{enumerate}[{Fall} 1]
+			\item $w=\lambda$\\
+			In diesem Fall ist $n=0$. $M$ schreibt $0$ auf Band 1 und hält.
+			\item $w=0$\\
+			In diesem Fall ist $n=1$. $M$ schreibt $1$ auf Band 1 und hält.
+			\item $|w|=n, n \geq 2$
+			Der Lesekopf auf Band $0$ liegt auf der dritten $0$.
+			\begin{enumerate}[1.]
+				\item
+				$M$ schreibt $\lambda$ auf \textit{Band 1} und $0$ auf \textit{Band 2}.
+				\item
+				$M$ löscht \textit{Band 3} und schreibt zuerst alle $0$en von \textit{Band 1} und dann alle $0$en von \textit{Band 2} auf \textit{Band 3}.
+				\item
+				Der Lesekopf für \textit{Band 0} geht nach rechts. Liest er dort \$ ist auf \textit{Band 3} das Ergebnis und $M$ hält.
+				Ansonsten kopiert $M$ den Inhalt von \textit{Band 2} auf \textit{Band 1} und den von \textit{Band 3} auf \textit{Band 2}. Dann wird zu Schritt $2.$ gesprungen.
+			\end{enumerate}
+		\end{enumerate}
 	\end{enumerate}
 \end{homeworkProblem}
 \begin{homeworkProblem}
