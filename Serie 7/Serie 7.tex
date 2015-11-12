@@ -271,6 +271,14 @@
 					Diese Änderung kann $B$ in einem Lauf von rechts nach links ausführen. 
 				\end{enumerate}
 			\end{enumerate}
+			$\Space_B(n)$ ist so groß, wie die Längste Konfigutation von allen Berechnungsschritten von $B$ auf allen Wörtern über $\Sigma$ der Länge $n$ auf dem Arbeitsband. Das Arbeitsband hat nach der genannten Konstruktion die beschriebene Länge des Maximums der beschriebenen Längen aller $k$  Arbeitsbänder von $A$, für alle $n$. Daher folgt $\Space_B(n) \leq \Space_A(n)\quad$, für alle $n$.\\
+			
+			In jedem Simulationsschritt muss das Arbeitsband ein Mal von links nach rechts und wieder zurück gelesen werden. $\Rightarrow$ Für den $i$-ten Schritt sind $\Space_B(C_i)$ Schritte notwendig.\\
+			
+			$\Time_B(n)$ im Verhältnis zu $\Time_A(n)$:
+			\[
+				\Time_B(n) \;\leq\; \Time_A(n) \cdot \Space_B(n) \;\leq\; \Time_A(n) \cdot \Space_A(n)
+			\]
 		\end{homeworkProblem}
 		\begin{homeworkProblem}
 			\begin{enumerate}[(a)]
