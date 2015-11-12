@@ -237,7 +237,31 @@
 		%----------------------------------------------------------------------------------------
 		
 		\begin{homeworkProblem}
-			
+			Sei $A$ eine $k$-Band-TM. Wir konstruieren nun nach und nach eine 1-Band-TM $B$. Die Vorgehensweise ist analog zum Beweis von \textit{Lemma 4.2}
+			\begin{enumerate}[1.]
+				\item
+				Zu jedem Band $i$ von A bis auf das Eingabeband fügen wir ein zweites Band $i'$ direkt darunter ein. Dieses soll nur die Symbole $\{\cent,\,\textvisiblespace,\,\uparrow\}$ beinhalten und $\uparrow$ soll nur einmal auf diesem Band vorkommen. Der Pfeil indiziert die Position des Kopfes, der in $A$ auf Band $i$ zeigt. Die Anzahl an Arbeitsbändern verdoppelt sich.
+				
+				\item
+				Jetzt fassen wir sämtliche Arbeitsbänder $i$ und $i'$, $i\in\{1, 2, ..., k\}$ zu einem Band zusammen. Der $j$-te Eintrag auf den Arbeitsband von $B$ muss also die Infos über dem $j$-ten Eintrag sämtlicher Arbeitsbänder $i$ und $i'$ beinhalten. Das Eingabeband von $A$ lassen wir unangetastet.
+				Dadurch vergrößert sich unser Arbeitsalphabet.
+				\[
+					\Gamma_B = \underbrace{\Sigma_A \cup \{\cent,\,\$\}}_{(1)} \;\;\underbrace{\cup}_{(2)}\;\;
+					\Bigl(
+						\;\underbrace{\bigl\{
+							\Sigma_A \cup \{\cent,\,\textvisiblespace\}
+						\bigr\}}_{(3)}
+						\times 
+						\underbrace{\bigl\{\textvisiblespace, \uparrow\bigr\}}_{(4)}\;
+					\Bigr)^k
+				\]
+				\begin{enumerate}[(1)]
+					\item Alle Zeichen, die im Eingabealphabet stehen können.
+					\item wir lesen entweder ein Zeichen auf dem Eingabeband oder auf dem Arbeitsband.
+					\item Zeichen auf dem $i$-ten Arbeitsband von $A$.
+					\item Zeichen auf dem $i'$-ten Arbeitsband (siehe oben).
+				\end{enumerate}
+			\end{enumerate}
 		\end{homeworkProblem}
 		\begin{homeworkProblem}
 			\begin{enumerate}[(a)]
