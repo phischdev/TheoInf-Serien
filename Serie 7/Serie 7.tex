@@ -269,13 +269,13 @@
 		
 		\item 
 		$f(n)=fib_n$\\
-		Wir konstruieren ein 3-Band Turingmaschine $M$. $M$ bekommt als Eingabe das Wort $0^n$ auf Band 0. 
+		Wir konstruieren eine 3-Band Turingmaschine $M$, wobei \textit{Band 0} das Eingabeband und \textit{Bänder 1--3} die Arbeitsbänder sind. $M$ bekommt als Eingabe das Wort $w=0^n$ auf \textit{Band 0}.
 		Wir unterscheiden mehrere Eingaben $w$.
-		\begin{enumerate}[{Fall} 1]
+		\begin{enumerate}[{Fall} 1:]
 			\item $w=\lambda$\\
-			In diesem Fall ist $n=0$. $M$ schreibt $0$ auf Band 1 und hält.
+			In diesem Fall ist $n=0$. $M$ schreibt $0$ auf Band 1 und akzeptiert.
 			\item $w=0$\\
-			In diesem Fall ist $n=1$. $M$ schreibt $1$ auf Band 1 und hält.
+			In diesem Fall ist $n=1$. $M$ schreibt $1$ auf Band 1 und akzeptiert.
 			\item $|w|=n, n \geq 2$
 			Der Lesekopf auf Band $0$ liegt auf der dritten $0$.
 			\begin{enumerate}[1.]
@@ -291,6 +291,7 @@
 		ANALyse fehlt noch.
 	\end{enumerate}
 \end{homeworkProblem}
+\newpage
 \begin{homeworkProblem}
 	Wir wissen: $\; f:\mathbb{N}\rightarrow\mathbb{N},\;\; g:\mathbb{N}\rightarrow\mathbb{N}\;\;$ und $f$ und $g$ sind beide platzkonstruierbar.\\
 	$\Rightarrow$ Es gibt 1-Band-Turingmaschinen $F$ und $G$, so dass  $\begin{array}{ll}
@@ -302,30 +303,14 @@
 	0^{n_1} \text{ generiert $F$ das Wort } 0^{f(n_1)}\\
 	0^{n_2} \text{ generiert $G$ das Wort } 0^{g(n_2)}
 	\end{array}$
-	auf ihrem Arbeitsband und hält in Zustand $q_{accept}$.\\
-	Sei nun $H$ eine 1-Band-Turingmaschine mit Eingabe mit Arbeitsalphabet $\Gamma_F\times\Gamma_G \cup \Gamma_F \cup \Gamma_G$ und Eingabe $0^n$.\\
-	$H$ simuliert nun die Arbeit von $F$ auf folgende Weise:\\
-	Ist der Lesekopf des Arbeitsbandes auf dem Symbol $\icol{\alpha\\\beta}$ simuliert $M$ $F$ so als würde $F$ $\alpha$ lesen. Schreibt $F$ ein neues Zeichen $\alpha'$, schreibt $H$ $\icol{\alpha'\\\beta}$ auf das Band.\\
-	Sobald $F$ gehalten hat, fährt $H$ mit Eingabe- und Arbeitsbandkopf nach links auf $\cent$.\\
-	Anschließend simuliert $H$, $G$ auf gleiche Art wie $F$.\\
-	Für $\icol{\alpha\\\beta}$ wird $\beta$ gelesen, und für $\beta'$ wird an der gleichen Stelle $\icol{\alpha\\\beta'}$ geschrieben.\\
-	$H$ wandelt nun die das Band von der Form 
+	auf ihrem Arbeitsband und hält in Zustand $q_{accept}$.\\\\
+	Wir konstruieren eine 5-Band-Turingmaschine $H$. $H$ bekommt als Inpt $0^n$ auf sein Eingabeband. $H$ kopiert die Eingabe auf \textit{Band 2} und auf \textit{Band 4} und simuliert F, dann G. Dabei sind \textit{Band 2, 3} das Eingabe- und Arbeitsband von F und \textit{Band 4, 5} Eingabe- und Arbeitsband von G.\\
+	Auf \textit{Band 3} steht nun $0^{f(n)}$ und auf \textit{Band 5} steht $0^{g(n)}$.
+	$H$ geht nach an den Anfang von \textit{Band 3} und geht für jede gelesene $0$ eins nach rechts und hängt den gesamten Inhalt von \textit{Band 5} an \textit{Band 1} an. Hat $H$ alle $0$en auf \textit{Band 3} gelesen steht auf \textit{Band 1} nun $0^{f(n)\cdot g(n)}$. $H$ akzeptiert.\\
+	Die längte Konfiguration über alle Bänder und Schritte hat $H$ am Ende, wenn das Ergebnis steht. Damit ist 
 	\[
-		\cent\icol{0\\0}\icol{0\\0}\cdots\icol{0\\0}
-		\Bigl\{
-			\bigl\{\!\icol{\textvisiblespace\\0}\!\bigr\}^*,\,
-			\bigl\{\!\icol{0\\\textvisiblespace}\!\bigr\}^*
-		\Bigr\}
+		\Space_H = f(n)\cdot g(n) =: h(n) \quad \forall n\in\mathbb{N} \quad \textit{(nach Def. 6.2)} 
 	\]
-	Schrittweise (ab $\cent$ nach rechts) um in $\cent\, 0^i,\;i\in \mathbb{N}$, wie folgt:
-	\begin{enumerate}[1.]
-		\item
-		Ist Zeichen der Form $\icol{0\\0}$, ersetze durch $0$ und ersetze erstes $\textvisiblespace$ durch eine $0$.
-		\item Ist Zeichen der Form $\icol{\textvisiblespace\\0}$ oder $\icol{0\\\textvisiblespace}$ ersetze mit $0$.
-	\end{enumerate}
-	Wiederhole Schritte bis Kopf Zeichen $\textvisiblespace$ liest. Dann akzeptiere.\\
-	Es steht nun genau $f(n)\cdot g(n) := h(n)$, (`$\cdot$' ist Konkatenation) auf dem Band und der benutzte Platz während der Berechnung der Simulation der beiden Turingmaschinen ist $\Space_H = \max\{|f(n)|,\, |g(n)|\}$ und nach dem Schreiben des Ergebnisses $\Space_H =|f(n)|+|g(n)| = |h(n)|$.\\
-	$\Rightarrow$ $H$ ist platzkonstruierbar.
+	und $H$ hält immer in $q_{accept}$.\\ Nach \textit{Lemma 6.1} gibt es eine äquivalente 1-Band-Turingmaschine $H'$ mit $\Space_{H'} \leq \Space_H \leq h(n)$. Folglich ist $h(n)$ platzkonstruierbar.
 \end{homeworkProblem}
-
 \end{document}
