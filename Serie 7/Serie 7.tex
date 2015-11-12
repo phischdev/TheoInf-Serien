@@ -293,14 +293,14 @@
 \end{homeworkProblem}
 \begin{homeworkProblem}
 	Wir wissen: $\; f:\mathbb{N}\rightarrow\mathbb{N},\;\; g:\mathbb{N}\rightarrow\mathbb{N}\;\;$ und $f$ und $g$ sind beide platzkonstruierbar.\\
-	$\Rightarrow$ Es gibt 1-Band-Turingmaschinen $F$ unf $G$, so dass  $\begin{array}{ll}
-	\Space_F(n_1)\leq s_1(n_1)\\
-	\Space_G(n_2)\leq s_2(n_2)\\
+	$\Rightarrow$ Es gibt 1-Band-Turingmaschinen $F$ und $G$, so dass  $\begin{array}{ll}
+	\Space_F(n_1)\leq f(n_1)\\
+	\Space_G(n_2)\leq g(n_2)\\
 	\end{array} \quad\forall n_1, n_2 \in \mathbb{N}$\\
 	und für jede Eingabe 
 	$\begin{array}{ll}
-	0^{n_1} \text{ generiert $F$ das Wort } 0^{s_1(n_1)}\\
-	0^{n_2} \text{ generiert $G$ das Wort } 0^{s_2(n_2)}
+	0^{n_1} \text{ generiert $F$ das Wort } 0^{f(n_1)}\\
+	0^{n_2} \text{ generiert $G$ das Wort } 0^{g(n_2)}
 	\end{array}$
 	auf ihrem Arbeitsband und hält in Zustand $q_{accept}$.\\
 	Sei nun $H$ eine 1-Band-Turingmaschine mit Eingabe mit Arbeitsalphabet $\Gamma_F\times\Gamma_G \cup \Gamma_F \cup \Gamma_G$ und Eingabe $0^n$.\\
@@ -311,16 +311,20 @@
 	Für $\icol{\alpha\\\beta}$ wird $\beta$ gelesen, und für $\beta'$ wird an der gleichen Stelle $\icol{\alpha\\\beta'}$ geschrieben.\\
 	$H$ wandelt nun die das Band von der Form 
 	\[
-		\cent\icol{0\\0}\icol{0\\0}\cdots\icol{\textvisiblespace\\0}
+		\cent\icol{0\\0}\icol{0\\0}\cdots\icol{0\\0}
+		\Bigl\{
+			\bigl\{\!\icol{\textvisiblespace\\0}\!\bigr\}^*,\,
+			\bigl\{\!\icol{0\\\textvisiblespace}\!\bigr\}^*
+		\Bigr\}
 	\]
 	Schrittweise um in $0^l$, wie folgt:
 	\begin{enumerate}[1.]
 		\item
 		Ist Zeichen der Form $\icol{0\\0}$, ersetze durch $0$ und ersetze erstes $\textvisiblespace$ durch eine $0$.
-		\item Ist Zeichen der Form $\icol{\textvisiblespace\\0)}$ oder $\icol{0\\\textvisiblespace}$ ersetze mit $0$.
+		\item Ist Zeichen der Form $\icol{\textvisiblespace\\0}$ oder $\icol{0\\\textvisiblespace}$ ersetze mit $0$.
 	\end{enumerate}
-	Wiederhole Schritte bis von links zeichen $\textvisiblespace$ gelesen wird. Dann akzeptiere.\\
-	Es steht nun genau $s_1(n)+s_2(n) := s_3(n)$ auf dem Band und der benutzte Platze $\Space_H = \max{s_1(n), s_2(n)} \leq s_1(n)+s_2(n) = s_3(n)$.\\
+	Wiederhole Schritte bis Kopf von links nach rechts zeichen $\textvisiblespace$ liest. Dann akzeptiere.\\
+	Es steht nun genau $f(n)+g(n) := h(n)$ auf dem Band und der benutzte Platz während der Berechnung der Simulation der beiden Turingmaschinen ist $\Space_H = \max\{f(n),\, g(n)\}$ und nach dem Schreiben des Ergebnisses $\Space_H =f(n)+g(n) = h(n)$.\\
 	$\Rightarrow$ $H$ ist platzkonstruierbar.
 \end{homeworkProblem}
 
