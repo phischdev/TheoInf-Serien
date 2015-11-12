@@ -261,6 +261,15 @@
 					\item Zeichen auf dem $i$-ten Arbeitsband von $A$.
 					\item Zeichen auf dem $i'$-ten Arbeitsband (siehe oben).
 				\end{enumerate}
+				
+				\item
+				\begin{enumerate}[(a)]
+					\item $B$ liest einmal den Inhalt des Eingabebandes von links nach rechts, bis alle $k$ Kopfpositionen von $A$ gefunden wurden und speichert dabei in ihrem Zustand die $k$ Symbole, die sie bei den $k$ Köpfen von $A$ gelesen hat. (Das sind die Symbole, die auf der Spur über `$\uparrow$' stehen.)
+					Die Anzahl Zustände in $B$ ist also grösser als die in $A$.
+						
+					\item Jetzt kennt $B$ das ganze Argument ($B$ hat den zu $A$ passenden Zustand.) der Transitfuntionen von $A$ und kann entsprechend die Köpfe bewegen (= Symbole auf der $2i$-ten Spur ersetzen).
+					Diese Änderung kann $B$ in einem Lauf von rechts nach links ausführen. 
+				\end{enumerate}
 			\end{enumerate}
 		\end{homeworkProblem}
 		\begin{homeworkProblem}
