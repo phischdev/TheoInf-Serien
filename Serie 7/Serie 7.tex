@@ -1,4 +1,3 @@
-% !TeX spellcheck = en_US
 %BEGIN_FOLD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Programming/Coding Assignment
@@ -35,19 +34,26 @@
 \usepackage{courier} % Required for the courier font
 \usepackage{enumerate} % used for enumerate args
 \usepackage{multicol} % columns
-\usepackage{calrsfs} % calligraphic font
 
 \usepackage{pgf} 
 \usepackage{tikz}
 \usepackage{forest} % treees :D
 \usetikzlibrary{arrows,automata} %for FSM
 \usepackage{mathtools}
+\usepackage{wasysym}
 
 % Custom commands
+\DeclareMathOperator{\Space}{Space}
+\DeclareMathOperator{\Time}{Time}
 \DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
 \newcommand{\Ebool}{\{0, 1\}}
+\newcommand{\irow}[1]{% inline row vector
+	\begin{smallmatrix}(#1)\end{smallmatrix}
+}
+\newcommand{\icol}[1]{% inline column vector
+	\left(\begin{smallmatrix}#1\end{smallmatrix}\right)%
+}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
-\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
 % Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
 \DeclarePairedDelimiter\norm{\lVert}{\rVert} % nice ||x||
@@ -182,11 +188,11 @@
 %----------------------------------------------------------------------------------------
 
 \newcommand{\hmwkTitle}{Blatt} % Assignment title
-\newcommand{\hmwkDueDate}{9.\ Oktober\ 2015} % Due date
+\newcommand{\hmwkDueDate}{13.\ November\ 2015} % Due date
 \newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
 \newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
-\newcommand{\hmwkNumber}{6}
+\newcommand{\hmwkNumber}{7}
 \newcommand{\hmwkAssiInfo}{Assistent: Sacha Krug, CHN D 42}
 %END_FOLD
 %----------------------------------------------------------------------------------------
@@ -220,7 +226,7 @@
 %\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
 %END_FOLD
 %----------------------------------------------------------------------------------------
-\addtocounter{homeworkProblemCounter}{15}
+\addtocounter{homeworkProblemCounter}{18}
 %----------------------------------------------------------------------------------------
 \newpage
 %\tableofcontents
@@ -231,126 +237,90 @@
 %----------------------------------------------------------------------------------------
 
 \begin{homeworkProblem}
-	Wir wollen zeigen, dass $L_{q_i} \not\in \pazocal{L}_{R}$, also nicht rekursiv, ist. Dazu machen wir einen Widerspruchsbeweis. \\
-	Annahme: $L_{qi}$ sei rekursiv. Wir zeigen $L_u \leq_R L_{q_i}$.
 	
-	\begin{center}
-		\begin{tikzpicture}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item
+		$e(n)=2^n$
 		
-		\draw (0,0) rectangle (13.4,4);
-		\draw (0.5,1) rectangle (2,3);
-		\draw (4.3,1) rectangle (5.7,3);
-		\draw (8.7,1) rectangle (11,3);
-		\draw (0.25,0.75) rectangle (5.9,3.25);
+		Wir konstruieren eine 2-Band Turingmaschine $M$, wobei \textit{Band 0} das Eingabeband und \textit{Bänder 1--2} die Arbeitsbänder sind. $M$ bekommt als Eingabe das Wort $0^n$ auf \textit{Band 0}. 
+		Zu Beginn schreibt $M$ eine $0$ auf \textit{Band 1}.
+		Solange der Lesekopf des Eingabebandes nicht \$ liest:
+		\begin{enumerate}[1.]
+			\item
+			Gehe auf \textit{Band 1} nach links bis $\cent$. 
+			\item
+			Gehe auf \textit{Band 2} nach links bis $\cent$
+			\item
+			Lies Zeichen auf \textit{Band 1}. Schreibe für jede gelesene $0$ auf \textit{Band 1} $00$ auf \textit{Band 2}. Für ein $\textvisiblespace$ schreibe ein $\textvisiblespace$.
+			\item
+			Gehe auf beiden Bändern nach links und kopiere Inhalt von \textit{Band 2} auf \textit{Band 1} einschließlich bis Zeichen $\textvisiblespace$.
+			\item
+			Rücke mit Lesekopf nach rechts.
+		\end{enumerate}
+		Das Ergebnis steht dann auf \textit{Band 2} bis zum ersten $\textvisiblespace$.
 		
-		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
-		\draw[thick,->] (2,2.5) to node [above, scale=0.75] {$w=\text{Kod}(M)\#x$} (4.3,2.5);
-		\draw[thick,->] (2,1.5) to node [align=left, scale=0.75] {Nummer des\\Zustands $q_{accept}$} (4.3,1.5);
-		\draw[thick,->] (5.7,2) to node [above, align=right, scale=0.75] {$w'=\text{Kod}(M)\#x\#0^i$} (8.7,2);
+		Auf diese Art generieren wir $2^n$ Nullen.
+		Für $n$ Nullen der Eingabe lesen wir pro Schritt $2^i$ Nullen. Das Schreiben geschieht jeweils in $\mathcal{O}(1)$.
+		\[
+			\sum_{i=1}^{n}2^i = 2^{n+1} - 2 \in \mathcal{O}(2^n) 
+		\]
+		Folglich ist $e(n)$ zeitkonstruierbar.\\
 		
-		\draw[thick,->] (11,2.5) to node [above, align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_u$} (15,2.5);
-		\draw[thick,->] (11,1.5) to node [above, align=right, scale=0.9] {verwirft $w'$\quad\;\; $w \notin L_u$} (15,1.5);
+		\item 
+		$f(n)=fib_n$
 		
-		\draw[thick,-] (1.3,1) -- (1.3,0.5);
-		\draw[thick,-] (1.3,0.5) to node [below, align=left]{$w\not=\text{Kod}(M)\#x$} (11.5,0.5);
-		\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
-		
-		\draw (1.25,2) node {$Syntax$};
-		\draw (5.0,2) node {$Concat$};
-		\draw (9.9,2) node [align=center] {$M_{q_i}$\\\\$L(M_{q_i})=L_{q_i}$};
-		\draw (6,4.35) node {Algorithums $B$ für $L_U$};
-		\draw (3.2,3.4) node {Algorithmus A};
-		
-		\end{tikzpicture}
-	\end{center}
-	Für ein Wort $w$ entscheiden wir zuerst, ob die Syntax einem Wort in $L_u$ entspricht. Falls nein, ist $w \not\in L_u$.\\
-	Falls ja, wählen wir als $i$ die Nummer des Zustands $q_\text{accept}$ in der Kodierung von $M$ und erzeugen daraus $w'$.
-	Falls die Anzahl Zustände der TM $M$ nicht $\geq i+1$ ist, verwerfen wir w (diese Arbeit führt der Algorithmus $A$ aus).
-	Ansonsten fahren wir wie folgt fort:
-	Da eine TM aus $q_\text{accept}$ nicht mehr herausgeht, ist $w \in L_u$, falls $M_{q_i}$ $w'$ akzeptiert, also $M$ den $i$-ten Zustand erreicht.
-	Falls $M_{q_i}$ $w'$ verwirft, akzeptiert $M$ also $w$ nicht.
-	
-	Da A immer hält und nach Annahme $M_{q_i}$ immer hält (da rekursiv), hält auch B immer. Also gilt $L_u \leq_R L_{q_i}$.\\
-	Aus $L_{q_i} \in \pazocal{L}_R$ folgt also $L_u \in \pazocal{L}_R$. Aber wir wissen $L_u \not\in \pazocal{L}_R$. Das ist ein Widerspruch, womit $L_{qi} \not\in \pazocal{L}_R$ gilt.
+		Wir konstruieren eine 3-Band Turingmaschine $M$, wobei \textit{Band 0} das Eingabeband und \textit{Bänder 1--3} die Arbeitsbänder sind. $M$ bekommt als Eingabe das Wort $w=0^n$ auf \textit{Band 0}.
+		Wir unterscheiden drei Eingaben $w$.
+		\begin{enumerate}[{Fall} 1:]
+			\item $w=\lambda$.\\
+			In diesem Fall ist $n=0$. $M$ schreibt $0^{fib_0}=\lambda$ auf
+			\item $w=0$.\\
+			In diesem Fall ist $n=1$. $M$ schreibt $0^{fib_1}=0$ auf \textit{Band 1} und hält.
+			\item $|w|=n, n \geq 2$.
+			Der Lesekopf auf \textit{Band 0} liegt auf der zweiten 0 und $M$ liest auf \textit{Band 0} von links nach rechts. Für die erste gelesene 0 schreibt $M$ eine 0 auf \textit{Band 2}. Für jede weitere gelesene 0 führt $M$  Schritte 1.--3. aus, bis \$ gelesen wird. Dann ist auf \textit{Band 1} das Ergebnis $0^{fib_n}$ (und auf \textit{Band 2} $0^{fib_{n-1}}$ und auf \textit{Band 3} $0^{fib_{n-2}}$).
+			\begin{enumerate}[1.]
+				\item
+				$M$ überschreibt \textit{Band 3} mit dem Inhalt von \textit{Band 2} ($fib_{i-2} \leftarrow fib_{i-1}$).
+				\item
+				$M$ überschreibt \textit{Band 2} mit dem Inhalt von \textit{Band 1} ($fib_{i-1} \leftarrow fib_{i}$).
+				\item
+				$M$ schreibt den Inhalt von \textit{Band 3} in \textit{Band 1} (konkateniert also die Nullen auf \textit{Band 1} mit den Nullen von \textit{Band 3}) ($fib_{i} \leftarrow fib_{i-1} + fib_{i-2}$).
+			\end{enumerate}
+		\end{enumerate}
+		In den Fällen 1 und 2 ist die Laufzeit konstant, also ist $f(n) \in \mathcal{O}(1)$. Im Fall 3 schreiben wir bei der $i-ten$ Ausführung, $i \leq n-2$ (weil wir auf der zweiten 0 starten), $fib_{i-2}$ Nullen auf \textit{Band 3}, $fib_{i-1}$ Nullen auf \textit{Band 2} und $fib_{i-2}$ Nullen auf \textit{Band 1}, also pro Schritt $2fib_{i-2}+fib_{i-1} \leq 3fib_{i-1}$ Nullen. Insgesamt ergibt das also
+		\begin{align*}
+		3\sum_{i=2}^{n}fib_{i-1} & = 3\sum_{i=1}^{n-1}fib_{i} & (\text{Indexverschiebung}) \\
+		& = 3\sum_{i=0}^{n-1}fib_{i} & (fib_0 = 0) \\
+		& = 3(fib_{n+1}-1). & (\sum_{i=0}^{n}fib_{i} = fib_{n+2}-1) \\
+		& = 3(fib_n+fib_{n-1}-1) & (\text{Definition } fib_n) \\
+		& \leq 3(2fib_n-1)
+		\end{align*}
+		$3(2fib_n-1) = 6fib_n-2 \in \mathcal{O}(fib_n)$. Damit ist $f(n)$ zeitkonstruierbar. 
+	\end{enumerate}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-	Wir wollen zeigen, dass $L_{q_i}' \not\in \pazocal{L}_{R}$. Dazu machen wir einen Widerspruchsbeweis. \\
-	Annahme: $L_{qi}'$ sei rekursiv. Wir zeigen $L_{qi} \leq_R L_{q_i}'$.
-	
-	\begin{center}
-		\begin{tikzpicture}
-		
-		\draw (0,0) rectangle (13.4,4);
-		\draw (0.5,1) rectangle (2,3);
-		\draw (4.3,1) rectangle (5.7,3);
-		\draw (8.7,1) rectangle (11,3);
-		\draw (0.25,0.75) rectangle (5.9,3.25);
-		
-		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
-		\draw[thick,->] (2,2) to node [above, scale=0.7] {$w=\text{Kod}(M)\#x\#0^i$} (4.3,2);
-		\draw[thick,->] (5.7,2) to node [above, align=right, scale=0.75] {$w'=\text{Kod}(M)\#0^i\#x$} (8.7,2);
-		
-		\draw[thick,->] (11,2.5) to node [above, align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_{qi}$} (15,2.5);
-		\draw[thick,->] (11,1.5) to node [above, align=right, scale=0.9] {verwirft $w'$\quad\;\; $w \notin L_{qi}$} (15,1.5);
-		
-		\draw[thick,-] (1.3,1) -- (1.3,0.5);
-		\draw[thick,-] (1.3,0.5) to node [below, align=left]{$w\not=\text{Kod}(M)\#x\#0^i$} (11.5,0.5);
-		\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
-		
-		\draw (1.25,2) node {$Syntax$};
-		\draw (5.0,2) node {$Swap$};
-		\draw (9.9,2) node [align=center] {$M_{q_i}'$\\\\$L(M_{q_i}')=L_{q_i}'$};
-		\draw (6,4.35) node {Algorithums $B$ für $L_{qi}$};
-		\draw (3.2,3.4) node {Algorithmus A};
-		
-		\end{tikzpicture}
-	\end{center}
-	Für ein Wort $w$ entscheiden wir zuerst, ob die Syntax einem Wort in $L_{qi}$ entspricht. Falls nein, ist $w \not\in L_{qi}$.\\
-	Falls ja, vertauscht der Algorithmus $A$ $x$ mit $0^i$ und erzeugt daraus $w'$.
-	Nun lassen wir $M_{qi}'$ auf $x$ laufen.
-	
-	Da A immer hält und nach Annahme $M_{q_i}'$ immer hält (da rekursiv), hält auch B immer. Also gilt $L_{q_i} \leq_R L_{q_i}'$.\\
-	Aus $L_{q_i}' \in \pazocal{L}_R$ folgt also $L_{q_i} \in \pazocal{L}_R$. Aber wir wissen $L_{q_i} \not\in \pazocal{L}_R$. Das ist ein Widerspruch, womit $L_{qi}' \not\in \pazocal{L}_R$ gilt.
-\end{homeworkProblem}
-
-\begin{homeworkProblem}
-	Wir wollen zeigen, dass $L_{Eq, \lambda} \not\in \pazocal{L}_R$. Dazu nehmen wir an, dass $L_{Eq, \lambda}$ rekursiv ist, und zeigen für $L_{H, \lambda} = \{\text{Kod}(M) \mid x \in \{0, 1\}^* \text{ und $M$ hält auf }\lambda\}$, dass $L_{H, \lambda} \leq_R L_{Eq, \lambda}$.
-	
-	\begin{center}
-		\begin{tikzpicture}
-		
-		\draw (0,0) rectangle (13.4,4);
-		\draw (0.5,1) rectangle (2,3);
-		\draw (4.3,1) rectangle (5.7,3);
-		\draw (8.7,1) rectangle (11,3);
-		\draw (0.25,0.8) rectangle (5.9,3.2);
-		
-		\draw[thick,->] (-1,2) to node [above left] {$w \in \{0,1,\#\}^* $} (0.5,2);
-		\draw[thick,->] (2,2) to node [above, scale=0.85] {$w=\text{Kod}(M)$} (4.3,2);
-		\draw[thick,->] (5.7,2) to node [above, align=right, scale=0.7] {$w'=\text{Kod}(M)\#\text{Kod}(M)$} (8.7,2);
-		
-		\draw[thick,->] (11,2.5) to node [above, align=right, scale=0.9] {akzeptiert $w'$\quad $w \in L_{H,\lambda}$} (15,2.5);
-		\draw[thick,->] (11,1.5) to node [above, align=right, scale=0.9] {verwirft $w'$\quad\;\; $w \notin L_{H,\lambda}$} (15,1.5);
-		
-		\draw[thick,-] (1.3,1) -- (1.3,0.5);
-		\draw[thick,-] (1.3,0.5) to node [below, align=left]{$w\not=\text{Kod}(M)$} (11.5,0.5);
-		\draw[thick,->] (11.5,0.5) -- (11.5,1.5);
-		
-		\draw (1.25,2) node {$Syntax$};
-		\draw (5.0,2) node {$Concat$};
-		\draw (9.9,2) node [align=center] {$TM$ $E$\\\\$L(E)=L_{EQ,\lambda}$};
-		\draw (6,4.35) node {Algorithums $B$ für $L_{H,\lambda}$};
-		\draw (3.2,3.4) node {Algorithmus $A$};
-		
-		\end{tikzpicture}
-	\end{center}
-	
-	Für ein Wort $w$ testet der Algorithmus $A$ zunächst die Syntax, ob $w = \text{Kod}(M)$ für eine TM $M$, sonst wird $w$ von B verworfen und $w \notin L_{H,\lambda}$.\\
-	Ist hingegen $w = \text{Kod}(M)$, konstruiert der Algorithmus $A$ $w'=\text{Kod}(M)\#\text{Kod}(M)$ als Spezialfall von $\text{Kod}(M)\#\text{Kod}(\overline{M})$ und gibt es als Eingabe für die TM $E$ weiter. Verwirft $E$ $w'$, hat $M$ nicht auf $\lambda$ gehalten. Also ist $w \not\in L_{H, \lambda}$. Akzeptiert $E$, dann gilt die Tautologie $\lambda \in L(M) \leftrightarrow \lambda \in L(M)$. Um zu sagen, dass $\lambda \in L(M)$ oder $\lambda \not\in L(M)$, muss $M$ auf $\lambda$ gehalten haben.
-	
-	Nach der Annahme hält $E$ immer, und damit auch $B$. Also gilt $L_{H, \lambda} \leq_R L_{Eq, \lambda}$.\\
-	Aus $L_{Eq, \lambda} \in \pazocal{L}_R$ folgt also $L_{H, \lambda} \in \pazocal{L}_R$. Aber wir wissen $L_{H, \lambda} \not\in \pazocal{L}_R$. Damit haben wir unseren Widerpsruch und die Annahme war falsch $\Rightarrow L_{Eq, \lambda} \not\in \pazocal{L}_R$.
+	Wir wissen: $\; f:\mathbb{N}\rightarrow\mathbb{N},\;\; g:\mathbb{N}\rightarrow\mathbb{N}\;\;$ und $f$ und $g$ sind beide platzkonstruierbar.\\
+	$\Rightarrow$ Es gibt 1-Band-Turingmaschinen $F$ und $G$, so dass  $\begin{array}{ll}
+	\Space_F(n_1)\leq f(n_1)\\
+	\Space_G(n_2)\leq g(n_2)\\
+	\end{array} \quad\forall n_1, n_2 \in \mathbb{N}$\\
+	und für jede Eingabe 
+	$\begin{array}{ll}
+	0^{n_1} \text{ generiert $F$ das Wort } 0^{f(n_1)}\\
+	0^{n_2} \text{ generiert $G$ das Wort } 0^{g(n_2)}
+	\end{array}$
+	auf ihrem Arbeitsband und hält in Zustand $q_{accept}$.\\\\
+	Wir konstruieren eine 5-Band-Turingmaschine $H$. $H$ bekommt als Inpt $0^n$ auf sein Eingabeband. $H$ kopiert die Eingabe auf \textit{Band 2} und auf \textit{Band 4} und simuliert F, dann G. Dabei sind \textit{Band 2, 3} das Eingabe- und Arbeitsband von F und \textit{Band 4, 5} Eingabe- und Arbeitsband von G.\\
+	Auf \textit{Band 3} steht nun $0^{f(n)}$ und auf \textit{Band 5} steht $0^{g(n)}$.
+	$H$ geht nach an den Anfang von \textit{Band 3} und geht für jede gelesene $0$ eins nach rechts und hängt den gesamten Inhalt von \textit{Band 5} an \textit{Band 1} an. Hat $H$ alle $0$en auf \textit{Band 3} gelesen steht auf \textit{Band 1} nun $0^{f(n)\cdot g(n)}$. $H$ akzeptiert.\\
+	Die längte Konfiguration über alle Bänder und Schritte hat $H$ am Ende, wenn das Ergebnis steht. Damit ist 
+	\[
+	\Space_H = f(n)\cdot g(n) =: h(n) \quad \forall n\in\mathbb{N} \quad \textit{(nach Def. 6.2)} 
+	\]
+	und $H$ hält immer in $q_{accept}$.\\ Nach \textit{Lemma 6.1} gibt es eine äquivalente 1-Band-Turingmaschine $H'$ mit $\Space_{H'} \leq \Space_H \leq h(n)$. Folglich ist $h(n)$ platzkonstruierbar.
 \end{homeworkProblem}
 
 \end{document}
