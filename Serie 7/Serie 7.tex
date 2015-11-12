@@ -317,14 +317,14 @@
 			\bigl\{\!\icol{0\\\textvisiblespace}\!\bigr\}^*
 		\Bigr\}
 	\]
-	Schrittweise um in $0^l$, wie folgt:
+	Schrittweise (ab $\cent$ nach rechts) um in $\cent\, 0^i,\;i\in \mathbb{N}$, wie folgt:
 	\begin{enumerate}[1.]
 		\item
 		Ist Zeichen der Form $\icol{0\\0}$, ersetze durch $0$ und ersetze erstes $\textvisiblespace$ durch eine $0$.
 		\item Ist Zeichen der Form $\icol{\textvisiblespace\\0}$ oder $\icol{0\\\textvisiblespace}$ ersetze mit $0$.
 	\end{enumerate}
-	Wiederhole Schritte bis Kopf von links nach rechts zeichen $\textvisiblespace$ liest. Dann akzeptiere.\\
-	Es steht nun genau $f(n)+g(n) := h(n)$ auf dem Band und der benutzte Platz während der Berechnung der Simulation der beiden Turingmaschinen ist $\Space_H = \max\{f(n),\, g(n)\}$ und nach dem Schreiben des Ergebnisses $\Space_H =f(n)+g(n) = h(n)$.\\
+	Wiederhole Schritte bis Kopf Zeichen $\textvisiblespace$ liest. Dann akzeptiere.\\
+	Es steht nun genau $f(n)\cdot g(n) := h(n)$, (`$\cdot$' ist Konkatenation) auf dem Band und der benutzte Platz während der Berechnung der Simulation der beiden Turingmaschinen ist $\Space_H = \max\{|f(n)|,\, |g(n)|\}$ und nach dem Schreiben des Ergebnisses $\Space_H =|f(n)|+|g(n)| = |h(n)|$.\\
 	$\Rightarrow$ $H$ ist platzkonstruierbar.
 \end{homeworkProblem}
 
