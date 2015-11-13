@@ -1,0 +1,590 @@
+%BEGIN_FOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD	%PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{enumerate} % used for enumerate args
+\usepackage{multicol} % columns
+
+\usepackage{pgf} 
+\usepackage{tikz}
+\usepackage{forest} % treees :D
+\usetikzlibrary{arrows,automata} %for FSM
+\usetikzlibrary{positioning}
+\usepackage{mathtools}
+
+% Custom commands
+\DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
+\newcommand{\Ebool}{\{0, 1\}}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+% Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
+\DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
+\DeclarePairedDelimiter\norm{\lVert}{\rVert} % nice ||x||
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+%\chead{\hmwkClass\ (\hmwkClassInstructor\): \hmwkTitle} % Top center head
+%\rhead{\firstxmark} % Top right header
+\rhead{}
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Seite\ \thepage\ von\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Pascal} % Load Pascal syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Pascal in this example
+	frame=single, % Single frame around code
+	basicstyle=\small\ttfamily, % Use small true type font
+	keywordstyle=[1]\color{Blue}\bf, % Pascal functions bold and blue
+	keywordstyle=[2]\color{Purple}, % Pascal function arguments purple
+	keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+	identifierstyle=, % Nothing special about identifiers                                         
+	commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+	stringstyle=\color{Purple}, % Strings are purple
+	showstringspaces=false, % Don't put marks in string spaces
+	tabsize=5, % 5 spaces per tab
+	%
+	% Put standard Pascal functions not included in the default language here
+	morekeywords={rand},
+	%
+	% Put Pascal function parameters here
+	morekeywords=[2]{on, off, interp},
+	%
+	% Put user defined functions here
+	morekeywords=[3]{test},
+	%
+	morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+	numbers=left, % Line numbers on left
+	firstnumber=1, % Line numbers start with line 1
+	numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+	stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .p), the second parameter is the caption
+\newcommand{\pascalscript}[2]{
+	\begin{itemize}
+		\item[]\lstinputlisting[caption=#2,label=#1]{#1.p}
+	\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+%\newcommand{\enterProblemHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%}
+
+% Header and footer for when a page split occurs between problem environments
+%\newcommand{\exitProblemHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+%}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+%END_FOLD
+\newenvironment{homeworkProblem}[1][Aufgabe S\arabic{homeworkProblemCounter}]
+%BEGIN_FOLD
+{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+	
+	\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+	\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+	\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+	%\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+%\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+	\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+	\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+	\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+	%\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+%\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD %NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Selbststudium - Blatt} % Assignment title
+\newcommand{\hmwkDueDate}{20.\ November\ 2015} % Due date
+\newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
+\newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
+\newcommand{\hmwkNumber}{2}
+\newcommand{\hmwkAssiInfo}{Assistent: Sacha Krug, CHN D 42}
+%END_FOLD
+%----------------------------------------------------------------------------------------
+%BEGIN_FOLD
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hmwkClass:\ \hmwkTitle\ \hmwkNumber}}\\
+	\normalsize\vspace{0.1in}\small{Abgabe\ bis\ \hmwkDueDate}
+	\\\hmwkAssiInfo
+	\\
+	\vspace{0.1in}\large{\textit{\hmwkClassInstructor}
+		\vspace{3in}
+	}}
+	\author{\textbf{\hmwkAuthorName}}
+	\date{} % Insert date here if you want it to appear below your name
+	
+	%----------------------------------------------------------------------------------------
+	%END_FOLD
+\begin{document}
+	%BEGIN_FOLD
+	\maketitle
+	
+	%----------------------------------------------------------------------------------------
+	%	TABLE OF CONTENTS
+	%----------------------------------------------------------------------------------------
+	
+	%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+	%END_FOLD
+	%----------------------------------------------------------------------------------------
+	\addtocounter{homeworkProblemCounter}{3}
+	%----------------------------------------------------------------------------------------
+	\newpage
+	%\tableofcontents
+	%\newpage
+	
+	%------------------Aufgabe S4---------------------------------
+	
+	\begin{homeworkProblem}
+		Für die Konstruktion des äquivalenten EA werden wir folgendermassen vorgehen. Zuerst erstellen wir analog zu 3.2.3 einen $\epsilon$-NEA und wandeln ihn dann nach 2.5.5 in einen EA um, der die gleiche Sprache wie der $\epsilon$-NEA akzeptiert.
+		
+		Für den regulären Ausdruck $E=\mathbf{((01)^* + 1)0}$ konstruieren wir zuerst einen $\epsilon$-NEA für $\mathbf{01}$:
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.25cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[minimum size=10pt,circle,text=black]
+		
+		\node[state]				(1) 			 		{};
+		\node[state]				(2) [right of=1]		{};
+		\node[state]				(3) [right of=2]		{};
+		
+		\path
+		(1)		edge [below]				node {$\mathbf{0}$}	(2)
+		(2)		edge [below]				node {$\mathbf{1}$}	(3)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		Nun erweitern wir ihn für $\mathbf{(01)^*}$:	
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.25cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[minimum size=10pt,circle,text=black]
+		
+		\node[state]				(0)             		{};
+		\node[state]				(1) [right of=0]		{};
+		\node[state]				(2) [right of=1]		{};
+		\node[state]				(3) [right of=2]		{};
+		\node[state]				(4) [right of=3] 		{};
+		
+		\path
+		(0)		edge 						node {$\epsilon$}	(1)
+		(1)		edge [below]				node {$\mathbf{0}$}	(2)
+		(2)		edge [below]				node {$\mathbf{1}$}	(3)
+		(3)		edge [bend right=50,above]	node {$\epsilon$}	(1)
+		(0)		edge [bend right=40,below]	node {$\epsilon$}	(4)
+		(3)		edge 						node {$\epsilon$}	(4)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		Für $\mathbf{(01)^*+1}$:	
+				
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.25cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[minimum size=10pt,circle,text=black]
+		
+		\node[state]				(5) 					{};
+		\node[state]				(0) [above right of=5] 	{};
+		\node[state]				(1) [right of=0]		{};
+		\node[state]				(2) [right of=1]		{};
+		\node[state]				(3) [right of=2]		{};
+		\node[state]				(4) [right of=3] 		{};
+		\node[state]				(6) [below right of=5]	{};
+		\node[state]				(8) [below right of=4] 	{};
+		\node[state]				(7) [below left of=8]	{};
+		
+		\path
+		(0)		edge 						node {$\epsilon$}	(1)
+		(1)		edge [below]				node {$\mathbf{0}$}	(2)
+		(2)		edge [below]				node {$\mathbf{1}$}	(3)
+		(3)		edge [bend right=50,above]	node {$\epsilon$}	(1)
+		(0)		edge [bend right=40,below]	node {$\epsilon$}	(4)
+		(3)		edge 						node {$\epsilon$}	(4)
+		(4)		edge 						node {$\epsilon$}	(8)
+		(5)		edge 						node {$\epsilon$}	(0)
+		(5)		edge [below left]			node {$\epsilon$}	(6)
+		(6)		edge [below]				node {$\mathbf{1}$}	(7)
+		(7)		edge [below right]			node {$\epsilon$}	(8)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		Und noch für $\mathbf{\big((01)^*+1\big)0}$:	
+						
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.75cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[minimum size=20pt,circle,text=black]
+		
+		\node[initial,state]		(5) 					{$q_0$};
+		\node[state]				(0) [above right of=5] 	{$q_1$};
+		\node[state]				(1) [right of=0]		{$q_2$};
+		\node[state]				(2) [right of=1]		{$q_3$};
+		\node[state]				(3) [right of=2]		{$q_4$};
+		\node[state]				(4) [right of=3] 		{$q_5$};
+		\node[state]				(6) [below right of=5]	{$q_6$};
+		\node[state]				(8) [below right of=4] 	{$q_8$};
+		\node[state]				(7) [below left of=8]	{$q_7$};
+		\node[state,accepting]		(9) [right of= 8]		{$q_9$};
+		
+		\path
+		(0)		edge 						node {$\epsilon$}	(1)
+		(1)		edge [below]				node {$\mathbf{0}$}	(2)
+		(2)		edge [below]				node {$\mathbf{1}$}	(3)
+		(3)		edge [bend right=50,above]	node {$\epsilon$}	(1)
+		(0)		edge [bend right=40,below]	node {$\epsilon$}	(4)
+		(3)		edge 						node {$\epsilon$}	(4)
+		(4)		edge 						node {$\epsilon$}	(8)
+		(5)		edge 						node {$\epsilon$}	(0)
+		(5)		edge [below left]			node {$\epsilon$}	(6)
+		(6)		edge [below]				node {$\mathbf{1}$}	(7)
+		(7)		edge [below right]			node {$\epsilon$}	(8)
+		(8)		edge 						node {$\mathbf{0}$}	(9)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		\pagebreak
+		
+		Nun erstellen wir aus dem oben dargestellten $\epsilon$-NEA $A$ einen EA $B$. Zuerst fassen wir $\textsc{eclose}(q)$ für $q \in \{q_0,q_1,q_2,q_3,q_4,q_5,q_6,q_7,q_8,q_9\}$ in einer Tabelle zusammen, weil wir sie häufig brauchen werden.
+		
+		\begin{center}
+		\begin{tabular}{c|l}
+		$q$ & $\textsc{eclose}(q)$ \\ 
+		 \hline
+		$q_0$ & $\{q_0,q_1,q_2,q_5,q_6,q_8\}$ \\ 
+		$q_1$ & $\{q_1,q_2,q_5,q_8\}$ \\ 
+		$q_2$ & $\{q_2\}$ \\ 
+		$q_3$ & $\{q_3\}$ \\ 
+		$q_4$ & $\{q_2,q_4,q_5,q_8\}$ \\ 
+		$q_5$ & $\{q_5,q_8\}$ \\ 
+		$q_6$ & $\{q_6\}$ \\ 
+		$q_7$ & $\{q_7,q_8\}$ \\ 
+		$q_8$ & $\{q_8\}$ \\ 
+		$q_9$ & $\{q_9\}$ \\ 
+		\end{tabular}
+		\end{center}
+		
+		Der Startzustand in $A$ ist $q_0$, also ist der Startzustand von $B$ $\textsc{eclose}(q_0)=\{q_0,q_1,q_2,q_5,q_6,q_8\}$. Jetzt suchen wir die Nachfolger der Elemente in $\{q_0,q_1,q_2,q_5,q_6,q_8\}$ für die Eingaben 0 und 1. Wir berechnen dafür zwei Übergänge und gehen dabei direkt rekursiv weiter:
+		
+		\begin{enumerate}
+			\item
+			$\delta_B(\{q_0,q_1,q_2,q_5,q_6,q_8\},0)$.
+			Die beiden Zustände $q_2,q_8 \in \{q_0,q_1,q_2,q_5,q_6,q_8\}$ gehen auf Eingabe 0 einen Zustand weiter:
+			\begin{enumerate}[\quad]
+				\item
+				$\delta_B(q_2,0)=\{q_3\}$
+				\item
+				$\delta_B(q_8,0)=\{q_9\}$
+			\end{enumerate}
+			Also $\epsilon$-schliessen wir $q_3$ und $q_9$:
+			\begin{enumerate}[\quad]
+				\item
+				$\textsc{eclose}(q_3) = \{q_3\}$
+				\item
+				$\textsc{eclose}(q_9) = \{q_9\}$
+			\end{enumerate}
+			Das ergibt einen neuen Zustand $\{q_3,q_9\}$.
+			\begin{enumerate}[\quad]
+				\item
+				Der einzige Zustand in $\{q_3,q_9\}$, der ausgehende Pfeile mit 0 oder 1 hat, ist $q_3$:
+				\begin{enumerate}[\quad]
+					\item
+					$\delta_B(q_3,1)=\{q_4\}$
+				\end{enumerate}
+				Also $\epsilon$-schliessen wir $q_4$:
+				\begin{enumerate}[\quad]
+					\item
+					$\textsc{eclose}(q_4) = \{q_2,q_5,q_8\}$.
+				\end{enumerate}
+				Das ergibt einen neuen Zustand $\{q_2,q_5,q_8\}$.
+				\begin{enumerate}[\quad]
+					\item
+					Die Zustände $q_2$ und $q_8\}$ haben ausgehende Pfeile mit 0:
+					\begin{enumerate}[\quad]
+						\item
+						$\delta_B(q_2,0)=\{q_3\}$
+						\item
+						$\delta_B(q_8,0)=\{q_9\}$
+					\end{enumerate}
+					Also $\epsilon$-schliessen wir $q_3$ und $\{q_9\}$:
+					\begin{enumerate}[\quad]
+						\item
+						$\textsc{eclose}(q_3) = \{q_3\}$.
+						\item
+						$\textsc{eclose}(q_9) = \{q_9\}$.
+					\end{enumerate}
+					Der Zustand $\{q_3,q_9\}$ existiert bereits und damit ist der Pfad zu Ende.
+				\end{enumerate}
+			\end{enumerate}
+			\item
+			$\delta_B(\{q_0,q_1,q_2,q_5,q_6,q_8\},1)$.
+			Die beiden Zustände $q_3 \notin \{q_0,q_1,q_2,q_5,q_6,q_8\}$ und $q_6 \in \{q_0,q_1,q_2,q_5,q_6,q_8\}$ gehen auf Eingabe 1 einen Zustand weiter:
+			\begin{enumerate}[\quad]
+				\item
+				$\delta_B(q_6,1)=\{q_7\}$
+			\end{enumerate}
+			Also $\epsilon$-schliessen wir $q_7$:
+			\begin{enumerate}[\quad]
+				\item
+				$\textsc{eclose}(q_7) = \{q_7,q_8\}$
+			\end{enumerate}
+			Das ergibt einen neuen Zustand $\{q_7,q_8\}$.
+			\begin{enumerate}[\quad]
+				\item
+				Der einzige Zustand in $\{q_7,q_8\}$, der ausgehende Pfeile mit 0 oder 1 hat, ist $q_8$:
+				\begin{enumerate}[\quad]
+					\item
+					$\delta_B(q_8,0)=\{q_9\}$
+				\end{enumerate}
+				Also $\epsilon$-schliessen wir $q_9$:
+				\begin{enumerate}[\quad]
+					\item
+					$\textsc{eclose}(q_9) = \{q_9\}$.
+				\end{enumerate}
+				Das ergibt einen neuen Zustand $\{q_9\}$. Der Pfad ist zu Ende, weil keine ausgehenden Pfeile mit 0 oder 1 mehr vorkommen.
+			\end{enumerate}
+		\end{enumerate}
+		
+		Daraus konstruieren wir nun den EA. Wir definieren:
+		\begin{enumerate}[\quad]
+			\item
+			$p_0 := \{q_0,q_1,q_2,q_5,q_6,q_8\}$
+			\item
+			$p_1 := \{q_3,q_9\}$
+			\item
+			$p_2 := \{q_2,q_5,q_8\}$
+			\item
+			$p_3 := \{q_7,q_8\}$
+			\item
+			$p_4 := \{q_9\}$
+		\end{enumerate}
+		Die akzeptierten Zustände sind alle, die $q_9$ enthalten, also $p_1$ und $p_4$. Zusätzlich erstellen wir den toten Zustand $\emptyset$, zu dem alle übrigen Pfeile (alle, die wir nicht wie oben konstruiert haben) führen, inkl. eines Loops auf sich selbst. Also erhalten wir den folgenden EA:
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.5cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[circle,text=black]
+		
+		\node[initial,state]			(0)             		{$p_0$};
+		\node[state,accepting]			(1) [above right of=0]	{$p_1$};
+		\node[state]					(2) [right of=1]		{$p_2$};
+		\node[state]					(3) [below right of=0]	{$p_3$};
+		\node[state,accepting]			(4) [right of=3]		{$p_4$};
+		\node[state]					(5) [above right of=4]	{$\emptyset$};
+		
+		\path
+		(0)		edge 							node {0}		(1)
+		(0)		edge [below left]				node {1}		(3)
+		(1)		edge [bend right=25]			node {1}		(2)
+		(1)		edge [bend right=15]			node {0}		(5)
+		(2)		edge [bend right=25,above]		node {0}		(1)
+		(2)		edge 							node {1}		(5)
+		(3)		edge [below]					node {0}		(4)
+		(3)		edge [bend left=15]				node {1}		(5)
+		(4)		edge [below right]				node {0,1}		(5)
+		;
+		\end{tikzpicture}
+		\end{center}
+	
+	\end{homeworkProblem}
+	
+	\pagebreak
+	
+	%------------------Aufgabe S5---------------------------------
+	\begin{homeworkProblem}
+		Wir wenden das Verfahren ,,Converting DFA's to Regular Expressions by Eliminating States'' aus dem Buch \textit{Introduction to Automata
+		Theory, Languages, and Computation}, wie in Kapitel 3.2.2 beschrieben, an.
+		
+		Zuerst wandeln wir den EA
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[circle,text=black]
+		
+		\node[initial,state]			(1)             		{$1$};
+		\node[state,accepting]			(2) [right of=1]		{$2$};
+		\node[state]					(3) [right of=2]		{$3$};
+		
+		\path
+		(1)		edge [loop above]					node {$b$}		(1)
+		(1)		edge 								node {$a,c$}	(2)
+		(2)		edge [loop above]					node {$a$}		(2)
+		(2)		edge [bend left]					node {$b,c$}	(3)
+		(3)		edge [loop above]					node {$a,c$}	(3)
+		(3)		edge [bend left]					node {$b$}		(2)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		in einen EA mit regulären Ausdrücken als Beschriftungen um:
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[circle,text=black]
+		
+		\node[initial,state]			(1)             		{$1$};
+		\node[state,accepting]			(2) [right of=1]		{$2$};
+		\node[state]					(3) [right of=2]		{$3$};
+		
+		\path
+		(1)		edge [loop above]					node {$\mathbf{b}$}		(1)
+		(1)		edge 								node {$\mathbf{a+c}$}	(2)
+		(2)		edge [loop above]					node {$\mathbf{a}$}		(2)
+		(2)		edge [bend left]					node {$\mathbf{b+c}$}	(3)
+		(3)		edge [loop above]					node {$\mathbf{a+c}$}	(3)
+		(3)		edge [bend left]					node {$\mathbf{b}$}		(2)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		Der einzige Zustand, den wir eliminieren wollen, ist der Zustand 3. Zustand 3 hat einen Vorgänger, 2, und einen Nachfolger, ebenfalls 2. In den regulären Ausdrücken von Fig. 3.7 im Buch ausgedrückt bedeutet das: $Q_1=\mathbf{b+c}$ (der Pfeil von Zustand 2 zu 3), $P_1=\mathbf{b}$ (der Pfeil von Zustand 3 zu 2), $R_{11}=\mathbf{a}$ (der Pfeil von Zustand 2 zu 2, also der Loop auf Zustand 2) und $S=\mathbf{a+c}$ (der Loop auf Zustand 3).
+		
+		Der entstehende Pfeil von Zustand 2 zu 2, also ein Loop auf Zustand 2, berechnet sich mit $R_{11}+Q_1S^*P_1$ (entweder gehen wir direkt über $R_{11}$ zu 2 oder über $Q_1S^*P_1$). Es gilt:
+		\[
+			R_{11}+Q_1S^*P_1 =
+			\mathbf{a+(b+c)(a+c)^*b}.
+		\]
+		Der Ausdruck kann nicht vereinfacht werden. Nun haben wir einen EA mit zwei Zuständen erstellt:
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[circle,text=black]
+		
+		\node[initial,state]			(1)             		{$1$};
+		\node[state,accepting]			(2) [right of=1]		{$2$};
+		
+		\path
+		(1)		edge [loop above]		node {$\mathbf{b}$}					(1)
+		(1)		edge 					node {$\mathbf{a+c}$}				(2)
+		(2)		edge [loop above]		node {$\mathbf{a+(b+c)(a+c)^*b}$}	(2)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		Die regulären Ausdrücke des Automaten sind nach dem generischen Zwei-Zustand-Automaten aus Fig. 3.9: $R=\mathbf{b}$, $S=\mathbf{a+c}$, $T=\emptyset$ und $U=\mathbf{a+(b+c)(a+c)^*b}$. Wir berechnen nun
+		
+		\begin{align*}
+			(R+SU^*T)^*SU^* &= \mathbf{\Big(b+(a+c)\big(a+(b+c)(a+c)^*b\big)^*\emptyset\Big)^*(a+c)\big(a+(b+c)(a+c)^*b\big)^*} &\\
+			&= \mathbf{(b+\emptyset)^*(a+c)\big(a+(b+c)(a+c)^*b\big)^*} & (\forall \mathbf{k}: \mathbf{k}\emptyset = \emptyset)\\
+			&= \mathbf{b^*(a+c)\big(a+(b+c)(a+c)^*b\big)^*} & (\forall \mathbf{k}: \mathbf{k}+\emptyset = \mathbf{k}).
+		\end{align*}
+		
+		Das ergibt den folgenden Ein-Zustand-Automaten:
+		
+		\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+		semithick,every node/.style={scale=1}]
+		\tikzstyle{every state}=[circle,text=black]
+		
+		\node[initial,state,accepting]	(1)  		{$1$};
+		
+		\path
+		(1)		edge [loop above]
+					node{$\mathbf{b^*(a+c)\big(a+(b+c)(a+c)^*b\big)^*}$}		(1)
+		;
+		\end{tikzpicture}
+		\end{center}
+		
+		Damit ist der gesuchte reguläre Ausdruck $\mathbf{b^*(a+c)\big(a+(b+c)(a+c)^*b\big)^*}$.
+	\end{homeworkProblem}
+\end{document}
