@@ -15,3 +15,5 @@ Serie 8 |    ?
 Selbststudium 2 | ?
 Serie 9 | ?
 
+Schnitt | ?
+--------|------
