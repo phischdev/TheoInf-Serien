@@ -229,7 +229,7 @@
 %\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
 %END_FOLD
 %----------------------------------------------------------------------------------------
-\addtocounter{homeworkProblemCounter}{6}
+\addtocounter{homeworkProblemCounter}{21}
 %----------------------------------------------------------------------------------------
 \newpage
 %\tableofcontents
@@ -244,34 +244,34 @@
 	
 		\item
 		Wir wollen zeigen, dass $\NTIME(f)$ unter Vereinigung abgeschlossen ist.\\
-		Seien $L_1, L_2 \in \NTIME(f)$, dann gibt es nichtdeterministische MTMs $M_1, M_2$ mit $L(M_1)=L_1$ und $L(M_2)=L_2$ und $\Time_{M_1}(n), \Time_{M_2}(n) \in \mathcal{O}(f(n))$.\\
+		Seien $L_1, L_2 \in \NTIME(f)$, dann gibt es nichtdeterministische MTMs $M_1, M_2$ mit 
+		\[
+			L(M_1)=L_1,\;\; L(M_2)=L_2 \quad\text{und}\quad \Time_{M_1}(n) \in \mathcal{O}(f(n)),\;\; \Time_{M_2}(n) \in \mathcal{O}(f(n))
+		\]
 		Wir konstruieren nun eine neue MTM $M$ mit $L(M)=L:=L_1 \cup L_2$.\\
 		$M$ simuliert dazu $M_1$ und $M_2$ gleichzeitig. Sobald eine von beiden akzeptiert, akzeptiert $M$ ihre Eingabe. Falls beide verwerfen, verwirft auch $M$.
 	
-		Falls nun also ein $x$ in $L_1$ oder $L_2$ ist, wird $M$ akzeptieren $\Rightarrow$ $x \in L$.
-		Um zu akzeptieren braucht $M$ das Minimum der Zeit der beiden MTMs um zu akzeptieren. Daher ist $\Time_M(x) = \max\{\Time_{M_1}(x), \Time_{M_2}(x)\}$ für alle x. Daher: $\Time_{M}(n) \in \mathcal{O}(f(n))$ Daher folgt, dass $L=L(M) \in \NTIME(f)$.
+		Falls nun also ein $x$ in $L_1$ oder $L_2$ ist, wird $M$ akzeptieren, da $x \in L$.\\
+		Für die Berechnung braucht $M$ das Minimum der Rechenzeit beider MTMs.
+		\[ 
+			\Time_M(x) = \min\{\Time_{M_1}(x), \Time_{M_2}(x)\} \quad \text{für alle x.}
+		\] 
+		Daher: 
+		\[
+			\Time_{M}(n) \in \mathcal{O}(f(n)) \quad\text{und}\quad L(M)=L \in \NTIME(f)
+		\]
 	
 		\item
-		Wir wissen $L\in\NTIME(f)$ und $L'\in\TIME(f)$. Es gibt also eine N-MTM $M_1$ mit $L(M_1)=L$ und eine MTM $M_2$ mit $L(M_2)=L'$. Um zu zeigen, dass $L-L' \in \NTIME(f)$ konstruieren wir eine N-MTM $M$, doe folgendermaßen funktioniert.
+		Wir wissen $L\in\NTIME(f)$ und $L'\in\TIME(f)$.\\
+		Es gibt also eine N-MTM $M_1$ mit $L(M_1)=L$ und eine MTM $M_2$ mit $L(M_2)=L'$.\\
+		Um zu zeigen, dass $L-L' \in \NTIME(f)$ konstruieren wir eine N-MTM $M$, die folgendermaßen funktioniert:\\
 		$M$ simuliert $M_1$ auf der Eingabe. Falls $M_1$ nicht akzeptiert, akzeptiert auch $M$ nicht.
-		Akzeptiert $M_1$ doch, dann simulieren wir die Eingabe auch auf $M_2$. Akzeptiert $M_2$ verwerfen wir. Verw
-			\begin{enumerate}[{Fall} 1]
-				\item $M_1$ akzeptiert nicht:\\
-				Eingabe verwerfen.
-				\item
-				$M_1$ akzeptiert:\\
-				Simuliere $M_2$ auf der Eingabe.
-				\begin{enumerate}[{Fall 1}]
-					\item
-					$M_2$ akzeptiert:\\
-					Eingabe verwerfen.
-					\item
-					$M_2$ verwirft:\\
-					Eingabe akzeptieren.
-				\end{enumerate}
-			
-			\end{enumerate}
+		Akzeptiert $M_1$ doch, dann simulieren wir die Eingabe auch auf $M_2$. Akzeptiert $M_2$ verwerfen wir, verwirft $M_2$ akzeptieren wir.
 		
+		Offensichtlich ist $L(M)=L-L'$.\\
+		Mit Hilfe von \textit{Lemma 6.5} folgt:
+		Das Simulieren von $M_1$ und $M_2$ liegt in $\mathcal{O}(f(n))$.\\
+		Damit liegt auch die Summe der Laufzeiten in $\mathcal{O}(n)$ und $L(M) = L-L' \in \NTIME(f)$.		
 	\end{enumerate}
 \end{homeworkProblem}
 
