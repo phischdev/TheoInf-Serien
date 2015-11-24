@@ -45,6 +45,18 @@
 \DeclareMathOperator{\Kl}{Kl} %Klassen von Zuständen
 \newcommand{\Ebool}{\{0, 1\}}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\DeclareMathOperator{\NTIME}{NTIME}
+\DeclareMathOperator{\TIME}{TIME}
+\DeclareMathOperator{\Space}{Space}
+\DeclareMathOperator{\Time}{Time}
+
+\newcommand{\irow}[1]{% inline row vector
+	\begin{smallmatrix}(#1)\end{smallmatrix}
+}
+\newcommand{\icol}[1]{% inline column vector
+	\left(\begin{smallmatrix}#1\end{smallmatrix}\right)%
+}
 % Shamelessly copied from http://tex.stackexchange.com/questions/43008/absolute-value-symbols
 \DeclarePairedDelimiter\abs{\lvert}{\rvert} % nice |x|
 \DeclarePairedDelimiter\norm{\lVert}{\rVert} % nice ||x||
@@ -228,6 +240,39 @@
 %----------------------------------------------------------------------------------------
 
 \begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+	
+		\item
+		Wir wollen zeigen, dass $\NTIME(f)$ unter Vereinigung abgeschlossen ist.\\
+		Seien $L_1, L_2 \in \NTIME(f)$, dann gibt es nichtdeterministische MTMs $M_1, M_2$ mit $L(M_1)=L_1$ und $L(M_2)=L_2$ und $\Time_{M_1}, \Time_{M_2} \in \mathcal{O}(f(n))$.\\
+		Wir konstruieren nun eine neue MTM $M$ mit $L(M)=L:=L_1 \cup L_2$.\\
+		$M$ simuliert dazu $M_1$ und $M_2$ gleichzeitig. Sobald eine von beiden akzeptiert, akzeptiert $M$ ihre Eingabe. Falls beide verwerfen, verwirft auch $M$.
+	
+		Falls nun also ein $x$ in $L_1$ oder $L_2$ ist, wird $M$ akzeptieren $\Rightarrow$ $x \in L$.
+		Um zu akzeptieren braucht $M$ das Minimum der Zeit der beiden MTMs um zu akzeptieren. Daher ist $\Time_M(x) \in \mathcal{O}(x)$. Daher folgt, dass $L=L(M) \in \NTIME(f)$.
+	
+		\item
+		Wir wissen $L\in\NTIME(f)$ und $L'\in\TIME(f)$. Es gibt also eine N-MTM $M_1$ mit $L(M_1)=L$ und eine MTM $M_2$ mit $L(M_2)=L'$. Um zu zeigen, dass $L-L' \in \NTIME(f)$ konstruieren wir eine N-MTM $M$, doe folgendermaßen funktioniert.
+		$M$ simuliert $M_1$ auf der Eingabe. Falls $M_1$ nicht akzeptiert, akzeptiert auch $M$ nicht.
+		Akzeptiert $M_1$ doch, dann simulieren wir die Eingabe auch auf $M_2$. Akzeptiert $M_2$ verwerfen wir. Verw
+			\begin{enumerate}[{Fall} 1]
+				\item $M_1$ akzeptiert nicht:\\
+				Eingabe verwerfen.
+				\item
+				$M_1$ akzeptiert:\\
+				Simuliere $M_2$ auf der Eingabe.
+				\begin{enumerate}[{Fall 1}]
+					\item
+					$M_2$ akzeptiert:\\
+					Eingabe verwerfen.
+					\item
+					$M_2$ verwirft:\\
+					Eingabe akzeptieren.
+				\end{enumerate}
+			
+			\end{enumerate}
+		
+	\end{enumerate}
 \end{homeworkProblem}
 
 \end{document}
