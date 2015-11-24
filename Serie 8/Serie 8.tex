@@ -20,7 +20,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\usepackage[ngerman]{babel}
+%\usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -244,12 +244,12 @@
 	
 		\item
 		Wir wollen zeigen, dass $\NTIME(f)$ unter Vereinigung abgeschlossen ist.\\
-		Seien $L_1, L_2 \in \NTIME(f)$, dann gibt es nichtdeterministische MTMs $M_1, M_2$ mit $L(M_1)=L_1$ und $L(M_2)=L_2$ und $\Time_{M_1}, \Time_{M_2} \in \mathcal{O}(f(n))$.\\
+		Seien $L_1, L_2 \in \NTIME(f)$, dann gibt es nichtdeterministische MTMs $M_1, M_2$ mit $L(M_1)=L_1$ und $L(M_2)=L_2$ und $\Time_{M_1}(n), \Time_{M_2}(n) \in \mathcal{O}(f(n))$.\\
 		Wir konstruieren nun eine neue MTM $M$ mit $L(M)=L:=L_1 \cup L_2$.\\
 		$M$ simuliert dazu $M_1$ und $M_2$ gleichzeitig. Sobald eine von beiden akzeptiert, akzeptiert $M$ ihre Eingabe. Falls beide verwerfen, verwirft auch $M$.
 	
 		Falls nun also ein $x$ in $L_1$ oder $L_2$ ist, wird $M$ akzeptieren $\Rightarrow$ $x \in L$.
-		Um zu akzeptieren braucht $M$ das Minimum der Zeit der beiden MTMs um zu akzeptieren. Daher ist $\Time_M(x) \in \mathcal{O}(x)$. Daher folgt, dass $L=L(M) \in \NTIME(f)$.
+		Um zu akzeptieren braucht $M$ das Minimum der Zeit der beiden MTMs um zu akzeptieren. Daher ist $\Time_M(x) = \max\{\Time_{M_1}(x), \Time_{M_2}(x)\}$ für alle x. Daher: $\Time_{M}(n) \in \mathcal{O}(f(n))$ Daher folgt, dass $L=L(M) \in \NTIME(f)$.
 	
 		\item
 		Wir wissen $L\in\NTIME(f)$ und $L'\in\TIME(f)$. Es gibt also eine N-MTM $M_1$ mit $L(M_1)=L$ und eine MTM $M_2$ mit $L(M_2)=L'$. Um zu zeigen, dass $L-L' \in \NTIME(f)$ konstruieren wir eine N-MTM $M$, doe folgendermaßen funktioniert.
