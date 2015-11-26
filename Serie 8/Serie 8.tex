@@ -50,6 +50,7 @@
 \DeclareMathOperator{\TIME}{TIME}
 \DeclareMathOperator{\Space}{Space}
 \DeclareMathOperator{\Time}{Time}
+\DeclareMathOperator{\Lang}{L}
 
 \newcommand{\irow}[1]{% inline row vector
 	\begin{smallmatrix}(#1)\end{smallmatrix}
@@ -191,7 +192,7 @@
 %----------------------------------------------------------------------------------------
 
 \newcommand{\hmwkTitle}{Blatt} % Assignment title
-\newcommand{\hmwkDueDate}{9.\ Oktober\ 2015} % Due date
+\newcommand{\hmwkDueDate}{27.\ November\ 2015} % Due date
 \newcommand{\hmwkClass}{Theoretische Informatik} % Course/class
 \newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
 \newcommand{\hmwkAuthorName}{Linus Fessler, Markus Hauptner, Philipp Schimmelfennig} % Your name
@@ -273,6 +274,21 @@
 		Das Simulieren von $M_1$ und $M_2$ liegt in $\mathcal{O}(f(n))$.\\
 		Damit liegt auch die Summe der Laufzeiten in $\mathcal{O}(n)$ und $L(M) = L-L' \in \NTIME(f)$.		
 	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+		
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+		Wir wissen, für jedes $w \in L$ gibt es einen Zeugen $x$, mit $|x| \leq \log_2|w|$. Es folgt, für jedes $w$ gibt es 
+		\[
+			\sum_{i=0}^{\log_2|w|} = 2^{\log_2|w|+1} -1 = 2(2^{\log_2|w|})-1=2\,|w|-1
+		\] mögliche Kandidaten für einen Zeugen in $\Ebool^*$, falls das leere Wort ein Zeuge sein kann.\\
+		Da $A$ ein ein Polynomzeit-Verifizierer für $L$ ist, kann $A$ für gegebene $w$ und $x$ in $\mathcal{O}(|w|^k),\; k\in\mathbb{N}$ herausfinden, ob $w \in L$.\\
+		Wir testen einfach für alle möglichen $2|w|-1$ Zeugen $x$ ob $(w, x) \in \Lang(A)$.
+		Das hat eine Laufzeit von $\mathcal{O}((2|w|-1)\cdot|w|^k) \subset \mathcal{O}(|w|^{k'})$.\\
+		Da wir also für alle Wörter $w$ in polynomieller Zeit feststellen können, ob $w\in L$ ist, ist $L\in \text{P}$.
 \end{homeworkProblem}
 
 \end{document}
