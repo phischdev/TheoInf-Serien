@@ -47,6 +47,7 @@
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
 \DeclareMathOperator{\NTIME}{NTIME}
+\DeclareMathOperator{\NSPACE}{NSPACE}
 \DeclareMathOperator{\TIME}{TIME}
 \DeclareMathOperator{\Space}{Space}
 \DeclareMathOperator{\Time}{Time}
@@ -277,8 +278,23 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-		
+	\begin{enumerate}[a)]
+		\item[b)]
+		Sei \(L \in \NSPACE(f(n))\ \cap\  \NTIME(f(n)^k) \).
+		Somit gibt es eine NMTM \(M\) mit \( L(M) = M \) wobei \(Space_M(n) \leq c \cdot f(n) \) für ein gewisses \(c\). 
+		Ausserdem folgt, dass \(M\) ein Wort \(w \in L(M) \) innerhalb von \(c'  \cdot f(n)^k \) Schritten akzeptieren muss, für ein bestimmtes  \(c\). \\
+		Offensichtlich können wir \(c'\) mit \(\mathcal{O}(1)\) Speicherplatz berechnen und speichern. \(c' \cdot f(n)^k \) können wir ebenfalls offensichtlich mit \(\mathcal{O}(f(n)^k)\) Speicherplatz speichern. Um nun herauszufinden, ob eine akzeptierende Konfiguration in \(c' \cdot f(n)^k \) Schritten erreicht werden kann, übergeben wir der uns bekannten Funktion REACHABLE als Parameter \(m\ c' \cdot f(n)^k \). \\
+		Insofern nicht anders erwähnt, funktioniert die vorgeschlagene NMTM gleich wie in Satz 6.7. \\
+		Für das Speichern einer inneren Konfiguration wird \(  \mathcal{O}( f(n)) \) Speicher benötigt. 
+		% Das einfach zu behaupten ist schon scheiße, wurde aber in S 6.7 identisch gehandhabt
+		Die Anzahl der rekursiven Aufrufe von REACHABLE ist höchstens \(\log_2(2 \cdot c'  \cdot f(n)^k)  = c'' * \log(f(n)) \).
+		% idem
+		% Dieses Resultat ist richtig
+		Insgesamt ergibt dies also \( \mathcal{O}(f(n)) \cdot \mathcal{O}(\log(f(n)))= \mathcal{O}(f(n) \cdot \log(f(n))) \) viel Speicherplatz.
+	\end{enumerate}
 \end{homeworkProblem}
+
+\newpage
 
 \begin{homeworkProblem}
 		Wir wissen, für jedes $w \in L$ gibt es einen Zeugen $x$, mit $|x| \leq \log_2|w|$. \\
