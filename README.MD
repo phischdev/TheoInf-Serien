@@ -4,16 +4,17 @@
 
 Serie  |  Punkte
 -------|----------
-Serie 1 |    ?
-Serie 2 |    ?
-Serie 3 |    ?
-Serie 4 |    ?
+Serie 1 |    22
+Serie 2 |    27
+Serie 3 |    28
+Serie 4 |    21
 Selbststudium 1 |    30
-Serie 6 |    ?
-Serie 7 |    27
-Serie Selbsstudium |    ?
-Serie 9 | ?
-Serie 10 | ?
+Serie 6 |    11
+Serie 7 |    11
+Serie Selbsstudium |    25
+Serie 9 | 15
+Serie 9 | 0
+Serie 10 | 0
 
 Schnitt | ?
 --------|------
