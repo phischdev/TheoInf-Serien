@@ -4,17 +4,17 @@
 
 Serie  |  Punkte
 -------|----------
-Serie 1 |    22
-Serie 2 |    27
-Serie 3 |    28
-Serie 4 |    21
-Selbststudium 1 |    30
-Serie 6 |    11
-Serie 7 |    11
-Serie Selbsstudium |    25
-Serie 9 | 15
-Serie 9 | 0
-Serie 10 | 0
+Serie 1 |    22 / 30
+Serie 2 |    27 / 30
+Serie 3 |    28 / 30
+Serie 4 |    21 / 30
+Selbststudium 1 |    30 / 30
+Serie 5 |    11 / 30
+Serie 6 |    11 / 30
+Selbststudium 2 |    18 / 20
+Serie 7 | 27 / 30
+Serie 8 | 15 / 30
+Serie 9 | 0 / 40
 
-Schnitt | ?
+Schnitt | 210 / 330 ~ 64%
 --------|------
